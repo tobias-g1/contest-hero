@@ -3,9 +3,8 @@
         <img class="post-image" v-bind:src="image" alt="">
         <span> {{ post.title }} </span>
         <div class="post-options">
-            <div class="post-item">12</div>
-            <div class="post-item">12</div>
-            <div class="post-item">12</div>
+            <div class="post-item">{{ post.children }}</div>
+            <div class="post-item">{{ post.net_votes }}</div>
         </div>
     </el-card>
 </template>
