@@ -15,9 +15,13 @@
     <el-col :span="18">
         <h1>All Contests</h1>
       <div class="grid-content">
+<el-row :gutter="20">
+<el-col v-for="(messages, index) in messages" :span="8" :key="index">
+  <feeditem  :post="messages"/>
+  </el-col>
+</el-row>
 
-        <feeditem v-for="(messages, index) in messages" :key="index" :title="messages.title"/>
-  
+        
       </div>
     </el-col>
   
