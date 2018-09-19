@@ -1,36 +1,25 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="6">
-      <div class="filter-options grid-content">
-        <h2>Contests</h2>
-        <span class="filter-option">Writing</span>
-        <span class="filter-option">Writing</span>
-        <span class="filter-option">Writing</span>
-        <span class="filter-option">Writing</span>
-        <span class="filter-option">Writing</span>
-        <span class="filter-option">Writing</span>
-        <span class="filter-option">Writing</span>
-      </div>
+      <filteroptions/>
     </el-col>
     <el-col :span="18">
-        <h1>All Contests</h1>
+      <h1>All Contests</h1>
       <div class="grid-content">
-<el-row :gutter="20">
-<el-col v-for="(messages, index) in messages" :span="8" :key="index">
-  <feeditem  :post="messages"/>
-  </el-col>
-</el-row>
-
-        
+        <el-row :gutter="20">
+          <el-col v-for="(messages, index) in messages" :span="8" :key="index">
+            <feeditem :post="messages" />
+          </el-col>
+        </el-row>
       </div>
     </el-col>
-  
   </el-row>
 </template>
 
 <script>
   // @ is an alias to /src
   import feeditem from '@/components/feed/feed-item.vue'
+  import filteroptions from '@/components/feed/filter-options.vue'
   import {
     Client
   } from 'dsteem'
@@ -40,7 +29,8 @@
   export default {
     name: 'feed',
     components: {
-      feeditem
+      feeditem,
+      filteroptions
     },
     data() {
       return {
@@ -95,14 +85,5 @@
   
   .row-bg {
     padding: 10px 0;
-  }
-
-  ul li {
-display: block;
-list-style-type: none;
-  }
-
-  .filter-option {
-    display: flex;  
   }
 </style>
