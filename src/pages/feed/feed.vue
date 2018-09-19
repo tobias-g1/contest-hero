@@ -1,20 +1,27 @@
 <template>
-  <div class="feed">
-    <div class="filter-options">
-      <h3>Contests</h3>
-          <ul>
-            <li>Option</li>
-            <li>Option</li>
-            <li>Option</li>
-            <li>Option</li>
-            <li>Option</li>
-            <li>Option</li>
-          </ul>
-    </div>
-    <div class="posts-container">
-      <feeditem v-for="(messages, index) in messages" :key="index" :title="messages.title" :img="imageTemp" />
-    </div>
-  </div>
+  <el-row :gutter="20">
+    <el-col :span="6">
+      <div class="filter-options grid-content">
+        <h2>Contests</h2>
+        <span class="filter-option">Writing</span>
+        <span class="filter-option">Writing</span>
+        <span class="filter-option">Writing</span>
+        <span class="filter-option">Writing</span>
+        <span class="filter-option">Writing</span>
+        <span class="filter-option">Writing</span>
+        <span class="filter-option">Writing</span>
+      </div>
+    </el-col>
+    <el-col :span="18">
+        <h1>All Contests</h1>
+      <div class="grid-content">
+
+        <feeditem v-for="(messages, index) in messages" :key="index" :title="messages.title"/>
+  
+      </div>
+    </el-col>
+  
+  </el-row>
 </template>
 
 <script>
@@ -54,16 +61,44 @@
 </script>
 
 <style scoped>
-  .feed {
-    width: 100%;
-    display: inline-flex;
+  .el-row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
   
-  .filter-options {
-    width: 30%;
+  .el-col {
+    border-radius: 4px;
   }
   
-  .posts-container {
-    width: 66%;
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  
+  .bg-purple {
+    background: #d3dce6;
+  }
+  
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  
+  .row-bg {
+    padding: 10px 0;
+  }
+
+  ul li {
+display: block;
+list-style-type: none;
+  }
+
+  .filter-option {
+    display: flex;  
   }
 </style>

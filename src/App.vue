@@ -1,34 +1,56 @@
 <template>
-  <div id="app">
-    <div id="nav">
+  <el-container id="app">
+    <el-header>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+    </el-header>
+    <el-main>
+      <router-view/>
+    </el-main>
+  </el-container>
 </template>
 
 <style>
+  body {
+    background: #FAFAFA;
+    margin: 0;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  }
+  
+  h1 {
+    font-weight: bold;
+    font-size: 20px;
 
-body {
-  background: #FAFAFA;
-}
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-}
-#nav {
-  padding: 30px;
-}
+  }
+  
+  h2 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+  }
+  
+  h3 {
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+  }
+  
+  h4 {
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+  }
+  
+  h5 {
+ 
+  }
+  
+  .el-main {
+    color: #333;
+    padding:  20px 100px !important;
+  }
+
+  .el-header {
+    background: white;
+  }
+  
+  body>.el-container {
+    margin-bottom: 40px;
+  }
 </style>
