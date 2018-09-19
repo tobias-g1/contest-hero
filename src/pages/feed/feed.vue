@@ -37,11 +37,6 @@
         imageTemp: 'https://e-fisiomedic.com/wp-content/uploads/2013/11/default-placeholder-1024x1024.png'
       }
     },
-    computed: {
-      image: function() {
-        returnthis.messages[0].json_metadata
-      }
-    },
     mounted() {
       this.getPostsByTag();
     },
