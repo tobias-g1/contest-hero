@@ -1,6 +1,6 @@
 <template>
     <el-row :gutter="20">
-        <el-col :span="18">
+        <el-col  :xs="24" :sm="24" :md="16" :lg="16" :xl="16">
             <h1>{{ title }} </h1>
             <div class="post-container">
                 <vue-simple-markdown :source="body"></vue-simple-markdown>
@@ -10,12 +10,12 @@
          <comment v-for="(comments, index) in comments" :key="index" :body="comments.body" />
     
         </el-col>
-        <el-col :span="6">
+        <el-col  :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
     
             <h3>About the Author</h3>
             <div class="author-container">
                 <img v-bind:src="authorImage">
-                <p>{{authorBio}}</p>
+                <span>{{authorBio}}</span>
             </div>
             <h3>Entries</h3>
             <entry v-for="(comments, index) in comments" :key="index" :author="comments.author" />
@@ -111,10 +111,14 @@
         max-width: 100%;
         height: auto;
     }
-    
-    .comment-container {
-        background: white;
-        padding: 15px;
+
+    .author-container {
+        display: inline-flex;
+    }
+
+    .author-container span {
+font-size: 14px;
+margin: 0 0 0 0.5rem;
     }
     
     .author-container img {
