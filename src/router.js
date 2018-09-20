@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import feed from './pages/feed/feed.vue'
 import createcontest from './pages/create-contest/create-contest.vue'
+import contest from './pages/contest/contest.vue'
 import notfound from './pages/404/404.vue'
 
 Vue.use(Router)
@@ -17,6 +18,11 @@ export default new Router({
       path: '/create-contest',
       name: 'create-contest',
       component: createcontest
+    },
+    {
+      path: '/contest/:author/:permlink',
+      name: 'contest',
+      component: contest
     },
     {
       path: '*',

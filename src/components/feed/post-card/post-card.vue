@@ -5,7 +5,9 @@
         <div class="post-options">
             <div class="post-item">{{ post.children }}</div>
             <div class="post-item">{{ post.net_votes }}</div>
+            
         </div>
+        <a v-bind:href="postLink">View</a>
     </el-card>
 </template>
 
@@ -20,6 +22,10 @@
                 let profileImage = JSON.parse(this.post.json_metadata);
                 profileImage = profileImage.image[0]
                 return profileImage
+            },
+            postLink: function() {
+                let postLink = `#/contest/${this.post.author}/${this.post.permlink}`
+                return postLink;    
             }
         }
     }
