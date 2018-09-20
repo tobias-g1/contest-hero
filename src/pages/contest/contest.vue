@@ -2,8 +2,8 @@
     <el-row :gutter="20">
         <el-col :span="18">
             <h1>{{ title }} </h1>
-            <div  class="post-container">
-                 <vue-simple-markdown :source="body"></vue-simple-markdown>
+            <div class="post-container">
+                <vue-simple-markdown :source="body"></vue-simple-markdown>
             </div>
             <el-button type="primary">Primary</el-button>
             <h1>Comments</h1>
@@ -41,7 +41,7 @@
     export default {
         name: 'contest',
         components: {
-
+    
         },
         data() {
             return {
@@ -65,8 +65,7 @@
                 this.author = this.$route.params.author
                 this.permlink = this.$route.params.permlink
     
-                console.log(this.author)
-                console.log(this.permlink)
+    
     
                 client.database.getDiscussions('blog', {
                     tag: this.author,
@@ -74,7 +73,7 @@
                     start_author: this.author,
                     limit: 1
                 }).then(discussions => {
-                    console.log(discussions)
+    
                     this.body = discussions[0].body
                     this.title = discussions[0].title
                 })
@@ -86,11 +85,17 @@
                     this.authorImage = userJson.profile.profile_image
                     this.authorBio = userJson.profile.about
                 })
+            },
+            getComments(author, permlink) {
+                client.database.call('get_content_replies', [author, permlink ]).then(comments => {
+                    this.comments = comments
+                })
             }
         },
         mounted() {
             this.loadContent();
             this.getAuthorDetails(this.author)
+            this.getComments(this.author, this.permlink);
         }
     }
 </script>
