@@ -50,7 +50,7 @@
                 authorBio: null,
                 permlink: null,
                 title: null,
-                body: null,
+                body: '',
                 tags: null,
                 entries: null,
                 comments: null
