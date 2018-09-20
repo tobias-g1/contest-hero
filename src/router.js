@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import feed from './pages/feed/feed.vue'
-import createcontest from './pages/create-contest.vue'
-import notfound from './pages/404.vue'
+import createcontest from './pages/create-contest/create-contest.vue'
+import notfound from './pages/404/404.vue'
 
 Vue.use(Router)
 
