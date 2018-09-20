@@ -8,7 +8,7 @@
       <div class="grid-content">
         <el-row :gutter="20">
           <el-col v-for="(messages, index) in messages" :span="8" :key="index">
-            <postcard :post="messages" />
+            <postcard :post="messages"/>
           </el-col>
         </el-row>
       </div>

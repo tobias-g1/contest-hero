@@ -7,9 +7,7 @@
             </div>
             <el-button type="primary">Primary</el-button>
             <h1>Comments</h1>
-            <div class="comment-container">
-                This is a comment
-            </div>
+         <comment v-for="(comments, index) in comments" :key="index" :body="comments.body" />
     
         </el-col>
         <el-col :span="6">
@@ -20,9 +18,8 @@
                 <p>{{authorBio}}</p>
             </div>
             <h3>Entries</h3>
-            <div class="entry-container">
-                @someone has entered this contest
-            </div>
+            <entry v-for="(comments, index) in comments" :key="index" :author="comments.author" />
+    
     
         </el-col>
     </el-row>
@@ -31,7 +28,9 @@
 <script>
     // @ is an alias to /src
     
-    import filterpanel from '@/components/feed/filter-panel/filter-panel.vue'
+    import entry from '@/components/contests/entered-contest.vue'
+    import comment from '@/components/contests/comment.vue'
+    
     import {
         Client
     } from 'dsteem'
@@ -41,7 +40,8 @@
     export default {
         name: 'contest',
         components: {
-    
+            entry,
+            comment
         },
         data() {
             return {
@@ -87,7 +87,7 @@
                 })
             },
             getComments(author, permlink) {
-                client.database.call('get_content_replies', [author, permlink ]).then(comments => {
+                client.database.call('get_content_replies', [author, permlink]).then(comments => {
                     this.comments = comments
                 })
             }
@@ -110,11 +110,6 @@
     .post-container img {
         max-width: 100%;
         height: auto;
-    }
-    
-    .entry-container {
-        background: white;
-        padding: 15px;
     }
     
     .comment-container {
