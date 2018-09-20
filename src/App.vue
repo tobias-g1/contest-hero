@@ -37,6 +37,20 @@
   
   h5 {}
   
+  button {
+    padding: 10px;
+    border: 0;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .btn-fill {
+    background: linear-gradient(45deg, #FF1480, #CC59D5);
+    color: white;
+  }
+  
   .el-header {
     height: auto !important;
     display: flex;
@@ -67,5 +81,10 @@
   .text-logo {
     letter-spacing: 3px;
     text-transform: uppercase;
+  }
+  
+  .small-circle {
+    height: 15px;
+    margin-right: 0.5rem;
   }
 </style>

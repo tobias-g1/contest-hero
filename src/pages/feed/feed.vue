@@ -4,11 +4,11 @@
       <filterpanel/>
     </el-col>
     <el-col :span="18">
-      <h1>All Contests</h1>
+      <h1> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> All Contests</h1>
       <div class="grid-content">
         <el-row :gutter="20">
           <el-col v-for="(messages, index) in messages" :span="8" :key="index">
-            <postcard :post="messages"/>
+            <postcard :post="messages" />
           </el-col>
         </el-row>
       </div>

@@ -1,16 +1,25 @@
 <template>
     <el-row :gutter="20">
-        <el-col  :xs="24" :sm="24" :md="16" :lg="16" :xl="16">
-            <h1>{{ title }} </h1>
+        <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="16">
+            <h1><img class="small-circle" src="@/assets/gradient-circle.png" alt=""> {{ title }} </h1>
             <div class="post-container">
                 <vue-simple-markdown :source="body"></vue-simple-markdown>
             </div>
-            <el-button type="primary">Primary</el-button>
+            <button class="btn-fill enter-contest">Enter Contest</button>
             <h1>Comments</h1>
-         <comment v-for="(comments, index) in comments" :key="index" :body="comments.body" />
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
+                <el-form-item prop="commentbody">
+                    <markdownEditor v-model="ruleForm.commentbody" />
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="submitForm('ruleForm')">Create</el-button>
+                    <el-button @click="resetForm('ruleForm')">Reset</el-button>
+                </el-form-item>
+            </el-form>
+            <comment v-for="(comments, index) in comments" :key="index" :body="comments.body" />
     
         </el-col>
-        <el-col  :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
+        <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
     
             <h3>About the Author</h3>
             <div class="author-container">
@@ -30,6 +39,7 @@
     
     import entry from '@/components/contests/entered-contest.vue'
     import comment from '@/components/contests/comment.vue'
+    import markdownEditor from 'vue-simplemde/src/markdown-editor'
     
     import {
         Client
@@ -41,7 +51,8 @@
         name: 'contest',
         components: {
             entry,
-            comment
+            comment,
+            markdownEditor
         },
         data() {
             return {
@@ -53,8 +64,18 @@
                 body: '',
                 tags: null,
                 entries: null,
-                comments: null
-            }
+                comments: null,
+                ruleForm: {
+                    commentbody: ''
+                },
+                rules: {
+                    commentbody: [{
+                        required: true,
+                        message: 'Please enter a comment',
+                        trigger: 'blur'
+                    }]
+                }
+            };
         },
         mounted() {
             this.getContest();
@@ -90,6 +111,19 @@
                 client.database.call('get_content_replies', [author, permlink]).then(comments => {
                     this.comments = comments
                 })
+            },
+             submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        alert('submit!');
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
             }
         },
         mounted() {
@@ -101,6 +135,7 @@
 </script>
 
 <style>
+    @import '~simplemde/dist/simplemde.min.css';
     .post-container {
         background: white;
         border-radius: 5px;
@@ -111,21 +146,26 @@
         max-width: 100%;
         height: auto;
     }
-
+    
     .author-container {
         display: inline-flex;
     }
-
+    
     .author-container span {
-font-size: 14px;
-margin: 0 0 0 0.5rem;
+        font-size: 14px;
+        margin: 0 0 0 0.5rem;
     }
     
     .author-container img {
-        height: 50px;
-        width: 50px;
+        max-height: 50px;
+        max-width: 50px;
         border: 2px solid white;
         border-radius: 50px;
         box-shadow: 0 0 4px #ccc9c9;
+    }
+    
+    .enter-contest {
+        margin-top: 10px;
+        width: 100%;
     }
 </style>
