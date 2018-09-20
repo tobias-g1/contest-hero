@@ -11,7 +11,8 @@
     "dsteem": "^0.9.0",
     "element-ui": "^2.4.7",
     "vue": "^2.5.17",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-simplemde": "^0.4.8"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0",
