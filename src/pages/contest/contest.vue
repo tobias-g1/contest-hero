@@ -2,7 +2,8 @@
     <el-row :gutter="20">
         <el-col :span="18">
             <h1>{{ title }} </h1>
-            <div v-html="body" class="post-container">
+            <div  class="post-container">
+                 <vue-simple-markdown :source="body"></vue-simple-markdown>
             </div>
             <el-button type="primary">Primary</el-button>
             <h1>Comments</h1>
