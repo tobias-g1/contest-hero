@@ -1,10 +1,10 @@
 <template>
   <el-container id="app">
     <el-header>
-      <div class="logo-container"><span class="text-logo"><strong>Contest</strong> Hero</span></div>
+       <router-link to="/"><div class="logo-container"><span class="text-logo"><strong>Contest</strong> Hero</span></div></router-link>
       <div class="menu-options">
-        <router-link to="/">Home</router-link>
-        <router-link to="/create-contest">Create Contest</router-link>
+        <router-link to="/"><i class="material-icons">dashboard</i></router-link>
+        <router-link to="/create-contest"><i class="material-icons">add_circle_outline</i></router-link>
       </div>
     </el-header>
     <el-main>
@@ -14,6 +14,9 @@
 </template>
 
 <style>
+
+ @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
   body {
     background: #FAFAFA;
     margin: 0;
@@ -60,6 +63,10 @@
     background: white;
     box-shadow: -1px 2px 10px #29292912;
   }
+
+  .el-header a {
+    text-decoration: none;
+  }
   
   .el-main {
     color: #333;
@@ -76,6 +83,8 @@
   
   .menu-options {
     display: inline-flex;
+    justify-content: space-between;
+    width: 60px;
   }
   
   .text-logo {
@@ -86,5 +95,13 @@
   .small-circle {
     height: 15px;
     margin-right: 0.5rem;
+  }
+
+  .material-icons {
+    color: #000000
+  }
+
+  .material-icons:hover {
+    color:  #FF1480;
   }
 </style>
