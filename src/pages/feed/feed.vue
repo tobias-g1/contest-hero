@@ -1,28 +1,28 @@
 <template>
+
   <el-row :gutter="20">
-    <el-col :span="6">
-      <filterpanel/>
+    <el-col :span="4">
+      <filterpanel @messageSent='onMessageSent'/>
     </el-col>
-    <el-col :span="18">
+    <el-col :span="20">
+ 
       <h1> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> All Contests</h1>
-      <div class="grid-content">
-        <el-row :gutter="20">
-          <el-col v-for="(messages, index) in messages" :span="8" :key="index">
-            <postcard :post="messages" />
-          </el-col>
-        </el-row>
+      <div class="card-container">
+
+            <postcard v-for="(messages, index) in messages" :key="index" :post="messages" />
+       
       </div>
     </el-col>
   </el-row>
+
 </template>
 
 <script>
   // @ is an alias to /src
   import postcard from '@/components/feed/post-card/post-card.vue'
   import filterpanel from '@/components/feed/filter-panel/filter-panel.vue'
-  import {
-    Client
-  } from 'dsteem'
+
+  import { Client } from 'dsteem'
   
   const client = new Client('https://api.steemit.com')
   
@@ -38,11 +38,14 @@
       }
     },
     mounted() {
-      this.getPostsByTag();
+      this.getAllContests();
     },
     methods: {
-      getPostsByTag: function() {
-        client.database.getDiscussions('created', {
+        onMessageSent: function(message) {
+        this.messages = message.message
+      },
+      getAllContests: function() {
+        client.database.getDiscussions('active', {
           tag: 'utopian-io',
           limit: 100
         }).then(discussions => {

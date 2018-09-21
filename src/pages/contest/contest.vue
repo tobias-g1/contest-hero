@@ -40,6 +40,7 @@
     import entry from '@/components/contests/entered-contest.vue'
     import comment from '@/components/contests/comment.vue'
     import markdownEditor from 'vue-simplemde/src/markdown-editor'
+    import form from '@/mixins/form-actions.js'
     
     import {
         Client
@@ -49,6 +50,7 @@
     
     export default {
         name: 'contest',
+        mixins: [form],
         components: {
             entry,
             comment,
@@ -77,16 +79,11 @@
                 }
             };
         },
-        mounted() {
-            this.getContest();
-        },
         methods: {
             loadContent() {
     
                 this.author = this.$route.params.author
                 this.permlink = this.$route.params.permlink
-    
-    
     
                 client.database.getDiscussions('blog', {
                     tag: this.author,
@@ -111,19 +108,6 @@
                 client.database.call('get_content_replies', [author, permlink]).then(comments => {
                     this.comments = comments
                 })
-            },
-             submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        alert('submit!');
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
-                });
-            },
-            resetForm(formName) {
-                this.$refs[formName].resetFields();
             }
         },
         mounted() {

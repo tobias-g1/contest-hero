@@ -52,6 +52,8 @@
 
 <script>
     import markdownEditor from 'vue-simplemde/src/markdown-editor'
+    import form from '@/mixins/form-actions.js'
+    import tags from '@/mixins/tags.js'
     
     export default {
         data() {
@@ -102,39 +104,9 @@
         components: {
             markdownEditor
         },
+        mixins: [form, tags],
         methods: {
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        alert('submit!');
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
-                });
-            },
-            resetForm(formName) {
-                this.$refs[formName].resetFields();
-            },
-            handleClose(tag) {
-                this.ruleForm.dynamicTags.splice(this.ruleForm.dynamicTags.indexOf(tag), 1);
-            },
     
-            showInput() {
-                this.inputVisible = true;
-                this.$nextTick(_ => {
-                    this.$refs.saveTagInput.$refs.input.focus();
-                });
-            },
-    
-            handleInputConfirm() {
-                let inputValue = this.inputValue;
-                if (inputValue) {
-                    this.ruleForm.dynamicTags.push(inputValue);
-                }
-                this.inputVisible = false;
-                this.inputValue = '';
-            }
         }
     }
 </script>
