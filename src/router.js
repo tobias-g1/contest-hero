@@ -10,8 +10,9 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+    { path: '/', redirect: '/feed' },
     {
-      path: '/',
+      path: '/feed',
       name: 'home',
       component: feed
     },

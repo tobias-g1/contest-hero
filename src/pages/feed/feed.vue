@@ -57,19 +57,4 @@
 </script>
 
 <style scoped>
-  .about-banner {
-    background-color: #ff1480;
-    height: 200px;
-    color: white;
-    text-align: center;
-    background-image: url(data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' hei…6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E);
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    font-size: 18px;
-    padding: 0px 150px;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    font-weight: bold;
-  }
 </style>
