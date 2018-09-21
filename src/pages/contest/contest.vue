@@ -5,7 +5,7 @@
             <div class="post-container">
                 <vue-simple-markdown :source="body"></vue-simple-markdown>
             </div>
-            <button class="btn-fill enter-contest">Enter Contest</button>
+           <a v-bind:href="postLink"><button class="btn-fill enter-contest">Enter Contest</button></a>
             <h1>Comments</h1>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
                 <el-form-item prop="commentbody">
@@ -17,10 +17,8 @@
                 </el-form-item>
             </el-form>
             <comment v-for="(comments, index) in comments" :key="index" :body="comments.body" />
-    
         </el-col>
         <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
-    
             <h3>About the Author</h3>
             <div class="author-container">
                 <img v-bind:src="authorImage">
@@ -114,6 +112,12 @@
             this.loadContent();
             this.getAuthorDetails(this.author)
             this.getComments(this.author, this.permlink);
+        },
+        computed: {
+            postLink: function() {
+                let postLink = `#/enter-contest/${this.author}/${this.permlink}`
+                return postLink;    
+            }
         }
     }
 </script>
