@@ -48,6 +48,7 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
+    margin-right: 10px;
   }
   
   .btn-fill {

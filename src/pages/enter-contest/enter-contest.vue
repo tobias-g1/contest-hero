@@ -15,19 +15,21 @@
             </el-col>
             <el-col :span="24">
                 <el-form-item label="Tags">
-                    <el-tag>Contest-Hero</el-tag>
-                    <el-tag>Contest-Hero-Writing</el-tag>
-                    <el-tag :key="tag" v-for="tag in entry.dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)">
-                        {{tag}}
-                    </el-tag>
-                    <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="mini" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
-                    </el-input>
-                    <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+                    <div class="tags-container">
+                        <el-tag>Contest-Hero</el-tag>
+                        <el-tag>Contest-Hero-Writing</el-tag>
+                        <el-tag :key="tag" v-for="tag in entry.dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)">
+                            {{tag}}
+                        </el-tag>
+                        <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
+                        </el-input>
+                        <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+                    </div>
                 </el-form-item>
             </el-col>
             <el-col :span="24">
                 <el-form-item>
-                    <el-button type="primary" @click="submitForm('entry')">Create Entry</el-button>
+                    <button @click="submitForm('entry')" class="btn-fill">Enter Contest</button>
                     <el-button @click="resetForm('entry')">Reset</el-button>
                 </el-form-item>
             </el-col>
@@ -55,17 +57,10 @@
                 },
                 rules: {
                     title: [{
-                            required: true,
-                            message: 'Please enter your contest title',
-                            trigger: 'blur'
-                        },
-                        {
-                            min: 1,
-                            max: 100,
-                            message: 'Length should be 3 to 5',
-                            trigger: 'blur'
-                        }
-                    ],
+                        required: true,
+                        message: 'Please enter your contest title',
+                        trigger: 'blur'
+                    }],
                     body: [{
                         required: true,
                         message: 'Please enter your entry body',
@@ -100,8 +95,34 @@
         font-size: 13px;
     }
     
+    .el-tag {
+        margin-right: 10px;
+        background-color: #fb1a862e !important;
+        color: #fb1a86 !important;
+        border: 1px solid #fb1a86 !important;
+    }
+    
     .el-tag+.el-tag {
-        margin-left: 10px;
+        margin-right: 10px;
+    }
+    
+    .el-tag .el-icon-close {
+        color: #fb1a86 !important;
+    }
+    
+    .el-tag .el-icon-close:hover {
+        background: #fb1a862e !important;
+    }
+    
+    .el-button:focus,
+    .el-button:hover {
+        background-color: #fb1a862e !important;
+        color: #fb1a86 !important;
+        border: 1px solid #fb1a86 !important;
+    }
+    
+    .tags-container {
+        display: inline-flex;
     }
     
     .button-new-tag {
@@ -113,8 +134,7 @@
     }
     
     .input-new-tag {
-        width: 90px;
-        margin-left: 10px;
-        vertical-align: bottom;
+        margin: -2px 0 0 0;
+        padding: 0;
     }
 </style>
