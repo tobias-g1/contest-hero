@@ -16,7 +16,7 @@
                     <el-button @click="resetForm('ruleForm')">Reset</el-button>
                 </el-form-item>
             </el-form>
-            <comment v-for="(comments, index) in comments" :key="index" :body="comments.body" />
+            <comment v-for="(comments, index) in comments" :key="index" :comment="comments" />
         </el-col>
         <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
             <h3>About the Author</h3>
@@ -30,17 +30,13 @@
 </template>
 
 <script>
-    // @ is an alias to /src
-    
+
     import entry from '@/components/contests/entered-contest.vue'
     import comment from '@/components/contests/comment.vue'
     import markdownEditor from 'vue-simplemde/src/markdown-editor'
     import form from '@/mixins/form-actions.js'
     import aboutauthor from '@/components/contests/about-author.vue'
-    
-    import {
-        Client
-    } from 'dsteem'
+    import { Client } from 'dsteem'
     
     const client = new Client('https://api.steemit.com')
     

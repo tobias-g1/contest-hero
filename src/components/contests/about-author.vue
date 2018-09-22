@@ -32,4 +32,5 @@
         border-radius: 50px;
         box-shadow: -1px 2px 10px #d4d4d4;
     }
+    
 </style>
