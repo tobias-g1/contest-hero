@@ -15,7 +15,8 @@
     "vue-material-icon": "^1.0.1",
     "vue-router": "^3.0.1",
     "vue-simple-markdown": "^1.0.7",
-    "vue-simplemde": "^0.4.8"
+    "vue-simplemde": "^0.4.8",
+    "vuejs-countdown": "^0.2.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0",

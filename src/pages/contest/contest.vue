@@ -19,6 +19,8 @@
             <comment v-for="(comments, index) in comments" :key="index" :comment="comments" />
         </el-col>
         <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
+            <h3>This contest closes in:</h3>
+            <Countdown :deadline="contestDeadline"></Countdown>
             <h3>About the Author</h3>
             <aboutauthor :authorBio="authorBio" :authorImage="authorImage"></aboutauthor>
             <h3>Entries</h3>
@@ -33,6 +35,7 @@
     import markdownEditor from 'vue-simplemde/src/markdown-editor'
     import form from '@/mixins/form-actions.js'
     import aboutauthor from '@/components/contests/about-author.vue'
+    import Countdown from 'vuejs-countdown'
     import {
         Client
     } from 'dsteem'
@@ -46,7 +49,8 @@
             entry,
             comment,
             markdownEditor,
-            aboutauthor
+            aboutauthor,
+            Countdown
         },
         data() {
             return {
@@ -62,6 +66,7 @@
                 ruleForm: {
                     commentbody: ''
                 },
+                contestDeadline: 'August 22, 2022',
                 firstPlace: '',
                 sencondPlace: '',
                 thirdPlace: '',
