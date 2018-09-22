@@ -22,7 +22,7 @@
             <h3>About the Author</h3>
             <aboutauthor :authorBio="authorBio" :authorImage="authorImage"></aboutauthor>
             <h3>Entries</h3>
-            <entry v-for="(comments, index) in comments" :key="index" :author="comments.author" />
+            <entry v-for="(comments, index) in comments" :key="index" :comment="comments" />
     
     
         </el-col>
