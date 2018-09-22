@@ -1,6 +1,6 @@
 <template>
     <div class="entry-container">
-        <img class="entry-image" src="https://i.cricketcb.com/stats/img/faceImages/8364.jpg" alt="">
+        <img class="entry-image" :src="comment.profile.profile_image" alt="">
         <div class="entry-details">
             <span class="enter-author"><strong>{{ comment.author }}</strong> has entered this comment</span>
             <i class="material-icons">keyboard_arrow_right</i>

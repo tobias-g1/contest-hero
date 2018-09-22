@@ -1,6 +1,6 @@
 <template>
     <div class="comment-container">
-        <img class="comment-image" src="https://i.cricketcb.com/stats/img/faceImages/8364.jpg" alt="">
+        <img class="comment-image" :src="comment.profile.profile_image" alt="">
         <div class="comment-details">
             <span class="comment-author">{{ comment.author }} says:</span>
             <span class="comment-body">{{ comment.body }}</span>

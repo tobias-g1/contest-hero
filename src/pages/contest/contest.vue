@@ -103,9 +103,27 @@
                 })
             },
             getComments(author, permlink) {
+
+                let postComments = []
+
                 client.database.call('get_content_replies', [author, permlink]).then(comments => {
-                    this.comments = comments
+    
+                    comments.forEach(function (comment, i) {
+
+                        client.database.getAccounts([comment.author]).then(commentAuthorDetails => {
+
+                           let commentJSON = commentAuthorDetails[0].json_metadata
+                           commentJSON = JSON.parse(commentJSON)
+
+                           let combinedAuthorComment = Object.assign(commentJSON, comment)
+
+                           postComments.push(combinedAuthorComment);
+                        });
+                    })
                 })
+
+                this.comments = postComments
+    
             }
         },
         mounted() {
@@ -124,7 +142,6 @@
 
 <style>
     @import '~simplemde/dist/simplemde.min.css';
-
     .post-container {
         background: white;
         border-radius: 5px;
@@ -142,3 +159,5 @@
         width: 100%;
     }
 </style>
+
+
