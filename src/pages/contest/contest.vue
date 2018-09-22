@@ -5,7 +5,7 @@
             <div class="post-container">
                 <vue-simple-markdown :source="body"></vue-simple-markdown>
             </div>
-           <a v-bind:href="postLink"><button class="btn-fill enter-contest">Enter Contest</button></a>
+            <a v-bind:href="postLink"><button class="btn-fill enter-contest">Enter Contest</button></a>
             <h1>Comments</h1>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
                 <el-form-item prop="commentbody">
@@ -20,10 +20,7 @@
         </el-col>
         <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
             <h3>About the Author</h3>
-            <div class="author-container">
-                <img v-bind:src="authorImage">
-                <span>{{authorBio}}</span>
-            </div>
+            <aboutauthor :authorBio="authorBio" :authorImage="authorImage"></aboutauthor>
             <h3>Entries</h3>
             <entry v-for="(comments, index) in comments" :key="index" :author="comments.author" />
     
@@ -39,6 +36,7 @@
     import comment from '@/components/contests/comment.vue'
     import markdownEditor from 'vue-simplemde/src/markdown-editor'
     import form from '@/mixins/form-actions.js'
+    import aboutauthor from '@/components/contests/about-author.vue'
     
     import {
         Client
@@ -52,7 +50,8 @@
         components: {
             entry,
             comment,
-            markdownEditor
+            markdownEditor,
+            aboutauthor
         },
         data() {
             return {
@@ -68,6 +67,10 @@
                 ruleForm: {
                     commentbody: ''
                 },
+                firstPlace: '',
+                sencondPlace: '',
+                thirdPlace: '',
+                otherWinners: [],
                 rules: {
                     commentbody: [{
                         required: true,
@@ -79,17 +82,14 @@
         },
         methods: {
             loadContent() {
-    
                 this.author = this.$route.params.author
                 this.permlink = this.$route.params.permlink
-    
                 client.database.getDiscussions('blog', {
                     tag: this.author,
                     start_permlink: this.permlink,
                     start_author: this.author,
                     limit: 1
                 }).then(discussions => {
-    
                     this.body = discussions[0].body
                     this.title = discussions[0].title
                 })
@@ -116,7 +116,7 @@
         computed: {
             postLink: function() {
                 let postLink = `#/enter-contest/${this.author}/${this.permlink}`
-                return postLink;    
+                return postLink;
             }
         }
     }
@@ -133,23 +133,6 @@
     .post-container img {
         max-width: 100%;
         height: auto;
-    }
-    
-    .author-container {
-        display: inline-flex;
-    }
-    
-    .author-container span {
-        font-size: 14px;
-        margin: 0 0 0 0.5rem;
-    }
-    
-    .author-container img {
-        max-height: 50px;
-        max-width: 50px;
-        border: 2px solid white;
-        border-radius: 50px;
-        box-shadow: -1px 2px 10px #d4d4d4;
     }
     
     .enter-contest {
