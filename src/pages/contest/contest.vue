@@ -149,7 +149,7 @@
         max-width: 50px;
         border: 2px solid white;
         border-radius: 50px;
-        box-shadow: 0 0 4px #ccc9c9;
+        box-shadow: -1px 2px 10px #d4d4d4;
     }
     
     .enter-contest {
