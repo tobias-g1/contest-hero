@@ -1,6 +1,5 @@
 <template>
-  <div class="filter-options grid-content">
-    <h2>Contests</h2>
+  <div class="filter-options">
     <span class="option" v-bind:class="[ activecategory === 1 ? 'active' : '' ]" @click="getPostsByTag('utopian-io'), activecategory=1">All Contests</span>
     <span class="option" v-bind:class="[ activecategory === 2 ? 'active' : '' ]" @click="getPostsByTag('steem'), activecategory=2">Writing Contests</span>
     <span class="option" v-bind:class="[ activecategory === 3 ? 'active' : '' ]" @click="getPostsByTag('writing'), activecategory=3">Design Contests</span>
@@ -39,13 +38,14 @@
 </script>
 
 <style>
-  ul li {
-    display: block;
-    list-style-type: none;
-  }
+
+.filter-options {
+  text-align: center;
+  margin-bottom: 15px;
+}
   
   .option {
-    display: flex;
+    display: inline-flex;
     padding: 15px;
     border-radius: 5px;
     font-weight: 500;

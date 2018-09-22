@@ -1,15 +1,11 @@
 <template>
   <el-row :gutter="20">
-    <el-col :span="4">
+    <el-col :span="24">
       <filterpanel @messageSent='onMessageSent' />
     </el-col>
-    <el-col :span="20">
-  
-      <h1> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> All Contests</h1>
+    <el-col :span="24">
       <div class="card-container">
-  
         <postcard v-for="(messages, index) in messages" :key="index" :post="messages" />
-  
       </div>
     </el-col>
   </el-row>
@@ -57,4 +53,8 @@
 </script>
 
 <style scoped>
+.card-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
 </style>
