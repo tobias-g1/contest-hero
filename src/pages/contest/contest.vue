@@ -23,20 +23,19 @@
             <aboutauthor :authorBio="authorBio" :authorImage="authorImage"></aboutauthor>
             <h3>Entries</h3>
             <entry v-for="(comments, index) in comments" :key="index" :comment="comments" />
-    
-    
         </el-col>
     </el-row>
 </template>
 
 <script>
-
     import entry from '@/components/contests/entered-contest.vue'
     import comment from '@/components/contests/comment.vue'
     import markdownEditor from 'vue-simplemde/src/markdown-editor'
     import form from '@/mixins/form-actions.js'
     import aboutauthor from '@/components/contests/about-author.vue'
-    import { Client } from 'dsteem'
+    import {
+        Client
+    } from 'dsteem'
     
     const client = new Client('https://api.steemit.com')
     
@@ -120,10 +119,12 @@
 
 <style>
     @import '~simplemde/dist/simplemde.min.css';
+
     .post-container {
         background: white;
         border-radius: 5px;
         padding: 15px;
+        box-shadow: -1px 2px 10px #d4d4d4;
     }
     
     .post-container img {
@@ -132,7 +133,7 @@
     }
     
     .enter-contest {
-        margin-top: 10px;
+        margin-top: 15px;
         width: 100%;
     }
 </style>
