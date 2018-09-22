@@ -34,22 +34,29 @@
         modifiers: {
           'contest--open': true,
           'contest--closed': false
-        }
+        },
       }
     },
     computed: {
-      image: function() {
-        let profileImage = JSON.parse(this.post.json_metadata);
-        profileImage = profileImage.image[0]
-        return profileImage
+      imageBackground: function() {
+
+        let postImage = JSON.parse(this.post.json_metadata);
+
+        // Check if a post image can be found in the JSON metadata of post and if doesn't exist set a default 
+
+        if ('image' in postImage) {
+          postImage = postImage.image[0]
+        }  else {
+          postImage = "https://hlfppt.org/wp-content/uploads/2017/04/placeholder-768x576.png"
+        }
+
+       let imageBackground = `background-image: url(${postImage});`
+      
+        return imageBackground
       },
       postLink: function() {
         let postLink = `#/contest/${this.post.author}/${this.post.permlink}`
         return postLink;
-      },
-      imageBackground: function() {
-        let imageBackground = `background-image: url(${this.image});`
-        return imageBackground
       },
       status: function() {
         let status = 'open'
