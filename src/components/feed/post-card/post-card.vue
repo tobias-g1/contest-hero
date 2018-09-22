@@ -40,7 +40,7 @@
     justify-content: center;
     margin-bottom: 10px;
     border-radius: 5px;
-    box-shadow: 0 0 5px #06011e33;
+    box-shadow: -1px 2px 10px #d4d4d4;
     width: 27%;
     margin: 13px;
     vertical-align: middle;

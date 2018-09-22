@@ -62,7 +62,7 @@
     justify-content: space-between;
     padding: 25px 100px !important;
     background: white;
-    box-shadow: -1px 2px 10px #29292912;
+    box-shadow: -1px 2px 10px #d4d4d4;
   }
 
   .el-header a {
@@ -91,6 +91,8 @@
   .text-logo {
     letter-spacing: 3px;
     text-transform: uppercase;
+    font-size: 18px;
+    padding-top: 2.5px;
   }
   
   .small-circle {
@@ -100,6 +102,10 @@
 
   .material-icons {
     color: #000000
+  }
+
+  .router-link-active {
+    color: #000000;
   }
 
   .material-icons:hover {
