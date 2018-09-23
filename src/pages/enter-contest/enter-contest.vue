@@ -38,52 +38,51 @@
 </template>
 
 <script>
-    import markdownEditor from 'vue-simplemde/src/markdown-editor'
-    import form from '@/mixins/form-actions.js'
-    import tags from '@/mixins/tags.js'
-    
-    export default {
-        data() {
-            return {
-                labelPosition: 'top',
-                inputVisible: false,
-                inputValue: '',
-                author: '',
-                permlink: '',
-                entry: {
-                    title: '',
-                    body: '',
-                    dynamicTags: []
-                },
-                rules: {
-                    title: [{
-                        required: true,
-                        message: 'Please enter your contest title',
-                        trigger: 'blur'
-                    }],
-                    body: [{
-                        required: true,
-                        message: 'Please enter your entry body',
-                        trigger: 'blur'
-                    }]
-                }
-            };
-        },
-        components: {
-            markdownEditor
-        },
-        mixins: [form, tags],
-        methods: {
-            setDetails() {
-    
-                this.author = this.$route.params.author
-                this.permlink = this.$route.params.permlink
-            }
-        },
-        mounted() {
-            this.setDetails();
-        }
+import markdownEditor from 'vue-simplemde/src/markdown-editor'
+import form from '@/mixins/form-actions.js'
+import tags from '@/mixins/tags.js'
+
+export default {
+  data () {
+    return {
+      labelPosition: 'top',
+      inputVisible: false,
+      inputValue: '',
+      author: '',
+      permlink: '',
+      entry: {
+        title: '',
+        body: '',
+        dynamicTags: []
+      },
+      rules: {
+        title: [{
+          required: true,
+          message: 'Please enter your contest title',
+          trigger: 'blur'
+        }],
+        body: [{
+          required: true,
+          message: 'Please enter your entry body',
+          trigger: 'blur'
+        }]
+      }
     }
+  },
+  components: {
+    markdownEditor
+  },
+  mixins: [form, tags],
+  methods: {
+    setDetails () {
+      this.author = this.$route.params.author
+      this.permlink = this.$route.params.permlink
+    }
+  },
+  mounted () {
+    this.setDetails()
+  }
+}
 </script>
 
 <style>
@@ -94,37 +93,37 @@
         letter-spacing: 3px;
         font-size: 13px;
     }
-    
+
     .el-tag {
         margin-right: 10px;
         background-color: #fb1a862e !important;
         color: #fb1a86 !important;
         border: 1px solid #fb1a86 !important;
     }
-    
+
     .el-tag+.el-tag {
         margin-right: 10px;
     }
-    
+
     .el-tag .el-icon-close {
         color: #fb1a86 !important;
     }
-    
+
     .el-tag .el-icon-close:hover {
         background: #fb1a862e !important;
     }
-    
+
     .el-button:focus,
     .el-button:hover {
         background-color: #fb1a862e !important;
         color: #fb1a86 !important;
         border: 1px solid #fb1a86 !important;
     }
-    
+
     .tags-container {
         display: inline-flex;
     }
-    
+
     .button-new-tag {
         margin-left: 10px;
         height: 32px;
@@ -132,7 +131,7 @@
         padding-top: 0;
         padding-bottom: 0;
     }
-    
+
     .input-new-tag {
         margin: -2px 0 0 0;
         padding: 0;

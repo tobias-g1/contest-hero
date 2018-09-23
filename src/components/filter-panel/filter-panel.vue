@@ -11,26 +11,25 @@
 
 <script>
 
- import dsteem from '@/mixins/dsteem.js'
+import dsteem from '@/mixins/dsteem.js'
 
-  export default {
-    name: 'filter-options',
-    mixins: [dsteem],
-    data() {
-      return { activecategory: 1 }
-    },
-    methods: {
-      getPostsByTag: function(tag, limit) {
-        this.getContests(tag, limit)
+export default {
+  name: 'filter-options',
+  mixins: [dsteem],
+  data () {
+    return { activecategory: 1 }
+  },
+  methods: {
+    getPostsByTag: function (tag, limit) {
+      this.getContests(tag, limit)
         .then(discussions => {
           this.$emit('messageSent', {
             message: discussions
           })
         })
-      }
     }
   }
+}
 </script>
 
 <style src='@/components/filter-panel/filter-panel.css'></style>
-
