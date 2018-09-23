@@ -54,7 +54,16 @@
 
 <style scoped>
 .card-container {
-  max-width: 1100px;
   margin: 0 auto;
-}
+    display: -webkit-flex;
+    display: inline-flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
 </style>

@@ -40,7 +40,7 @@
         padding: 20px;
         margin-bottom: 15px;
         display: inline-flex;
-        box-shadow: -1px 2px 10px #d4d4d4;
+        box-shadow: 0 0 10px 2px #0000001f;
         width: -webkit-fill-available;
         border-radius: 5px;
     }
@@ -65,6 +65,6 @@
         height: 50px;
         min-width: 50px;
         max-width: 50px;
-        box-shadow: -1px 2px 10px #d4d4d4;
+        box-shadow: 0 0 10px 2px #0000001f;
     }
 </style>

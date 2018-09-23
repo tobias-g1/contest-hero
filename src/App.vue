@@ -7,7 +7,7 @@
         <router-link to="/create-contest"><i class="material-icons">add_circle_outline</i></router-link>
       </div>
     </el-header>
-       <div class="about-banner"><span>Contest Hero helps you to find, create and enter the best contests on the Steem Blockchain</span></div>
+      <div class="banner-pattern"> <div class="about-banner"><span>Contest Hero helps you to find, create and enter the best contests on the Steem Blockchain</span></div></div>
     <el-main>
       <router-view/>
     </el-main>
@@ -52,7 +52,7 @@
   }
   
   .btn-fill {
-    background: linear-gradient(45deg, #FF1480, #CC59D5);
+    background: #FF1480;
     color: white;
   }
   
@@ -61,9 +61,9 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 25px 100px !important;
+    padding: 25px 50px !important;
     background: white;
-    box-shadow: -1px 2px 10px #d4d4d4;
+    box-shadow: 0 0 10px 2px #0000001f;
   }
 
   .el-header a {
@@ -72,7 +72,7 @@
   
   .el-main {
     color: #333;
-    padding: 20px 100px !important;
+    padding: 20px 50px !important;
   }
   
   body>.el-container {
@@ -113,12 +113,17 @@
     color:  #FF1480;
   }
 
+  .banner-pattern {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg,#6710ff,#FF1480);   
+  }
+
     .about-banner {
-    background:#FF1480;
-    min-height: 100px;
+
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.7' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");    min-height: 100px;
     color: white;
     text-align: center;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='%23000000' fill-opacity='0.04'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E");
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

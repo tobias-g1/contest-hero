@@ -34,7 +34,6 @@
     import form from '@/mixins/form-actions.js'
     import aboutauthor from '@/components/contests/about-author.vue'
     import Countdown from 'vuejs-countdown'
-    import VueMarkdown from 'vue-markdown'
     import post from '@/components/contests/post.vue'
     import {
         Client
@@ -50,8 +49,7 @@
             comment,
             markdownEditor,
             aboutauthor,
-            Countdown
-            VueMarkdown,
+            Countdown,
             post
         },
         data() {
@@ -147,7 +145,7 @@
         background: white;
         border-radius: 5px;
         padding: 15px;
-        box-shadow: -1px 2px 10px #d4d4d4;
+        box-shadow: 0 0 10px 2px #0000001f;
     }
     
     .post-container img {
@@ -158,6 +156,7 @@
     .enter-contest {
         margin-top: 15px;
         width: 100%;
+        box-shadow: 0 0 10px 2px #0000001f;
     }
 </style>
 

@@ -41,7 +41,6 @@
 
 .filter-options {
   text-align: center;
-  margin-bottom: 15px;
 }
   
   .option {

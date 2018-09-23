@@ -31,6 +31,6 @@
         max-width: 50px;
         border: 2px solid white;
         border-radius: 50px;
-        box-shadow: -1px 2px 10px #d4d4d4;
+        box-shadow: 0 0 10px 2px #0000001f;
     }
 </style>

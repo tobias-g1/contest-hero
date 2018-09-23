@@ -1,16 +1,15 @@
 <template>
-  <div class="cards">
-    <a class="card">
+  <div class="card">
       <span class="card-header" v-bind:style="imageBackground">
-            <div v-bind:class='modifiers' class="status-tag">{{ status }}</div>
-    				<span class="card-title">
-    				<a v-bind:href="postLink"><h3>{{ post.title }}</h3></a>
-    				</span>
+              <div v-bind:class='modifiers' class="status-tag">{{ status }}</div>
+      				<span class="card-title">
+      				<a v-bind:href="postLink"><h3>{{ post.title }}</h3></a>
+      				</span>
       </span>
       <span class="card-summary">
-    			<div class="post-stats">
-          <div class="stats-item">
-  <i class="material-icons">message</i> <span>{{ post.children }}</span>
+      			<div class="post-stats">
+            <div class="stats-item">
+    <i class="material-icons">message</i> <span>{{ post.children }}</span>
   </div>
   <div class="stats-item">
     <i class="material-icons">thumb_up</i> <span>{{ post.net_votes }}</span>
@@ -19,7 +18,6 @@
   <span class="contest-details">A {{ contestType }} contest created by {{ post.author }} </span>
   
   </span>
-  </a>
   </div>
 </template>
 
@@ -39,19 +37,19 @@
     },
     computed: {
       imageBackground: function() {
-
+  
         let postImage = JSON.parse(this.post.json_metadata);
-
+  
         // Check if a post image can be found in the JSON metadata of post and if doesn't exist set a default 
-
+  
         if ('image' in postImage) {
           postImage = postImage.image[0]
-        }  else {
+        } else {
           postImage = "https://hlfppt.org/wp-content/uploads/2017/04/placeholder-768x576.png"
         }
-
-       let imageBackground = `background-image: url(${postImage});`
-      
+  
+        let imageBackground = `background-image: url(${postImage});`
+  
         return imageBackground
       },
       postLink: function() {
@@ -108,13 +106,15 @@
   }
   
   .contest--open {
-    color: #00B483;
-    background: #84FFDE;
+    color:  #3B773B;
+    background: #DFF0D7;
+    border-color: #D6EAC5;
   }
   
   .contest--closed {
-    color: #B40000;
-    background: #FF8484;
+    color: #c70047;
+    background: #F2DEDE;
+     border-color: #ECCCD1;
   }
   
   .cards {
@@ -141,6 +141,7 @@
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
+    margin: 10px;
   }
   
   @media (max-width: 700px) {
@@ -151,19 +152,7 @@
   
   @media (min-width: 700px) {
     .card {
-      max-width: 255px;
-    }
-    .card:nth-child(even) {
-      margin-right: 0;
-    }
-  }
-  
-  @media (min-width: 980px) {
-    .card:nth-child(even) {
-      margin-right: 20px;
-    }
-    .card:nth-child(3n) {
-      margin-right: 0;
+      width: 300px;
     }
   }
   
@@ -198,28 +187,35 @@
   
   .card .card-title {
     background: #FF1480;
-    padding: 3.5% 0 2.5% 0;
     color: white;
     font-family: 'Roboto Condensed', sans-serif;
     text-transform: uppercase;
     position: absolute;
     bottom: 0;
     width: 100%;
+    box-shadow: inset 0 0 20px 10px #96969629;
   }
   
   .card .card-title h3 {
     font-size: 14px;
-    line-height: 1.2;
-    padding: 15px 10px;
+    padding: 5px 10px;
     margin: 0;
     color: white;
     text-align: center;
     text-transform: capitalize;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-height: 20px;
   }
   
   .card .card-title a {
     text-decoration: none;
     color: white;
+    width: 100%;
+    margin: 5px;
   }
   
   .card .card-title a:hover {
