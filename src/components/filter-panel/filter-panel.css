@@ -6,9 +6,13 @@
       display: inline-flex;
       padding: 15px;
       border-radius: 100px;
-      font-weight: 500;
+      font-weight: bold;
       cursor: pointer;
       font-size: 15px;
+    }
+
+    .option:hover {
+     opacity: 0.75;
     }
     
     .active {

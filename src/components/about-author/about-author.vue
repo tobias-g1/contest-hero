@@ -4,7 +4,7 @@
         <img v-bind:src="authorImage">
         <div class="author-details">
         <span class="author-name"> {{ authorName }} </span>
-        <span> {{ authorBio }} </span>
+        <span class="author-bio "> {{ authorBio }} </span>
         </div>
     </div>
 </template>
