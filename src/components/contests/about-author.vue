@@ -1,7 +1,11 @@
 <template>
     <div class="author-container">
+        
         <img v-bind:src="authorImage">
+        <div class="author-details">
+        <span class="author-name"> {{ authorName }} </span>
         <span> {{ authorBio }} </span>
+        </div>
     </div>
 </template>
 
@@ -9,6 +13,7 @@
     export default {
         name: 'about-author',
         props: {
+            authorName: String,
             authorImage: String,
             authorBio: String
         }
@@ -18,11 +23,24 @@
 <style scoped>
     .author-container {
         display: inline-flex;
+
+    }
+
+    .author-name {
+        font-weight: bold;
+        font-size: 15px;
+        display: flex;
+
+    }
+
+    .author-bio {
+          font-size: 14px;
+          display: flex;
     }
     
-    .author-container span {
-        font-size: 14px;
-        margin: 0 0 0 0.5rem;
+    .author-details {
+
+      margin: 0 15px;
     }
     
     .author-container img {

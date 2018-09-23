@@ -20,7 +20,7 @@
             <h3 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> This contest closes in:</h3>
             <Countdown :deadline="contestDeadline"></Countdown>
             <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">About the Author</h3>
-            <aboutauthor :authorBio="authorBio" :authorImage="authorImage"></aboutauthor>
+            <aboutauthor :authorBio="authorBio" :authorImage="authorImage" :authorName="author"></aboutauthor>
             <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
             <entry v-for="(comments, index) in comments" :key="index" :comment="comments" />
         </el-col>
