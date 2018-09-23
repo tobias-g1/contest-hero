@@ -2,8 +2,8 @@
     <el-row :gutter="20">
         <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="16">
             <h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt=""> {{ title }} </h1>
-           <post :postbody="body"></post>
-           <a v-bind:href="postLink"><button class="btn-fill enter-contest">Enter Contest</button></a>
+            <post :postbody="body"></post>
+            <a v-bind:href="postLink"><button class="btn-fill enter-contest">Enter Contest</button></a>
             <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Comments</h1>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
                 <el-form-item prop="commentbody">
@@ -28,16 +28,14 @@
 </template>
 
 <script>
-    import entry from '@/components/contests/entered-contest.vue'
-    import comment from '@/components/contests/comment.vue'
+    import entry from '@/components/entered-contest/entered-contest.vue'
+    import comment from '@/components/contest-comment/contest-comment.vue'
+    import aboutauthor from '@/components/about-author/about-author.vue'
+    import post from '@/components/post/post.vue'
     import markdownEditor from 'vue-simplemde/src/markdown-editor'
     import form from '@/mixins/form-actions.js'
-    import aboutauthor from '@/components/contests/about-author.vue'
     import Countdown from 'vuejs-countdown'
-    import post from '@/components/contests/post.vue'
-    import {
-        Client
-    } from 'dsteem'
+    import { Client } from 'dsteem'
     
     const client = new Client('https://api.steemit.com')
     
@@ -102,25 +100,25 @@
                 })
             },
             getComments(author, permlink) {
-
+    
                 let postComments = []
-
+    
                 client.database.call('get_content_replies', [author, permlink]).then(comments => {
     
-                    comments.forEach(function (comment, i) {
-
+                    comments.forEach(function(comment, i) {
+    
                         client.database.getAccounts([comment.author]).then(commentAuthorDetails => {
-
-                           let commentJSON = commentAuthorDetails[0].json_metadata
-                           commentJSON = JSON.parse(commentJSON)
-
-                           let combinedAuthorComment = Object.assign(commentJSON, comment)
-
-                           postComments.push(combinedAuthorComment);
+    
+                            let commentJSON = commentAuthorDetails[0].json_metadata
+                            commentJSON = JSON.parse(commentJSON)
+    
+                            let combinedAuthorComment = Object.assign(commentJSON, comment)
+    
+                            postComments.push(combinedAuthorComment);
                         });
                     })
                 })
-
+    
                 this.comments = postComments
     
             }
@@ -158,7 +156,6 @@
         width: 100%;
         box-shadow: 0 0 10px 2px #0000001f;
     }
-
 </style>
 
 

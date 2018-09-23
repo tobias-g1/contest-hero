@@ -37,26 +37,5 @@
   }
 </script>
 
-<style>
-
-.filter-options {
-  text-align: center;
-}
-  
-  .option {
-    display: inline-flex;
-    padding: 15px;
-    border-radius: 5px;
-    font-weight: 500;
-    cursor: pointer;
-    font-size: 15px;
-  }
-  
-  .active {
-   background: #FF1480;
-    color: white;
-    font-weight: bold;
-  }
-</style>
-
+<style src='@/components/filter-panel/filter-panel.css'></style>
 

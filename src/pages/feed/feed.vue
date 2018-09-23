@@ -12,9 +12,9 @@
 </template>
 
 <script>
-  // @ is an alias to /src
-  import postcard from '@/components/feed/post-card/post-card.vue'
-  import filterpanel from '@/components/feed/filter-panel/filter-panel.vue'
+
+  import postcard from '@/components/post-card/post-card.vue'
+  import filterpanel from '@/components/filter-panel/filter-panel.vue'
   
   import {
     Client
@@ -52,18 +52,4 @@
   }
 </script>
 
-<style scoped>
-.card-container {
-  margin: 0 auto;
-    display: -webkit-flex;
-    display: inline-flex;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-    padding: 10px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-</style>
+<style scoped src='@/pages/feed/feed.css'></style>

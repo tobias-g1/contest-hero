@@ -1,4 +1,4 @@
-var validation = {
+var formActions = {
 
   methods: {
     submitForm (formName) {
@@ -18,4 +18,4 @@ var validation = {
 
 }
 
-export default validation
+export default formActions
