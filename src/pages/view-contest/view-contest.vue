@@ -34,14 +34,12 @@
     import post from '@/components/post/post.vue'
     import markdownEditor from 'vue-simplemde/src/markdown-editor'
     import form from '@/mixins/form-actions.js'
+     import dsteem from '@/mixins/dsteem.js'
     import Countdown from 'vuejs-countdown'
-    import { Client } from 'dsteem'
-    
-    const client = new Client('https://api.steemit.com')
     
     export default {
         name: 'contest',
-        mixins: [form],
+        mixins: [form, dsteem],
         components: {
             entry,
             comment,
@@ -82,45 +80,35 @@
             loadContent() {
                 this.author = this.$route.params.author
                 this.permlink = this.$route.params.permlink
-                client.database.getDiscussions('blog', {
-                    tag: this.author,
-                    start_permlink: this.permlink,
-                    start_author: this.author,
-                    limit: 1
-                }).then(discussions => {
+                this.loadPost(this.author, this.permlink)
+               .then(discussions => {
                     this.body = discussions[0].body
                     this.title = discussions[0].title
                 })
             },
             getAuthorDetails(author) {
-                client.database.getAccounts([author]).then(authorDetails => {
+                this.getAccount(author)
+                .then(authorDetails => {
                     let userJson = JSON.parse(authorDetails[0].json_metadata)
                     this.authorImage = userJson.profile.profile_image
                     this.authorBio = userJson.profile.about
                 })
             },
             getComments(author, permlink) {
-    
                 let postComments = []
-    
-                client.database.call('get_content_replies', [author, permlink]).then(comments => {
-    
-                    comments.forEach(function(comment, i) {
-    
-                        client.database.getAccounts([comment.author]).then(commentAuthorDetails => {
-    
+                this.getPostComments(author, permlink)
+                .then(comments => {
+                    comments.forEach(comment => {
+                       this.getAccount(comment.author)
+                        .then(commentAuthorDetails => {
                             let commentJSON = commentAuthorDetails[0].json_metadata
                             commentJSON = JSON.parse(commentJSON)
-    
                             let combinedAuthorComment = Object.assign(commentJSON, comment)
-    
                             postComments.push(combinedAuthorComment);
                         });
                     })
                 })
-    
                 this.comments = postComments
-    
             }
         },
         mounted() {

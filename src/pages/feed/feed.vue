@@ -15,12 +15,7 @@
 
   import postcard from '@/components/post-card/post-card.vue'
   import filterpanel from '@/components/filter-panel/filter-panel.vue'
-  
-  import {
-    Client
-  } from 'dsteem'
-  
-  const client = new Client('https://api.steemit.com')
+  import dsteem from '@/mixins/dsteem.js'
   
   export default {
     name: 'feed',
@@ -28,27 +23,22 @@
       postcard,
       filterpanel
     },
+    mixins: [dsteem],
     data() {
       return {
         messages: []
       }
     },
     mounted() {
-      this.getAllContests();
+      this.getContests('utopian-io', 100).then(discussions =>  {
+        this.messages = discussions
+      })
     },
     methods: {
       onMessageSent: function(message) {
         this.messages = message.message
       },
-      getAllContests: function() {
-        client.database.getDiscussions('active', {
-          tag: 'utopian-io',
-          limit: 100
-        }).then(discussions => {
-          this.messages = discussions
-        })
-      }
-    }
+  }
   }
 </script>
 
