@@ -10,7 +10,7 @@
     
             <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Other Winners</h1>
             <div>
-             <otherwinners v-for="(otherwin, index) in otherwin" :key="index" :otherWinners="otherwin" />
+                <otherwinners v-for="(otherwin, index) in otherwin" :key="index" :otherWinners="otherwin" />
             </div>
             <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Comments</h1>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
@@ -22,7 +22,7 @@
                     <el-button @click="resetForm('ruleForm')">Reset</el-button>
                 </el-form-item>
             </el-form>
-            <comment v-for="(comments, index) in comments" :key="index" :comment="comments" />
+            <!-- <comment v-for="(comments, index) in comments" :key="index" :comment="comments" /> -->
         </el-col>
         <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
             <h3 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> This contest closes in:</h3>
@@ -129,9 +129,25 @@
             getAuthorDetails(author) {
                 this.getAccount(author)
                     .then(authorDetails => {
+
+                        console.log(authorDetails);
+    
+                        let userImage = ''
                         let userJson = JSON.parse(authorDetails[0].json_metadata)
-                        this.authorImage = userJson.profile.profile_image
-                        this.authorBio = userJson.profile.about
+
+                        console.log(userJson);
+                        if ('profile_image' in userJson.profile) {
+                            this.authorImage = userJson.profile.profile_image
+                        } else {
+                            this.authorImage = "https://hlfppt.org/wp-content/uploads/2017/04/placeholder-768x576.png"
+                        }
+    
+                        if ('about' in userJson.profile) {
+                            this.authorBio = userJson.profile.about
+                        } else {
+                            this.authorBio = "This user has not added a bio"
+                        }
+    
                     })
             },
             getComments(author, permlink) {
@@ -141,10 +157,17 @@
                         comments.forEach(comment => {
                             this.getAccount(comment.author)
                                 .then(commentAuthorDetails => {
-                                    let commentJSON = commentAuthorDetails[0].json_metadata
-                                    commentJSON = JSON.parse(commentJSON)
-                                    let combinedAuthorComment = Object.assign(commentJSON, comment)
-                                    postComments.push(combinedAuthorComment)
+
+                                    if ('json_metadata' in commentAuthorDetails[0]) {
+    
+                                        let commentJSON = commentAuthorDetails[0].json_metadata
+    
+                                        commentJSON = JSON.parse(commentJSON)
+                                        let combinedAuthorComment = Object.assign(commentJSON, comment)
+                                        postComments.push(combinedAuthorComment)
+                                    }
+                                }).catch(err => {
+                                    console.log(this.author);
                                 })
                         })
                     })
