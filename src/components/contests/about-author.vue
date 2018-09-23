@@ -1,0 +1,36 @@
+<template>
+    <div class="author-container">
+        <img v-bind:src="authorImage">
+        <span> {{ authorBio }} </span>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: 'about-author',
+        props: {
+            authorImage: String,
+            authorBio: String
+        }
+    }
+</script>
+
+<style scoped>
+    .author-container {
+        display: inline-flex;
+    }
+    
+    .author-container span {
+        font-size: 14px;
+        margin: 0 0 0 0.5rem;
+    }
+    
+    .author-container img {
+        height: 50px;
+        min-width: 50px;
+        max-width: 50px;
+        border: 2px solid white;
+        border-radius: 50px;
+        box-shadow: -1px 2px 10px #d4d4d4;
+    }
+</style>

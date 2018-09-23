@@ -2,24 +2,24 @@
   <div class="cards">
     <a class="card">
       <span class="card-header" v-bind:style="imageBackground">
-          <div v-bind:class='modifiers' class="status-tag">{{ status }}</div>
-  				<span class="card-title">
-  				<a v-bind:href="postLink"><h3>{{ post.title }}</h3></a>
-  				</span>
+            <div v-bind:class='modifiers' class="status-tag">{{ status }}</div>
+    				<span class="card-title">
+    				<a v-bind:href="postLink"><h3>{{ post.title }}</h3></a>
+    				</span>
       </span>
       <span class="card-summary">
-  			<div class="post-stats">
-        <div class="stats-item">
-<i class="material-icons">message</i> <span>{{ post.children }}</span>
-        </div>
-         <div class="stats-item">
-<i class="material-icons">thumb_up</i> <span>{{ post.net_votes }}</span>
-        </div>
-  			</div>
-        <span class="contest-details">A {{ contestType }} contest created by {{ post.author }} </span>
-
-  			</span>
-    </a>
+    			<div class="post-stats">
+          <div class="stats-item">
+  <i class="material-icons">message</i> <span>{{ post.children }}</span>
+  </div>
+  <div class="stats-item">
+    <i class="material-icons">thumb_up</i> <span>{{ post.net_votes }}</span>
+  </div>
+  </div>
+  <span class="contest-details">A {{ contestType }} contest created by {{ post.author }} </span>
+  
+  </span>
+  </a>
   </div>
 </template>
 
@@ -62,7 +62,7 @@
         let status = 'open'
         return status
       },
-       contestType: function() {
+      contestType: function() {
         let contestType = 'writing'
         return contestType
       }
@@ -71,41 +71,40 @@
 </script>
 
 <style scoped>
-
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-
-.post-stats {
-  display: inline-flex;
-  padding: 3px;
-}
-.stats-item {
-display: inline-flex;
-font-size: 14px;
-}
-
-.stats-item span {
-        padding: 2px 6px;
-}
-
-.stats-item i {
+  @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+  .post-stats {
+    display: inline-flex;
+    padding: 3px;
+  }
+  
+  .stats-item {
+    display: inline-flex;
+    font-size: 14px;
+  }
+  
+  .stats-item span {
+    padding: 2px 6px;
+  }
+  
+  .stats-item i {
     font-size: 19px;
-        padding: 1px;
-}
-
-.contest-details {
+    padding: 1px;
+  }
+  
+  .contest-details {
     font-size: 11px;
     text-align: right;
     font-weight: bold;
-}
-
+  }
+  
   .status-tag {
     padding: 7px 10px;
     margin: 10px;
     height: fit-content;
     border-radius: 5px;
-     border: 2px solid;
-     font-size: 13px;
-     font-weight: bold;
+    border: 2px solid;
+    font-size: 13px;
+    font-weight: bold;
   }
   
   .contest--open {
@@ -209,7 +208,7 @@ font-size: 14px;
   }
   
   .card .card-title h3 {
-font-size: 14px;
+    font-size: 14px;
     line-height: 1.2;
     padding: 15px 10px;
     margin: 0;
@@ -217,13 +216,13 @@ font-size: 14px;
     text-align: center;
     text-transform: capitalize;
   }
-
+  
   .card .card-title a {
     text-decoration: none;
     color: white;
   }
-
-   .card .card-title a:hover{
+  
+  .card .card-title a:hover {
     text-decoration: underline;
   }
   

@@ -14,32 +14,28 @@
                     <el-button @click="resetForm('ruleForm')">Reset</el-button>
                 </el-form-item>
             </el-form>
-            <comment v-for="(comments, index) in comments" :key="index" :body="comments.body" />
+            <comment v-for="(comments, index) in comments" :key="index" :comment="comments" />
         </el-col>
         <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
+            <h3>This contest closes in:</h3>
+            <Countdown :deadline="contestDeadline"></Countdown>
             <h3>About the Author</h3>
-            <div class="author-container">
-                <img v-bind:src="authorImage">
-                <span>{{authorBio}}</span>
-            </div>
+            <aboutauthor :authorBio="authorBio" :authorImage="authorImage"></aboutauthor>
             <h3>Entries</h3>
-            <entry v-for="(comments, index) in comments" :key="index" :author="comments.author" />
-    
-    
+            <entry v-for="(comments, index) in comments" :key="index" :comment="comments" />
         </el-col>
     </el-row>
 </template>
 
 <script>
-    // @ is an alias to /src
-    
     import entry from '@/components/contests/entered-contest.vue'
     import comment from '@/components/contests/comment.vue'
     import markdownEditor from 'vue-simplemde/src/markdown-editor'
     import form from '@/mixins/form-actions.js'
+    import aboutauthor from '@/components/contests/about-author.vue'
+    import Countdown from 'vuejs-countdown'
     import VueMarkdown from 'vue-markdown'
     import post from '@/components/contests/post.vue'
-    
     import {
         Client
     } from 'dsteem'
@@ -53,6 +49,8 @@
             entry,
             comment,
             markdownEditor,
+            aboutauthor,
+            Countdown
             VueMarkdown,
             post
         },
@@ -70,6 +68,11 @@
                 ruleForm: {
                     commentbody: ''
                 },
+                contestDeadline: 'August 22, 2022',
+                firstPlace: '',
+                sencondPlace: '',
+                thirdPlace: '',
+                otherWinners: [],
                 rules: {
                     commentbody: [{
                         required: true,
@@ -81,17 +84,14 @@
         },
         methods: {
             loadContent() {
-    
                 this.author = this.$route.params.author
                 this.permlink = this.$route.params.permlink
-    
                 client.database.getDiscussions('blog', {
                     tag: this.author,
                     start_permlink: this.permlink,
                     start_author: this.author,
                     limit: 1
                 }).then(discussions => {
-    
                     this.body = discussions[0].body
                     this.title = discussions[0].title
                 })
@@ -104,9 +104,27 @@
                 })
             },
             getComments(author, permlink) {
+
+                let postComments = []
+
                 client.database.call('get_content_replies', [author, permlink]).then(comments => {
-                    this.comments = comments
+    
+                    comments.forEach(function (comment, i) {
+
+                        client.database.getAccounts([comment.author]).then(commentAuthorDetails => {
+
+                           let commentJSON = commentAuthorDetails[0].json_metadata
+                           commentJSON = JSON.parse(commentJSON)
+
+                           let combinedAuthorComment = Object.assign(commentJSON, comment)
+
+                           postComments.push(combinedAuthorComment);
+                        });
+                    })
                 })
+
+                this.comments = postComments
+    
             }
         },
         mounted() {
@@ -117,7 +135,7 @@
         computed: {
             postLink: function() {
                 let postLink = `#/enter-contest/${this.author}/${this.permlink}`
-                return postLink;    
+                return postLink;
             }
         }
     }
@@ -129,6 +147,7 @@
         background: white;
         border-radius: 5px;
         padding: 15px;
+        box-shadow: -1px 2px 10px #d4d4d4;
     }
     
     .post-container img {
@@ -136,25 +155,10 @@
         height: auto;
     }
     
-    .author-container {
-        display: inline-flex;
-    }
-    
-    .author-container span {
-        font-size: 14px;
-        margin: 0 0 0 0.5rem;
-    }
-    
-    .author-container img {
-        max-height: 50px;
-        max-width: 50px;
-        border: 2px solid white;
-        border-radius: 50px;
-        box-shadow: -1px 2px 10px #d4d4d4;
-    }
-    
     .enter-contest {
-        margin-top: 10px;
+        margin-top: 15px;
         width: 100%;
     }
 </style>
+
+
