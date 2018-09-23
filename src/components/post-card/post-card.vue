@@ -16,23 +16,25 @@
   </div>
   </div>
   <span class="contest-details">A {{ contestType }} contest created by {{ post.author }} </span>
-
   </span>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'feed-item',
   props: {
     post: Object
+  },
+  components: {
   },
   data () {
     return {
       modifiers: {
         'contest--open': true,
         'contest--closed': false
-      }
+      },
     }
   },
   computed: {

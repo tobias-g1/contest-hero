@@ -12,6 +12,7 @@
     "element-ui": "^2.4.7",
     "path-to-regexp": "^2.4.0",
     "vue": "^2.5.17",
+    "vue-element-loading": "^1.0.4",
     "vue-markdown": "^2.2.4",
     "vue-material-icon": "^1.0.1",
     "vue-router": "^3.0.1",

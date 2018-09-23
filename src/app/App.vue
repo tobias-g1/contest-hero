@@ -13,10 +13,24 @@
       <div class="about-banner"><span>Contest Hero helps you to find, create and enter the best contests on the Steem Blockchain</span></div>
     </div>
     <el-main>
+      <ElementLoading :active="$store.state.isLoading" spinner="bar-fade-scale" color="#FF6700" :is-full-screen="true" />
       <router-view/>
     </el-main>
   </el-container>
 </template>
+
+<script>
+  import ElementLoading from 'vue-element-loading'
+  
+  export default {
+    name: 'app',
+    components: {
+      ElementLoading
+    }
+  }
+</script>
+
+</script>
 
 <style>
   @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
@@ -25,14 +39,14 @@
     margin: 0;
     font-family: sans-serif;
   }
-
+  
   h1.header {
     font-weight: 500;
     font-size: 20px;
     text-transform: capitalize;
     margin: 20px 0;
   }
-
+  
   h2.header {
     font-size: 14px;
     text-transform: uppercase;
@@ -40,16 +54,16 @@
     margin: 20px 0;
     font-weight: 500;
   }
-
+  
   h3.header {
     margin: 20px 0;
     font-weight: 500;
   }
-
+  
   a {
     word-wrap: break-word;
   }
-
+  
   button {
     padding: 10px;
     border: 0;
@@ -59,17 +73,17 @@
     font-size: 14px;
     margin-right: 10px;
   }
-
+  
   .btn-fill {
     background: #FF1480;
     color: white;
   }
-
+  
   .btn-outline {
     color: #FF1480;
     border: 1px solid #FF1480;
   }
-
+  
   .el-header {
     height: auto !important;
     display: flex;
@@ -79,67 +93,67 @@
     background: white;
     box-shadow: 0 0 10px 2px #f1f1f1;
   }
-
+  
   .el-header a {
     text-decoration: none;
   }
-
+  
   .el-main {
     color: #333;
     padding: 20px 50px !important;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' hei…e' fill-opacity='1' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E")
   }
-
-    @media (max-width: 700px) {
-      .el-main {
-    padding: 20px 25px !important;
+  
+  @media (max-width: 700px) {
+    .el-main {
+      padding: 20px 25px !important;
+    }
   }
-  }
-
+  
   body>.el-container {
     margin-bottom: 40px;
   }
-
+  
   .logo-container {
     display: inline-flex;
   }
-
+  
   .menu-options {
     display: inline-flex;
     justify-content: space-between;
     width: 60px;
   }
-
+  
   .text-logo {
     letter-spacing: 3px;
     text-transform: uppercase;
     font-size: 18px;
     padding-top: 2.5px;
   }
-
+  
   .small-circle {
     height: 15px;
     margin-right: 0.5rem;
   }
-
+  
   .material-icons {
     color: #000000
   }
-
+  
   .router-link-active {
     color: #000000;
   }
-
+  
   .material-icons:hover {
     color: #FF1480;
   }
-
+  
   .banner-pattern {
     width: 100%;
     height: 100%;
     background: linear-gradient(45deg, #6710ff, #FF1480);
   }
-
+  
   .about-banner {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.7' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
     min-height: 100px;
