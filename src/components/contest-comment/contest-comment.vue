@@ -3,16 +3,18 @@
         <img class="comment-image" :src="comment.profile.profile_image" alt="" v-on:error="imageLoadError">
         <div class="comment-details">
             <span class="comment-author">{{ comment.author }} says:</span>
-            <span class="comment-body">{{ comment.body }}</span>
+             <VueMarkdown class="comment-body" :source="comment.body"></VueMarkdown>
         </div>
     </div>
 </template>
 
 <script>
+  import VueMarkdown from 'vue-markdown'
+
     export default {
         name: 'comment',
         components: {
-    
+            VueMarkdown
         },
         props: {
             comment: Object
@@ -28,4 +30,4 @@
     }
 </script>
 
-<style scoped src='@/components/contest-comment/contest-comment.css'></style>
+<style src='@/components/contest-comment/contest-comment.css'></style>

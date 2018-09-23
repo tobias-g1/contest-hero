@@ -10,6 +10,7 @@
 
 .comment-details {
     padding-left: 10px;
+    width: 100%;
 }
 
 .comment-author {
@@ -20,6 +21,10 @@
 
 .comment-body {
     font-size: 14px;
+}
+
+.comment-body img {
+    max-width: 100%;
 }
 
 .comment-image {
