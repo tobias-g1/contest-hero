@@ -23,11 +23,11 @@
   body {
     background: #FAFAFA;
     margin: 0;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-family: sans-serif;
   }
 
   h1.header {
-    font-weight: bold;
+    font-weight: 500;
     font-size: 20px;
     text-transform: capitalize;
     margin: 20px 0;
@@ -38,10 +38,12 @@
     text-transform: uppercase;
     letter-spacing: 3px;
     margin: 20px 0;
+    font-weight: 500;
   }
 
   h3.header {
     margin: 20px 0;
+    font-weight: 500;
   }
 
   a {
@@ -75,7 +77,7 @@
     justify-content: space-between;
     padding: 25px 50px !important;
     background: white;
-    box-shadow: 0 0 10px 2px #0000001f;
+    box-shadow: 0 0 10px 2px #f1f1f1;
   }
 
   .el-header a {
@@ -85,6 +87,7 @@
   .el-main {
     color: #333;
     padding: 20px 50px !important;
+        background-image: url(data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' hei…e' fill-opacity='1' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E);
   }
 
   body>.el-container {

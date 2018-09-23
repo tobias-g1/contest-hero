@@ -32,8 +32,8 @@
         background: white;
         padding: 20px;
         border-radius: 5px;
-        -webkit-box-shadow: rgba(0, 0, 0, 0.19) 0 0 8px 0;
-        box-shadow: rgba(0, 0, 0, 0.19) 0 0 8px 0;
+        -webkit-box-shadow: 0 0 10px 2px #f1f1f1;
+        box-shadow: 0 0 10px 2px #f1f1f1;
         display: inline-flex;
         justify-content: space-between;
         flex-direction: row;

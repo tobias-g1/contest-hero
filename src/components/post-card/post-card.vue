@@ -37,6 +37,7 @@ export default {
   },
   computed: {
     imageBackground: function () {
+      
       let postImage = JSON.parse(this.post.json_metadata)
 
       // Check if a post image can be found in the JSON metadata of post and if doesn't exist set a default

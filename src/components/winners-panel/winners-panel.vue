@@ -1,9 +1,9 @@
 <template>
     <div class="winners-panel-container">
-
+    
         <div class="winners-details">
             <img class="winners-medal" src="@/assets/medals/1st.png" alt="">
-            <img class="winner-image" :src="winners.image" alt="">
+            <img class="winners-image" src="@/assets/gradient-circle.png" alt="">
             <span class="position-text">{{ winners.author }} was chosen in {{ winners.place }} place</span>
         </div>
         <button class="btn btn-outline">View</button>
@@ -11,22 +11,22 @@
 </template>
 
 <script>
-import VueMarkdown from 'vue-markdown'
-
-export default {
-  name: 'winner-panel',
-  props: {
-    winners: Object
-  },
-  data () {
-    return {
-
+    import VueMarkdown from 'vue-markdown'
+    
+    export default {
+        name: 'winner-panel',
+        props: {
+            winners: Object
+        },
+        data() {
+            return {
+    
+            }
+        },
+        computed: {
+            adjustedPost: function() {}
+        }
     }
-  },
-  computed: {
-    adjustedPost: function () {}
-  }
-}
 </script>
 
 <style>
@@ -34,27 +34,32 @@ export default {
         background: white;
         padding: 20px;
         border-radius: 5px;
-        -webkit-box-shadow: rgba(0, 0, 0, 0.19) 0 0 8px 0;
-        box-shadow: rgba(0, 0, 0, 0.19) 0 0 8px 0;
+        -webkit-box-shadow: 0 0 10px 2px #f1f1f1;
+        box-shadow: 0 0 10px 2px #f1f1f1;
         display: flex;
         justify-content: space-between;
         flex-direction: row;
         align-items: center;
-        margin: 15px;
+        margin-bottom: 20px;
     }
-
+    
     .winners-details {
-      display: flex;
-    align-items: center;
-}
-
+        display: flex;
+        align-items: center;
+    }
+    
     .winners-medal {
-        height: 75px;
+        height: 65px;
     }
 
+    .winners-image {
+            width: 50px;
+    margin-left: 20px;
+    border: 2px solid white;
+    }
+    
     .position-text {
         display: inline-flex;
         padding: 0 20px;
     }
-
 </style>

@@ -129,12 +129,12 @@
             getAuthorDetails(author) {
                 this.getAccount(author)
                     .then(authorDetails => {
-
+    
                         console.log(authorDetails);
     
                         let userImage = ''
                         let userJson = JSON.parse(authorDetails[0].json_metadata)
-
+    
                         console.log(userJson);
                         if ('profile_image' in userJson.profile) {
                             this.authorImage = userJson.profile.profile_image
@@ -157,7 +157,7 @@
                         comments.forEach(comment => {
                             this.getAccount(comment.author)
                                 .then(commentAuthorDetails => {
-
+    
                                     if ('json_metadata' in commentAuthorDetails[0]) {
     
                                         let commentJSON = commentAuthorDetails[0].json_metadata
@@ -193,8 +193,8 @@
     .post-container {
         background: white;
         border-radius: 5px;
-        padding: 15px;
-        box-shadow: 0 0 10px 2px #0000001f;
+        padding: 20px 40px;
+        box-shadow: 0 0 10px 2px #f1f1f1;
     }
     
     .post-container img {
@@ -203,8 +203,8 @@
     }
     
     .enter-contest {
-        margin-top: 15px;
+        margin-top: 20px;
         width: 100%;
-        box-shadow: 0 0 10px 2px #0000001f;
+        box-shadow: 0 0 10px 2px #f1f1f1;
     }
 </style>
