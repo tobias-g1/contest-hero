@@ -1,10 +1,10 @@
 <template>
     <el-row :gutter="20">
         <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="16">
-            <h1><img class="small-circle" src="@/assets/gradient-circle.png" alt=""> {{ title }} </h1>
+            <h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt=""> {{ title }} </h1>
            <post :postbody="body"></post>
            <a v-bind:href="postLink"><button class="btn-fill enter-contest">Enter Contest</button></a>
-            <h1>Comments</h1>
+            <h1 class="header">Comments</h1>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
                 <el-form-item prop="commentbody">
                     <markdownEditor v-model="ruleForm.commentbody" />
@@ -17,11 +17,11 @@
             <comment v-for="(comments, index) in comments" :key="index" :comment="comments" />
         </el-col>
         <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
-            <h3>This contest closes in:</h3>
+            <h3 class="header">This contest closes in:</h3>
             <Countdown :deadline="contestDeadline"></Countdown>
-            <h3>About the Author</h3>
+            <h3 class="header">About the Author</h3>
             <aboutauthor :authorBio="authorBio" :authorImage="authorImage"></aboutauthor>
-            <h3>Entries</h3>
+            <h3 class="header">Entries</h3>
             <entry v-for="(comments, index) in comments" :key="index" :comment="comments" />
         </el-col>
     </el-row>
@@ -158,6 +158,7 @@
         width: 100%;
         box-shadow: 0 0 10px 2px #0000001f;
     }
+
 </style>
 
 

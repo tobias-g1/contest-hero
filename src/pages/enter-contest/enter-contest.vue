@@ -1,7 +1,7 @@
 
 <template>
     <el-row :gutter="20">
-        <h1> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> Enter contest </h1>
+        <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> Enter contest </h1>
         <el-form :model="entry" :label-position="labelPosition" :rules="rules" ref="entry" class="demo-entry">
             <el-col :span="24">
                 <el-form-item label="Entry Title" prop="title">

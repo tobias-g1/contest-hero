@@ -24,22 +24,28 @@
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   }
   
-  h1 {
+  h1.header {
     font-weight: bold;
-    font-size: 20px;
+      font-size: 20px;
+    text-transform: capitalize;
+      margin: 20px 0;
   }
   
-  h2 {
+ h2.header {
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 3px;
+      margin: 20px 0;
   }
   
-  h3 {}
+  h3.header {
+    margin: 20px 0;
+  }
   
-  h4 {}
-  
-  h5 {}
+
+  a {
+    word-wrap: break-word;
+  }
   
   button {
     padding: 10px;
