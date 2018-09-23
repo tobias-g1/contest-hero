@@ -2,9 +2,7 @@
     <el-row :gutter="20">
         <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="16">
             <h1><img class="small-circle" src="@/assets/gradient-circle.png" alt=""> {{ title }} </h1>
-            <div class="post-container">
-                <vue-simple-markdown :source="body"></vue-simple-markdown>
-            </div>
+           <post :postbody="body"></post>
            <a v-bind:href="postLink"><button class="btn-fill enter-contest">Enter Contest</button></a>
             <h1>Comments</h1>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
@@ -39,6 +37,8 @@
     import comment from '@/components/contests/comment.vue'
     import markdownEditor from 'vue-simplemde/src/markdown-editor'
     import form from '@/mixins/form-actions.js'
+    import VueMarkdown from 'vue-markdown'
+    import post from '@/components/contests/post.vue'
     
     import {
         Client
@@ -52,7 +52,9 @@
         components: {
             entry,
             comment,
-            markdownEditor
+            markdownEditor,
+            VueMarkdown,
+            post
         },
         data() {
             return {
@@ -93,7 +95,6 @@
                     this.body = discussions[0].body
                     this.title = discussions[0].title
                 })
-    
             },
             getAuthorDetails(author) {
                 client.database.getAccounts([author]).then(authorDetails => {
