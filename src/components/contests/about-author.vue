@@ -26,11 +26,11 @@
     }
     
     .author-container img {
-        max-height: 50px;
+        height: 50px;
+        min-width: 50px;
         max-width: 50px;
         border: 2px solid white;
         border-radius: 50px;
         box-shadow: -1px 2px 10px #d4d4d4;
     }
-    
 </style>

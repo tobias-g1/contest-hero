@@ -1,6 +1,6 @@
 <template>
     <div class="comment-container">
-        <img class="comment-image" :src="comment.profile.profile_image" alt="">
+        <img class="comment-image" :src="comment.profile.profile_image" alt="" v-on:error="imageLoadError">
         <div class="comment-details">
             <span class="comment-author">{{ comment.author }} says:</span>
             <span class="comment-body">{{ comment.body }}</span>
@@ -24,10 +24,12 @@
             comment: Object
         },
         computed: {
-
+    
         },
         methods: {
-
+            imageLoadError: function() {
+                this.comment.profile.profile_image = 'https://www.wonderplugin.com/videos/demo-image0.jpg'
+            }
         }
     }
 </script>
@@ -61,6 +63,8 @@
         border: 2px solid white;
         border-radius: 50px;
         height: 50px;
+        min-width: 50px;
+        max-width: 50px;
         box-shadow: -1px 2px 10px #d4d4d4;
     }
 </style>

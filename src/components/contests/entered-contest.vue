@@ -1,8 +1,8 @@
 <template>
     <div class="entry-container">
-        <img class="entry-image" :src="comment.profile.profile_image" alt="">
+        <img class="entry-image" :src="comment.profile.profile_image" alt="" v-on:error="imageLoadError">
         <div class="entry-details">
-            <span class="enter-author"><strong>{{ comment.author }}</strong> has entered this comment</span>
+            <span class="enter-author"><strong>{{ comment.author }}</strong> has entered this contest</span>
             <i class="material-icons">keyboard_arrow_right</i>
         </div>
     </div>
@@ -16,6 +16,11 @@
         },
         props: {
             comment: Object
+        },
+        methods: {
+            imageLoadError: function() {
+                this.comment.profile.profile_image = 'https://www.wonderplugin.com/videos/demo-image0.jpg'
+            }
         }
     }
 </script>
@@ -35,9 +40,10 @@
     .entry-details {
         padding-left: 10px;
         display: inline-flex;
-        justify-content: center;
+        justify-content: space-between;
         flex-direction: row;
         align-items: center;
+        width: 100%;
     }
     
     .entry-author {
@@ -50,6 +56,8 @@
         border: 2px solid white;
         border-radius: 50px;
         height: 50px;
+        min-width: 50px;
+        max-width: 50px;
         box-shadow: -1px 2px 10px #d4d4d4;
     }
 </style>
