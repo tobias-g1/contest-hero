@@ -29,37 +29,4 @@
     }
 </script>
 
-<style>
-    .winners-panel-container {
-        background: white;
-        padding: 20px;
-        border-radius: 5px;
-        -webkit-box-shadow: 0 0 10px 2px #f1f1f1;
-        box-shadow: 0 0 10px 2px #f1f1f1;
-        display: flex;
-        justify-content: space-between;
-        flex-direction: row;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-    
-    .winners-details {
-        display: flex;
-        align-items: center;
-    }
-    
-    .winners-medal {
-        height: 65px;
-    }
-
-    .winners-image {
-            width: 50px;
-    margin-left: 20px;
-    border: 2px solid white;
-    }
-    
-    .position-text {
-        display: inline-flex;
-        padding: 0 20px;
-    }
-</style>
+<style src='@/components/winners-panel/winners-panel.css'>
