@@ -5,7 +5,7 @@
     </el-col>
     <el-col :span="24">
       <div class="card-container">
-        <postcard v-on:change="this.isActive === true" v-for="(messages, index) in messages" :key="index" :post="messages" />
+        <postcard v-for="(messages, index) in messages" :key="index" :post="messages" />
       </div>
     </el-col>
   </el-row>
