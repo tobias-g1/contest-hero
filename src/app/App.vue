@@ -1,45 +1,68 @@
 <template>
   <el-container id="app">
     <el-header>
-       <router-link to="/"><div class="logo-container"><span class="text-logo"><strong>Contest</strong> Hero</span></div></router-link>
+      <router-link to="/">
+        <div class="logo-container"><span class="text-logo"><strong>Contest</strong> Hero</span></div>
+      </router-link>
       <div class="menu-options">
         <router-link to="/"><i class="material-icons">dashboard</i></router-link>
         <router-link to="/create-contest"><i class="material-icons">add_circle_outline</i></router-link>
       </div>
     </el-header>
-       <div class="about-banner"><span>Contest Hero helps you to find, create and enter the best contests on the Steem Blockchain</span></div>
+    <div class="banner-pattern">
+      <div class="about-banner"><span>Contest Hero helps you to find, create and enter the best contests on the Steem Blockchain</span></div>
+    </div>
     <el-main>
+      <ElementLoading :active="$store.state.isLoading" spinner="bar-fade-scale" color="#FF6700" :is-full-screen="true" />
       <router-view/>
     </el-main>
   </el-container>
 </template>
 
+<script>
+  import ElementLoading from 'vue-element-loading'
+  
+  export default {
+    name: 'app',
+    components: {
+      ElementLoading
+    }
+  }
+</script>
+
+</script>
+
 <style>
-
- @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-
+  @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
   body {
     background: #FAFAFA;
     margin: 0;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-family: sans-serif;
   }
   
-  h1 {
-    font-weight: bold;
+  h1.header {
+    font-weight: 500;
     font-size: 20px;
+    text-transform: capitalize;
+    margin: 20px 0;
   }
   
-  h2 {
+  h2.header {
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 3px;
+    margin: 20px 0;
+    font-weight: 500;
   }
   
-  h3 {}
+  h3.header {
+    margin: 20px 0;
+    font-weight: 500;
+  }
   
-  h4 {}
-  
-  h5 {}
+  a {
+    word-wrap: break-word;
+  }
   
   button {
     padding: 10px;
@@ -52,8 +75,13 @@
   }
   
   .btn-fill {
-    background: linear-gradient(45deg, #FF1480, #CC59D5);
+    background: #FF1480;
     color: white;
+  }
+  
+  .btn-outline {
+    color: #FF1480;
+    border: 1px solid #FF1480;
   }
   
   .el-header {
@@ -61,18 +89,25 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 25px 100px !important;
+    padding: 25px 50px !important;
     background: white;
-    box-shadow: -1px 2px 10px #d4d4d4;
+    box-shadow: 0 0 10px 2px #f1f1f1;
   }
-
+  
   .el-header a {
     text-decoration: none;
   }
   
   .el-main {
     color: #333;
-    padding: 20px 100px !important;
+    padding: 20px 50px !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 4 4'%3E%3Cpath fill='whitesmoke' fill-opacity='0.9' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+  }
+  
+  @media (max-width: 700px) {
+    .el-main {
+      padding: 20px 25px !important;
+    }
   }
   
   body>.el-container {
@@ -100,25 +135,30 @@
     height: 15px;
     margin-right: 0.5rem;
   }
-
+  
   .material-icons {
     color: #000000
   }
-
+  
   .router-link-active {
     color: #000000;
   }
-
+  
   .material-icons:hover {
-    color:  #FF1480;
+    color: #FF1480;
   }
-
-    .about-banner {
-    background:#FF1480;
+  
+  .banner-pattern {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #6710ff, #FF1480);
+  }
+  
+  .about-banner {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.7' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
     min-height: 100px;
     color: white;
     text-align: center;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='%23000000' fill-opacity='0.04'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E");
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
