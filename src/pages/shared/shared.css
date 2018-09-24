@@ -1,0 +1,50 @@
+body {
+    background: #FAFAFA;
+    margin: 0;
+    font-family: sans-serif;
+  }
+  
+  h1.header {
+    font-weight: 500;
+    font-size: 20px;
+    text-transform: capitalize;
+    margin: 20px 0;
+  }
+  
+  h2.header {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 20px 0;
+    font-weight: 500;
+  }
+  
+  h3.header {
+    margin: 20px 0;
+    font-weight: 500;
+  }
+  
+  a {
+    word-wrap: break-word;
+  }
+  
+  button {
+    padding: 10px;
+    border: 0;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+  }
+  
+  .btn-fill {
+    background: #FF1480;
+    color: white;
+  }
+  
+  .btn-outline {
+    color: #FF1480;
+    border: 1px solid #FF1480;
+    background: 0;
+  }
