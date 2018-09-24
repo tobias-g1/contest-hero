@@ -82,6 +82,7 @@
   .btn-outline {
     color: #FF1480;
     border: 1px solid #FF1480;
+    background: 0;
   }
   
   .el-header {
