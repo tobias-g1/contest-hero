@@ -5,6 +5,8 @@
         <div class="logo-container"><span class="text-logo"><strong>Contest</strong> Hero</span></div>
       </router-link>
       <div class="menu-options">
+        <a class="nav-link" href="#" @click.prevent="$store.dispatch('steemconnect/logout')" v-if="user">Logout</a>
+        <a class="nav-link" :href="$steemconnect.getLoginURL()" v-else>Login</a>
         <router-link to="/"><i class="material-icons">dashboard</i></router-link>
         <router-link to="/create-contest"><i class="material-icons">add_circle_outline</i></router-link>
       </div>
@@ -20,20 +22,32 @@
 <script>
   import ElementLoading from 'vue-element-loading'
   import aboutbanner from '@/components/about-banner/about-banner.vue'
+  import {
+    mapGetters
+  } from 'vuex'
   
   export default {
     name: 'app',
     components: {
       ElementLoading,
       aboutbanner
+    },
+    computed: {
+      ...mapGetters('steemconnect', ['user']),
+    },
+    async mounted() {
+      // login
+      await this.$store.dispatch('steemconnect/login')
     }
   }
 </script>
 
-<style src='@/app/app.css'> 
+<style src='@/app/app.css'>
+   
 </style>
 
 <style src='@/pages/shared/shared.css'>
+  
 </style>
 
 <style>
