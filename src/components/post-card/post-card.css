@@ -15,6 +15,7 @@
   .stats-item i {
     font-size: 19px;
     padding: 1px;
+    cursor: pointer;
   }
   
   .contest-details {
