@@ -4,12 +4,16 @@
       <router-link to="/">
         <div class="logo-container"><span class="text-logo"><strong>Contest</strong> Hero</span></div>
       </router-link>
-      <div class="menu-options">
+      <div class="menu-options" v-if="user">
         <router-link to="/"><i class="material-icons">dashboard</i></router-link>
         <router-link to="/create-contest"><i class="material-icons">add_circle_outline</i></router-link>
+        <a class="nav-link" href="#" @click.prevent="$store.dispatch('steemconnect/logout')"><i class="material-icons">exit_to_app</i></a>
+      </div>
+      <div class="menu-options" v-else>
+        <a class="nav-link" :href="$steemconnect.getLoginURL()"><button class="btn btn-outline">Login</button></a>
       </div>
     </el-header>
-    <aboutbanner/>
+    <aboutbanner v-show="!user"/>
     <el-main>
       <ElementLoading :active="$store.state.isLoading" spinner="bar-fade-scale" color="#FF6700" :is-full-screen="true" />
       <router-view/>
@@ -20,26 +24,39 @@
 <script>
   import ElementLoading from 'vue-element-loading'
   import aboutbanner from '@/components/about-banner/about-banner.vue'
+  import {
+    mapGetters
+  } from 'vuex'
   
   export default {
     name: 'app',
     components: {
       ElementLoading,
       aboutbanner
+    },
+    computed: {
+      ...mapGetters('steemconnect', ['user']),
+    },
+    async mounted() {
+      // login
+      await this.$store.dispatch('steemconnect/login')
     }
   }
 </script>
 
-<style src='@/app/app.css'> 
+<style src='@/app/app.css'>
+  
 </style>
 
 <style src='@/pages/shared/shared.css'>
+  
 </style>
 
 <style>
   @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
   .material-icons {
-    color: #000000
+    color: #000000;
+    margin-left: 10px;
   }
   
   .router-link-active {
@@ -71,7 +88,6 @@
   .menu-options {
     display: inline-flex;
     justify-content: space-between;
-    width: 60px;
   }
   
   .text-logo {

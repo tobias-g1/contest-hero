@@ -4,6 +4,7 @@ import feed from './pages/feed/feed.vue'
 import createcontest from './pages/create-contest/create-contest.vue'
 import entercontest from './pages/enter-contest/enter-contest.vue'
 import contest from './pages/view-contest/view-contest.vue'
+import auth from './pages/auth/auth.vue'
 import notfound from './pages/404/404.vue'
 
 Vue.use(Router)
@@ -23,6 +24,11 @@ export default new Router({
       path: '/create-contest',
       name: 'create-contest',
       component: createcontest
+    },
+    {
+      path: '/auth',
+      name: 'auth',
+      component: auth
     },
     {
       path: '/view-contest/:author/:permlink',

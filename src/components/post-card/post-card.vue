@@ -12,7 +12,7 @@
       <i class="material-icons">message</i> <span>{{ post.children }}</span>
   </div>
   <div class="stats-item">
-    <i class="material-icons">thumb_up</i> <span>{{ post.net_votes }}</span>
+    <i class="material-icons" @click.prevent="$steemconnect.vote(user.name, post.author, post.permlink, voteweight)">thumb_up</i> <span>{{ post.net_votes }}</span>
   </div>
   </div>
   <span class="contest-details">A {{ contestType }} contest created by {{ post.author }} </span>
@@ -21,6 +21,9 @@
 </template>
 
 <script>
+import {
+    mapGetters
+  } from 'vuex'
 
 export default {
   name: 'feed-item',
@@ -35,6 +38,7 @@ export default {
         'contest--open': true,
         'contest--closed': false
       },
+      voteweight: 100
     }
   },
   computed: {
@@ -65,7 +69,8 @@ export default {
     contestType: function () {
       let contestType = 'writing'
       return contestType
-    }
+    },
+      ...mapGetters('steemconnect', ['user']),
   }
 }
 </script>
