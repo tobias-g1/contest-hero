@@ -1,17 +1,27 @@
 <template>
     <el-row :gutter="20">
         <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="16">
-            <h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt=""> {{ title }} </h1>
-            <post :postbody="body"></post>
+    
+            <!-- Post Container -->
+    
+            <h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
+            <post :postbody="post.data.body"></post>
             <a v-bind:href="postLink"><button class="btn-fill enter-contest">Enter Contest</button></a>
     
+            <!-- Winners -->
+            
             <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Winners</h1>
-            <winners v-for="(winners, index) in winners" :key="index" :winners="winners" />
+            <winners v-for="(winner, index) in contest.winners" :key="index" :winners="winner" />
+    
+            <!-- Other Winners -->
     
             <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Other Winners</h1>
             <div>
-                <otherwinners v-for="(otherwin, index) in otherwin" :key="index" :otherWinners="otherwin" />
+                <otherwinners v-for="(otherwin, index) in contest.otherwin" :key="index" :otherWinners="otherwin" />
             </div>
+    
+            <!-- Comments -->
+    
             <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Comments</h1>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
                 <el-form-item prop="commentbody">
@@ -25,12 +35,21 @@
             <!-- <comment v-for="(comments, index) in comments" :key="index" :comment="comments" /> -->
         </el-col>
         <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
+    
+            <!-- Contest Deadline -->
+    
             <h3 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> This contest closes in:</h3>
-            <Countdown :deadline="contestDeadline"></Countdown>
+            <Countdown :deadline="contest.deadline"></Countdown>
+    
+            <!-- About Author -->
+    
             <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">About the Author</h3>
-            <aboutauthor :authorBio="authorBio" :authorImage="authorImage" :authorName="author"></aboutauthor>
+            <aboutauthor :authorBio="post.authorBio" :authorImage="post.authorImage" :authorName="post.author"></aboutauthor>
+    
+            <!-- Contest Entries -->
+    
             <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
-            <entry v-for="(comments, index) in comments" :key="index" :comment="comments" />
+            <entry v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
         </el-col>
     </el-row>
 </template>
@@ -62,51 +81,53 @@
         },
         data() {
             return {
-                author: null,
-                authorImage: null,
-                authorBio: null,
-                permlink: null,
-                title: null,
-                body: '',
-                tags: null,
-                entries: null,
-                comments: null,
+                post: {
+                    author: null,
+                    authorImage: null,
+                    authorBio: null,
+                    data: null,
+                    permlink: null,
+                    comments: null
+                },
+                contest: {
+                    entries: null,
+                    deadline: 'August 22, 2022',
+                    winners: [{
+                            'author': 'tobias-g',
+                            'place': '1'
+                        },
+                        {
+                            'author': 'dave',
+                            'place': '2'
+                        },
+                        {
+                            'author': 'john',
+                            'place': '3'
+                        }
+                    ],
+                    otherwin: [{
+                            "author": 'james'
+                        },
+                        {
+                            "author": 'jack',
+                        },
+                        {
+                            "author": 'sam',
+                        },
+                        {
+                            "author": 'james'
+                        },
+                        {
+                            "author": 'jack',
+                        },
+                        {
+                            "author": 'sam',
+                        }
+                    ]
+                },
                 ruleForm: {
                     commentbody: ''
                 },
-                contestDeadline: 'August 22, 2022',
-                winners: [{
-                        'author': 'tobias-g',
-                        'place': '1'
-                    },
-                    {
-                        'author': 'dave',
-                        'place': '2'
-                    },
-                    {
-                        'author': 'john',
-                        'place': '3'
-                    }
-                ],
-                otherwin: [{
-                        "author": 'james'
-                    },
-                    {
-                        "author": 'jack',
-                    },
-                    {
-                        "author": 'sam',
-                    },
-                    {
-                        "author": 'james'
-                    },
-                    {
-                        "author": 'jack',
-                    },
-                    {
-                        "author": 'sam',
-                    }
-                ],
                 rules: {
                     commentbody: [{
                         required: true,
@@ -118,34 +139,30 @@
         },
         methods: {
             loadContent() {
-                this.author = this.$route.params.author
-                this.permlink = this.$route.params.permlink
-                this.loadPost(this.author, this.permlink)
+                this.post.author = this.$route.params.author
+                this.post.permlink = this.$route.params.permlink
+                this.loadPost(this.post.author, this.post.permlink)
                     .then(discussions => {
-                        this.body = discussions[0].body
-                        this.title = discussions[0].title
+                        this.post.data = discussions[0]
                     })
             },
             getAuthorDetails(author) {
                 this.getAccount(author)
                     .then(authorDetails => {
     
-                        console.log(authorDetails);
-    
                         let userImage = ''
                         let userJson = JSON.parse(authorDetails[0].json_metadata)
     
-                        console.log(userJson);
                         if ('profile_image' in userJson.profile) {
-                            this.authorImage = userJson.profile.profile_image
+                            this.post.authorImage = userJson.profile.profile_image
                         } else {
-                            this.authorImage = "https://hlfppt.org/wp-content/uploads/2017/04/placeholder-768x576.png"
+                            this.post.authorImage = "https://hlfppt.org/wp-content/uploads/2017/04/placeholder-768x576.png"
                         }
     
                         if ('about' in userJson.profile) {
-                            this.authorBio = userJson.profile.about
+                            this.post.authorBio = userJson.profile.about
                         } else {
-                            this.authorBio = "This user has not added a bio"
+                            this.post.authorBio = "This user has not added a bio"
                         }
     
                     })
@@ -157,31 +174,28 @@
                         comments.forEach(comment => {
                             this.getAccount(comment.author)
                                 .then(commentAuthorDetails => {
-    
                                     if ('json_metadata' in commentAuthorDetails[0]) {
-    
                                         let commentJSON = commentAuthorDetails[0].json_metadata
-    
                                         commentJSON = JSON.parse(commentJSON)
                                         let combinedAuthorComment = Object.assign(commentJSON, comment)
                                         postComments.push(combinedAuthorComment)
                                     }
                                 }).catch(err => {
-                                    console.log(this.author);
+                                    console.log(comment.author);
                                 })
                         })
                     })
-                this.comments = postComments
+                this.post.comments = postComments
             }
         },
         mounted() {
             this.loadContent()
-            this.getAuthorDetails(this.author)
-            this.getComments(this.author, this.permlink)
+            this.getAuthorDetails(this.post.author)
+            this.getComments(this.post.author, this.post.permlink)
         },
         computed: {
             postLink: function() {
-                let postLink = `#/enter-contest/${this.author}/${this.permlink}`
+                let postLink = `#/enter-contest/${this.post.author}/${this.post.permlink}`
                 return postLink
             }
         }

@@ -1,11 +1,11 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="24">
-      <filterpanel @messageSent='onMessageSent' />
+      <filterpanel @messageSent='onMessageSent' @click.native="$store.commit('setLoading', true)" />
     </el-col>
     <el-col :span="24">
       <div class="card-container">
-        <postcard v-on:change="this.isActive === true" v-for="(messages, index) in messages" :key="index" :post="messages" />
+        <postcard v-for="(messages, index) in messages" :key="index" :post="messages" />
       </div>
     </el-col>
   </el-row>
@@ -30,16 +30,24 @@ export default {
     }
   },
   mounted () {
+     this.$store.commit('setLoading', true)
     this.getContests('utopian-io', 100).then(discussions => {
       this.messages = discussions
+     
     })
   },
   methods: {
     onMessageSent: function (message) {
       this.messages = message.message
     }
-  }
+  },
+    watch: {
+      messages() {
+        this.$store.commit('setLoading', false)
+      }
 }
+}
+
 </script>
 
 <style scoped src='@/pages/feed/feed.css'></style>
