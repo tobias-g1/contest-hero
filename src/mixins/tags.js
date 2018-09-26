@@ -2,8 +2,8 @@ var tags = {
 
   methods: {
 
-    handleClose (tag) {
-      this.ruleForm.dynamicTags.splice(this.ruleForm.dynamicTags.indexOf(tag), 1)
+    handleClose (tag, form) {
+      form.dynamicTags.splice(form.dynamicTags.indexOf(tag), 1)
     },
 
     showInput () {
@@ -13,10 +13,10 @@ var tags = {
       })
     },
 
-    handleInputConfirm () {
+    handleInputConfirm (form) {
       let inputValue = this.inputValue
       if (inputValue) {
-        this.ruleForm.dynamicTags.push(inputValue)
+        form.dynamicTags.push(inputValue)
       }
       this.inputVisible = false
       this.inputValue = ''
