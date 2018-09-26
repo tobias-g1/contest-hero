@@ -1,10 +1,10 @@
 
 <template>
-    <el-row :gutter="20">
+    <el-row :gutter="20" >
         <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> Create a contest </h1>
-        <el-form :model="contestForm" :label-position="labelPosition" :rules="rules" ref="contestForm" class="demo-ruleForm">
+        <el-form :model="contestForm" :label-position="labelPosition" :rules="rules" ref="contestForm">
             <el-col :span="24">
-                <el-form-item label="Contest Title" prop="title">
+                <el-form-item  label="Contest Title" prop="title">
                     <el-input v-model="contestForm.title" placeholder="Enter a title"></el-input>
                 </el-form-item>
             </el-col>
@@ -18,8 +18,11 @@
             <el-col :span="12">
                 <el-form-item label="Contest Type" prop="type">
                     <el-select v-model="contestForm.type" placeholder="Select Type">
-                        <el-option label="Writing" value="Writing"></el-option>
-                        <el-option label="Design" value="Design"></el-option>
+                        <el-option label="Writing" default value="contest-hero-writing"></el-option>
+                        <el-option label="Design" value="contest-hero-design"></el-option>
+                        <el-option label="Photo" value="contest-hero-photo"></el-option>
+                        <el-option label="Giveaway" value="contest-hero-giveaway"></el-option>
+                        <el-option label="Other" value="contest-hero-other"></el-option>
                     </el-select>
                 </el-form-item>
             </el-col>
@@ -31,20 +34,19 @@
             <el-col :span="12">
                 <el-form-item label="Tags">
                     <div class="tags-container">
-                        <el-tag>Contest-Hero</el-tag>
-                        <el-tag>Contest-Hero-Writing</el-tag>
-                        <el-tag :key="tag" v-for="tag in contestForm.dynamicTags" closable :disable-transitions="false" @close="handleClose(tag, contestForm)">
-                            {{tag}}
-                        </el-tag>
-                        <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm(contestForm)" @blur="handleInputConfirm">
-                        </el-input>
-                        <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+                        <el-tag :key="tags" v-for="tags in fixedTags" v-show="tags">  {{ tags }} </el-tag>
+                            <el-tag :key="tag" v-for="tag in contestForm.dynamicTags" closable :disable-transitions="false" @close="handleClose(tag, contestForm)">
+                                {{tag}}
+                            </el-tag>
+                            <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm(contestForm)" @blur="handleInputConfirm">
+                            </el-input>
+                            <el-button v-else class="button-new-tag" size="small" @click="showInput" v-show="(finalTags.length < 5)">+ New Tag</el-button>
                     </div>
                 </el-form-item>
             </el-col>
             <el-col :span="24">
                 <el-form-item>
-                    <button @click="submitForm('contestForm')" class="btn-fill">Create Contest</button>
+                    <button @click="submitForm('contestForm')" :disabled="!contestForm.title || !contestForm.type || !contestForm.deadline || !contestForm.body" class="btn-fill">Create Contest</button>
                     <el-button @click="resetForm('contestForm')">Reset</el-button>
                 </el-form-item>
             </el-col>
@@ -67,7 +69,6 @@
                     title: '',
                     type: '',
                     deadline: '',
-                    resource: '',
                     body: '',
                     dynamicTags: []
                 },
@@ -106,10 +107,18 @@
             markdownEditor
         },
         mixins: [form, tags],
-        methods: {
-            createContest: function() {
-
+        computed: {
+            fixedTags: function() {
+                let fixedTags = ['contest-hero']
+                fixedTags.push(this.contestForm.type)
+                return fixedTags
+            },
+            finalTags: function() {
+                return this.fixedTags.concat(this.contestForm.dynamicTags)
             }
+        },
+        methods: {
+    
         }
     }
 </script>
