@@ -14,7 +14,7 @@ var tags = {
     },
 
     handleInputConfirm (form) {
-      let inputValue = this.inputValue
+      let inputValue = this.inputValue.replace(/\s/g, '')
       if (inputValue) {
         form.dynamicTags.push(inputValue)
       }
