@@ -29,7 +29,7 @@
             </el-col>
             <el-col :span="24">
                 <el-form-item>
-                    <button @click="submitForm('entry')" class="btn-fill">Enter Contest</button>
+                    <button @click="alert('hello')"  class="btn-fill">Enter Contest</button>
                     <el-button @click="resetForm('entry')">Reset</el-button>
                 </el-form-item>
             </el-col>

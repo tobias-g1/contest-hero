@@ -6,6 +6,7 @@
 }
  .el-tag {
     margin-right: 10px;
+    margin-bottom: 10px;
     background-color: #fb1a862e !important;
     color: #fb1a86 !important;
     border: 1px solid #fb1a86 !important;
@@ -27,6 +28,7 @@
 }
  .tags-container {
     display: inline-flex;
+    flex-wrap: wrap;
 }
  .button-new-tag {
     margin-left: 10px;
