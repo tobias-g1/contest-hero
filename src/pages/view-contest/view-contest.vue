@@ -39,7 +39,7 @@
             <!-- Contest Deadline -->
     
             <h3 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> This contest closes in:</h3>
-            <Countdown :deadline="contestDeadline"></Countdown>
+            <Countdown :deadline="contest.deadline"></Countdown>
     
             <!-- About Author -->
     
@@ -90,9 +90,41 @@
                     comments: null
                 },
                 contest: {
-                    entries: [],
-                    winners: [],
-                    otherwin: [],
+                    entries: null,
+                    deadline: 'August 22, 2022',
+                    winners: [{
+                            'author': 'tobias-g',
+                            'place': '1'
+                        },
+                        {
+                            'author': 'dave',
+                            'place': '2'
+                        },
+                        {
+                            'author': 'john',
+                            'place': '3'
+                        }
+                    ],
+                    otherwin: [{
+                            "author": 'james'
+                        },
+                        {
+                            "author": 'jack',
+                        },
+                        {
+                            "author": 'sam',
+                        },
+                        {
+                            "author": 'james'
+                        },
+                        {
+                            "author": 'jack',
+                        },
+                        {
+                            "author": 'sam',
+                        }
+                    ]
+                },
                 ruleForm: {
                     commentBody: ''
                 },
@@ -103,7 +135,8 @@
                         trigger: 'blur'
                     }]
                 }
-            },
+            }
+        },
         methods: {
             loadContent() {
                 this.post.author = this.$route.params.author
@@ -201,12 +234,6 @@
             postLink: function() {
                 let postLink = `#/enter-contest/${this.post.author}/${this.post.permlink}`
                 return postLink
-            },
-            postJson: function() {
-                return JSON.parse(this.post.data.json_metadata)
-            },
-            contestDeadline: function() {
-                return this.postJson.contesthero.deadline
             }
         }
     }
