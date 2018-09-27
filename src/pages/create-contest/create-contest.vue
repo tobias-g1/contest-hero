@@ -18,7 +18,7 @@
             <el-col :span="12">
                 <el-form-item label="Contest Type" prop="type">
                     <el-select v-model="contestForm.type" placeholder="Select Type">
-                        <el-option label="Writing" default value="contest-hero-writing"></el-option>
+                        <el-option label="Writing" default value="434343"></el-option>
                         <el-option label="Design" value="contest-hero-design"></el-option>
                         <el-option label="Photo" value="contest-hero-photo"></el-option>
                         <el-option label="Giveaway" value="contest-hero-giveaway"></el-option>
@@ -111,7 +111,7 @@
         mixins: [form, tags],
         computed: {
             fixedTags: function() {
-                let fixedTags = ['ch-test1aaaaa']
+                let fixedTags = ['test434343']
                 fixedTags.push(this.contestForm.type)
                 return fixedTags
             },
