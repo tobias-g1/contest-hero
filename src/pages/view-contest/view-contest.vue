@@ -39,7 +39,7 @@
             <!-- Contest Deadline -->
     
             <h3 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> This contest closes in:</h3>
-            <Countdown :deadline="contest.deadline"></Countdown>
+            <Countdown :deadline="contestDeadline"></Countdown>
     
             <!-- About Author -->
     
@@ -91,7 +91,6 @@
                 },
                 contest: {
                     entries: null,
-                    deadline: 'August 22, 2022',
                     winners: [{
                             'author': 'tobias-g',
                             'place': '1'
@@ -234,6 +233,12 @@
             postLink: function() {
                 let postLink = `#/enter-contest/${this.post.author}/${this.post.permlink}`
                 return postLink
+            },
+              postJson: function() {
+                return JSON.parse(this.post.data.json_metadata)
+            },
+            contestDeadline: function() {
+                return this.postJson.contesthero.deadline
             }
         }
     }
