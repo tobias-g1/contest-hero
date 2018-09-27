@@ -49,7 +49,7 @@
             <!-- Contest Entries -->
     
             <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
-            <!--  <entry v-for="(comments, index) in post.comments" :key="index" :comment="comments" /> -->
+           <!--  <entry v-for="(comments, index) in post.comments" :key="index" :comment="comments" /> -->
         </el-col>
     </el-row>
 </template>
@@ -93,122 +93,120 @@
                     entries: [],
                     winners: [],
                     otherwin: [],
-                    ruleForm: {
-                        commentBody: ''
-                    },
-                    rules: {
-                        commentbody: [{
-                            required: true,
-                            message: 'Please enter a comment',
-                            trigger: 'blur'
-                        }]
-                    }
+                ruleForm: {
+                    commentBody: ''
                 },
-                methods: {
-                    loadContent() {
-                        this.post.author = this.$route.params.author
-                        this.post.permlink = this.$route.params.permlink
-                        this.loadPost(this.post.author, this.post.permlink)
-                            .then(discussions => {
-                                this.post.data = discussions[0]
-                            })
-                    },
-                    getAuthorDetails(author) {
-                        this.getAccount(author)
-                            .then(authorDetails => {
+                rules: {
+                    commentbody: [{
+                        required: true,
+                        message: 'Please enter a comment',
+                        trigger: 'blur'
+                    }]
+                }
+            },
+        methods: {
+            loadContent() {
+                this.post.author = this.$route.params.author
+                this.post.permlink = this.$route.params.permlink
+                this.loadPost(this.post.author, this.post.permlink)
+                    .then(discussions => {
+                        this.post.data = discussions[0]
+                    })
+            },
+            getAuthorDetails(author) {
+                this.getAccount(author)
+                    .then(authorDetails => {
     
-                                let userImage = ''
-                                let userJson = JSON.parse(authorDetails[0].json_metadata)
+                        let userImage = ''
+                        let userJson = JSON.parse(authorDetails[0].json_metadata)
     
-                                if ('profile_image' in userJson.profile) {
-                                    this.post.authorImage = userJson.profile.profile_image
-                                } else {
-                                    this.post.authorImage = "https://hlfppt.org/wp-content/uploads/2017/04/placeholder-768x576.png"
-                                }
-    
-                                if ('about' in userJson.profile) {
-                                    this.post.authorBio = userJson.profile.about
-                                } else {
-                                    this.post.authorBio = "This user has not added a bio"
-                                }
-    
-                            })
-                    },
-                    getComments(author, permlink) {
-                        let postComments = []
-                        this.getPostComments(author, permlink)
-                            .then(comments => {
-                                comments.forEach(comment => {
-                                    this.getAccount(comment.author)
-                                        .then(commentAuthorDetails => {
-                                            if ('json_metadata' in commentAuthorDetails[0]) {
-                                                let commentJSON = commentAuthorDetails[0].json_metadata
-                                                commentJSON = JSON.parse(commentJSON)
-                                                let combinedAuthorComment = Object.assign(commentJSON, comment)
-                                                postComments.push(combinedAuthorComment)
-                                            }
-                                        }).catch(err => {
-                                            console.log(comment.author);
-                                        })
-                                })
-                            })
-                        this.post.comments = postComments
-                    },
-                    submitForm(formName) {
-                        this.$refs[formName].validate((valid) => {
-                            if (valid) {
-                                this.submitComment()
-                            } else {
-                                console.log('error submit!!')
-                                return false
-                            }
-                        })
-                    },
-                    submitComment() {
-    
-                        // Parent author and parentPermLink not required for submitted a post to the blockchain
-    
-                        // Create JSON Metadata
-    
-                        let jsonMetaData = {
-                            'app': 'contest-hero',
-                            'contest-hero': {
-                                'type': 'contest-comment'
-                            }
+                        if ('profile_image' in userJson.profile) {
+                            this.post.authorImage = userJson.profile.profile_image
+                        } else {
+                            this.post.authorImage = "https://hlfppt.org/wp-content/uploads/2017/04/placeholder-768x576.png"
                         }
     
-                        // Send post via SteemConnect
+                        if ('about' in userJson.profile) {
+                            this.post.authorBio = userJson.profile.about
+                        } else {
+                            this.post.authorBio = "This user has not added a bio"
+                        }
     
-                        this.$steemconnect.comment(
-                            this.post.author,
-                            this.post.permlink,
-                            this.$store.state.steemconnect.user.name,
-                            this.post.permlink + 'test1',
-                            '',
-                            this.ruleForm.commentbody,
-                            jsonMetaData,
-                            (err) => {
-                                alert(err)
-                            })
+                    })
+            },
+            getComments(author, permlink) {
+                let postComments = []
+                this.getPostComments(author, permlink)
+                    .then(comments => {
+                        comments.forEach(comment => {
+                            this.getAccount(comment.author)
+                                .then(commentAuthorDetails => {
+                                    if ('json_metadata' in commentAuthorDetails[0]) {
+                                        let commentJSON = commentAuthorDetails[0].json_metadata
+                                        commentJSON = JSON.parse(commentJSON)
+                                        let combinedAuthorComment = Object.assign(commentJSON, comment)
+                                        postComments.push(combinedAuthorComment)
+                                    }
+                                }).catch(err => {
+                                    console.log(comment.author);
+                                })
+                        })
+                    })
+                this.post.comments = postComments
+            },
+             submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.submitComment()
+                    } else {
+                        console.log('error submit!!')
+                        return false
                     }
-                },
-                mounted() {
-                    this.loadContent()
-                    this.getAuthorDetails(this.post.author)
-                    this.getComments(this.post.author, this.post.permlink)
-                },
-                computed: {
-                    postLink: function() {
-                        let postLink = `#/enter-contest/${this.post.author}/${this.post.permlink}`
-                        return postLink
-                    },
-                    postJson: function() {
-                        return JSON.parse(this.post.data.json_metadata)
-                    },
-                    contestDeadline: function() {
-                        return this.postJson.contesthero.deadline
+                })
+            },
+            submitComment() {
+
+                // Parent author and parentPermLink not required for submitted a post to the blockchain
+    
+                // Create JSON Metadata
+    
+                let jsonMetaData = {
+                    'app': 'contest-hero',
+                    'contest-hero': {
+                        'type': 'contest-comment'
                     }
                 }
+
+                // Send post via SteemConnect
+    
+                this.$steemconnect.comment(
+                    this.post.author,
+                    this.post.permlink,
+                    this.$store.state.steemconnect.user.name,
+                    this.post.permlink + 'test1',
+                    '',
+                    this.ruleForm.commentbody,
+                    jsonMetaData,
+                    (err) => {
+                        alert(err)
+                    })
+            }
+        },
+        mounted() {
+            this.loadContent()
+            this.getAuthorDetails(this.post.author)
+            this.getComments(this.post.author, this.post.permlink)
+        },
+        computed: {
+            postLink: function() {
+                let postLink = `#/enter-contest/${this.post.author}/${this.post.permlink}`
+                return postLink
+            },
+            postJson: function() {
+                return JSON.parse(this.post.data.json_metadata)
+            },
+            contestDeadline: function() {
+                return this.postJson.contesthero.deadline
             }
         }
     }
