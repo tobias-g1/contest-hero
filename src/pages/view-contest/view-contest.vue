@@ -28,11 +28,11 @@
                     <markdownEditor v-model="ruleForm.commentbody" />
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="submitForm('ruleForm')">Create</el-button>
+                    <el-button type="primary" @click="submitForm('ruleForm')">Submit Comment</el-button>
                     <el-button @click="resetForm('ruleForm')">Reset</el-button>
                 </el-form-item>
             </el-form>
-            <!-- <comment v-for="(comments, index) in comments" :key="index" :comment="comments" /> -->
+            <comment v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
         </el-col>
         <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
     
@@ -49,7 +49,7 @@
             <!-- Contest Entries -->
     
             <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
-            <entry v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
+           <!--  <entry v-for="(comments, index) in post.comments" :key="index" :comment="comments" /> -->
         </el-col>
     </el-row>
 </template>
@@ -126,7 +126,7 @@
                     ]
                 },
                 ruleForm: {
-                    commentbody: ''
+                    commentBody: ''
                 },
                 rules: {
                     commentbody: [{
@@ -186,6 +186,43 @@
                         })
                     })
                 this.post.comments = postComments
+            },
+             submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.submitComment()
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                })
+            },
+            submitComment() {
+
+                // Parent author and parentPermLink not required for submitted a post to the blockchain
+    
+                // Create JSON Metadata
+    
+                let jsonMetaData = {
+                    'app': 'contest-hero',
+                    'contest-hero': {
+                        'type': 'contest-comment'
+                    }
+                }
+
+                // Send post via SteemConnect
+    
+                this.$steemconnect.comment(
+                    this.post.author,
+                    this.post.permlink,
+                    this.$store.state.steemconnect.user.name,
+                    this.post.permlink + 'test1',
+                    '',
+                    this.ruleForm.commentbody,
+                    jsonMetaData,
+                    (err) => {
+                        alert(err)
+                    })
             }
         },
         mounted() {
