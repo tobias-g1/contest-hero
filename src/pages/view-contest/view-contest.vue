@@ -9,14 +9,14 @@
             <a v-bind:href="postLink"><button class="btn-fill enter-contest">Enter Contest</button></a>
     
             <!-- Winners -->
-            
+    
             <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Winners</h1>
             <winners v-for="(winner, index) in contest.winners" :key="index" :winners="winner" />
     
             <!-- Other Winners -->
     
             <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Other Winners</h1>
-            <div>
+            <div class="other-winners-container">
                 <otherwinners v-for="(otherwin, index) in contest.otherwin" :key="index" :otherWinners="otherwin" />
             </div>
     
@@ -220,5 +220,12 @@
         margin-top: 20px;
         width: 100%;
         box-shadow: 0 0 10px 2px #f1f1f1;
+    }
+    
+    .other-winners-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
     }
 </style>
