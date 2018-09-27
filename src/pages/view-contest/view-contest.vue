@@ -9,15 +9,17 @@
             <a v-bind:href="postLink"><button class="btn-fill enter-contest">Enter Contest</button></a>
     
             <!-- Winners -->
-    
+            <div class="winners-container" v-show="contest.winners">
             <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Winners</h1>
             <winners v-for="(winner, index) in contest.winners" :key="index" :winners="winner" />
-    
+            </div>
+
             <!-- Other Winners -->
-    
+            <div class="other-winners-container" v-show="contest.otherwinners">
             <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Other Winners</h1>
-            <div class="other-winners-container">
+            <div class="other-winners-list-container">
                 <otherwinners v-for="(otherwin, index) in contest.otherwin" :key="index" :otherWinners="otherwin" />
+            </div>
             </div>
     
             <!-- Comments -->
@@ -91,38 +93,8 @@
                 },
                 contest: {
                     entries: null,
-                    winners: [{
-                            'author': 'tobias-g',
-                            'place': '1'
-                        },
-                        {
-                            'author': 'dave',
-                            'place': '2'
-                        },
-                        {
-                            'author': 'john',
-                            'place': '3'
-                        }
-                    ],
-                    otherwin: [{
-                            "author": 'james'
-                        },
-                        {
-                            "author": 'jack',
-                        },
-                        {
-                            "author": 'sam',
-                        },
-                        {
-                            "author": 'james'
-                        },
-                        {
-                            "author": 'jack',
-                        },
-                        {
-                            "author": 'sam',
-                        }
-                    ]
+                    winners: null,
+                    otherwin: null
                 },
                 ruleForm: {
                     commentBody: ''
