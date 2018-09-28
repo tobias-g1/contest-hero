@@ -118,7 +118,7 @@
     
                         // Redirect if the contest wasn't made on Contest Hero
     
-                        if (this.postJson.app !== 'contesthero') {
+                        if (this.postJson.app !== 'contest_hero') {
                            this.$router.push('/contests')
                         }
                     })
@@ -183,7 +183,7 @@
                 let jsonMetaData = {
                     'app': 'contest-hero',
                     'contest-hero': {
-                        'type': 'contest-comment'
+                        'type': 'contest_comment'
                     }
                 }
     
@@ -216,7 +216,7 @@
                 return JSON.parse(this.post.data.json_metadata)
             },
             contestDeadline: function() {
-                return this.postJson.contesthero.deadline
+                return this.postJson.contest_hero.deadline
             }
         }
     }

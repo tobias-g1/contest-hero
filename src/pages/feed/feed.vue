@@ -31,7 +31,7 @@ export default {
   },
   mounted () {
      this.$store.commit('setLoading', true)
-    this.getContests('utopian-io', 100).then(discussions => {
+    this.getContests('test434343', 100).then(discussions => {
       this.messages = discussions
      
     })
