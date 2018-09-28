@@ -2,7 +2,12 @@
     background: white;
     border-radius: 5px;
     padding: 20px 40px;
+    -webkit-box-shadow: 0 0 10px 2px #f1f1f1;
     box-shadow: 0 0 10px 2px #f1f1f1;
+    font-size: 15px;
+    font-family: sans-serif;
+    font-weight: lighter;
+    line-height: 25px;
 }
 
 .post-container img {
