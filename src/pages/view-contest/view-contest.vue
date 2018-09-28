@@ -194,6 +194,7 @@
                     jsonMetaData).then(err => {
                     this.$store.commit('setLoading', false)
                     this.getComments(this.post.author, this.post.permlink)
+                    this.ruleForm.commentbody = ''
                     })  
             }
         },
