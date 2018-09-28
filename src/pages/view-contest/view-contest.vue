@@ -3,7 +3,6 @@
         <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="16">
     
             <!-- Post Container -->
-    
             <h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
             <post :postbody="post.data.body"></post>
             <a v-bind:href="postLink"><button class="btn-fill enter-contest">Enter Contest</button></a>
@@ -23,7 +22,6 @@
             </div>
     
             <!-- Comments -->
-    
             <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Comments</h1>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
                 <el-form-item prop="commentbody">
@@ -39,7 +37,6 @@
         <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
     
             <!-- Contest Deadline -->
-    
             <h3 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> This contest closes in:</h3>
             <Countdown :deadline="contestDeadline"></Countdown>
     
@@ -49,7 +46,6 @@
             <aboutauthor :authorBio="post.authorBio" :authorImage="post.authorImage" :authorName="post.author"></aboutauthor>
     
             <!-- Contest Entries -->
-    
             <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
             <!--  <entry v-for="(comments, index) in post.comments" :key="index" :comment="comments" /> -->
         </el-col>
@@ -117,7 +113,6 @@
                         this.post.data = discussions[0]
     
                         // Redirect if the contest wasn't made on Contest Hero
-    
                         if (this.postJson.app !== 'contest_hero') {
                             this.$router.push('/contests')
                         }
@@ -126,7 +121,7 @@
             getAuthorDetails(author) {
                 this.getAccount(author)
                     .then(authorDetails => {
-    
+
                         let userImage = ''
                         let userJson = JSON.parse(authorDetails[0].json_metadata)
     
@@ -178,8 +173,6 @@
     
                 this.$store.commit('setLoading', true)
     
-                // Parent author and parentPermLink not required for submitted a post to the blockchain
-    
                 // Create JSON Metadata
     
                 let jsonMetaData = {
@@ -189,7 +182,7 @@
                     }
                 }
     
-                // Send post via SteemConnect
+                // Send comment via SteemConnect
     
                 this.$steemconnect.comment(
                     this.post.author,
@@ -224,30 +217,9 @@
     }
 </script>
 
+<style src="@/pages/view-contest/view-contest.css">  
+</style>
+
 <style>
     @import '~simplemde/dist/simplemde.min.css';
-    .post-container {
-        background: white;
-        border-radius: 5px;
-        padding: 20px 40px;
-        box-shadow: 0 0 10px 2px #f1f1f1;
-    }
-    
-    .post-container img {
-        max-width: 100%;
-        height: auto;
-    }
-    
-    .enter-contest {
-        margin-top: 20px;
-        width: 100%;
-        box-shadow: 0 0 10px 2px #f1f1f1;
-    }
-    
-    .other-winners-container {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
 </style>

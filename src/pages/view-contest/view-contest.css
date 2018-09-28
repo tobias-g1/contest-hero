@@ -1,0 +1,24 @@
+.post-container {
+    background: white;
+    border-radius: 5px;
+    padding: 20px 40px;
+    box-shadow: 0 0 10px 2px #f1f1f1;
+}
+
+.post-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.enter-contest {
+    margin-top: 20px;
+    width: 100%;
+    box-shadow: 0 0 10px 2px #f1f1f1;
+}
+
+.other-winners-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
