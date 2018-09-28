@@ -10,16 +10,16 @@
     
             <!-- Winners -->
             <div class="winners-container" v-show="contest.winners">
-            <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Winners</h1>
-            <winners v-for="(winner, index) in contest.winners" :key="index" :winners="winner" />
+                <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Winners</h1>
+                <winners v-for="(winner, index) in contest.winners" :key="index" :winners="winner" />
             </div>
-
+    
             <!-- Other Winners -->
             <div class="other-winners-container" v-show="contest.otherwinners">
-            <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Other Winners</h1>
-            <div class="other-winners-list-container">
-                <otherwinners v-for="(otherwin, index) in contest.otherwin" :key="index" :otherWinners="otherwin" />
-            </div>
+                <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Other Winners</h1>
+                <div class="other-winners-list-container">
+                    <otherwinners v-for="(otherwin, index) in contest.otherwin" :key="index" :otherWinners="otherwin" />
+                </div>
             </div>
     
             <!-- Comments -->
@@ -51,7 +51,7 @@
             <!-- Contest Entries -->
     
             <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
-           <!--  <entry v-for="(comments, index) in post.comments" :key="index" :comment="comments" /> -->
+            <!--  <entry v-for="(comments, index) in post.comments" :key="index" :comment="comments" /> -->
         </el-col>
     </el-row>
 </template>
@@ -115,6 +115,12 @@
                 this.loadPost(this.post.author, this.post.permlink)
                     .then(discussions => {
                         this.post.data = discussions[0]
+    
+                        // Redirect if the contest wasn't made on Contest Hero
+    
+                        if (this.postJson.app !== 'contesthero') {
+                           this.$router.push('/contests')
+                        }
                     })
             },
             getAuthorDetails(author) {
@@ -158,7 +164,7 @@
                     })
                 this.post.comments = postComments
             },
-             submitForm(formName) {
+            submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         this.submitComment()
@@ -169,7 +175,7 @@
                 })
             },
             submitComment() {
-
+    
                 // Parent author and parentPermLink not required for submitted a post to the blockchain
     
                 // Create JSON Metadata
@@ -180,7 +186,7 @@
                         'type': 'contest-comment'
                     }
                 }
-
+    
                 // Send post via SteemConnect
     
                 this.$steemconnect.comment(
@@ -206,7 +212,7 @@
                 let postLink = `#/enter-contest/${this.post.author}/${this.post.permlink}`
                 return postLink
             },
-              postJson: function() {
+            postJson: function() {
                 return JSON.parse(this.post.data.json_metadata)
             },
             contestDeadline: function() {
