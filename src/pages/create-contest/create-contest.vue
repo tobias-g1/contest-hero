@@ -118,6 +118,9 @@
             finalTags: function() {
                 return this.fixedTags.concat(this.contestForm.dynamicTags)
             },
+             contestPermlink: function() {
+                return 'contest-hero-' + this.contestForm.title.toLowerCase().replace(/\s/g, '-') + '-' + Math.floor(Math.random() * 9000000000) + 1000000000
+            },
             ...mapGetters('steemconnect', ['user']),
         },
         methods: {
@@ -155,7 +158,7 @@
                     parentAuthor,
                     parentPermlink,
                     this.$store.state.steemconnect.user.name,
-                    'contest-hero-' + this.contestForm.title.replace(/\s/g, '-'),
+                    this.contestPermlink,
                     this.contestForm.title,
                     this.contestForm.body,
                     jsonMetaData,
