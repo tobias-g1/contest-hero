@@ -161,7 +161,7 @@
                 this.$store.state.steemconnect.user.name,
                 this.contestPermlink + '-' + Math.floor(Math.random() * 9000000000) + 1000000000,
                 '',
-                this.entryForm.body,
+                `I have just entered this contest, you can view my entry <a href="/#/${this.entryPermlink}">here</a>`,
                 jsonMetaData,
                 (err) => {
                     alert(err)
