@@ -92,12 +92,18 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.createEntryPost();
+                        this.createContest()
                     } else {
                         console.log('error submit!!')
                         return false
                     }
                 })
+            },
+            createContest() {
+                this.createEntryPost()
+                setTimeout(function(){
+                this.createEntryComment()
+                 }, 3000);
             },
             createEntryPost() {
     
