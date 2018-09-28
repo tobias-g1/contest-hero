@@ -76,6 +76,9 @@
         },
         mixins: [form, tags],
         computed: {
+            entryPermlink: function() {
+                return 'contest-hero-' + this.entryForm.title.toLowerCase().replace(/\s/g, '-') + '-' + Math.floor(Math.random() * 9000000000) + 1000000000
+            },
             fixedTags: function() {
                 return ['456545654']
             },
@@ -101,9 +104,9 @@
             },
             createContest() {
                 this.createEntryPost()
-                setTimeout(function(){
-                this.createEntryComment()
-                 }, 3000);
+                setTimeout(function() {
+                    this.createEntryComment()
+                }, 3000);
             },
             createEntryPost() {
     
@@ -129,7 +132,7 @@
                     parentAuthor,
                     parentPermlink,
                     this.$store.state.steemconnect.user.name,
-                    'contest-hero-' + this.entryForm.title.replace(/\s/g, '-'),
+                    this.entryPermlink,
                     this.entryForm.title,
                     this.entryForm.body,
                     jsonMetaData,
@@ -156,7 +159,7 @@
                 this.contestAuthor,
                 this.contestPermlink,
                 this.$store.state.steemconnect.user.name,
-                this.contestPermlink + Math.floor(Math.random() * 9000000000) + 1000000000,
+                this.contestPermlink + '-' + Math.floor(Math.random() * 9000000000) + 1000000000,
                 '',
                 this.entryForm.body,
                 jsonMetaData,
