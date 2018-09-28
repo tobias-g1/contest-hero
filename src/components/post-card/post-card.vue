@@ -49,14 +49,11 @@ export default {
       // Check if a post image can be found in the JSON metadata of post and if doesn't exist set a default
 
       if ('image' in postImage) {
-        postImage = postImage.image[0]
-      } else {
-        postImage = 'https://hlfppt.org/wp-content/uploads/2017/04/placeholder-768x576.png'
-      }
+        (postImage.image[0] != undefined) ? postImage = postImage.image[0] : postImage = require('@/assets/post-placeholder.png')
+      } 
 
-      let imageBackground = `background-image: url(${postImage});`
+    return  `background-image: url(${postImage});`
 
-      return imageBackground
     },
     postLink: function () {
       let postLink = `#/view-contest/${this.post.author}/${this.post.permlink}`
@@ -71,8 +68,8 @@ export default {
       return contestType
     },
       ...mapGetters('steemconnect', ['user']),
+  },
   }
-}
 </script>
 
 <style scoped src='@/components/post-card/post-card.css'></style>
