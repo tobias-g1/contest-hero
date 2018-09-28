@@ -17,7 +17,6 @@
                 <el-form-item label="Tags">
                     <div class="tags-container">
                         <el-tag>Contest-Hero</el-tag>
-                        <el-tag>Contest-Hero-Writing</el-tag>
                         <el-tag :key="tag" v-for="tag in entryForm.dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)">
                             {{tag}}
                         </el-tag>
@@ -41,7 +40,7 @@
     import markdownEditor from 'vue-simplemde/src/markdown-editor'
     import form from '@/mixins/form-actions.js'
     import tags from '@/mixins/tags.js'
-      import {
+    import {
         mapGetters
     } from 'vuex'
     
@@ -78,7 +77,7 @@
         mixins: [form, tags],
         computed: {
             fixedTags: function() {
-                return ['contest-hero']
+                return ['456545654']
             },
             finalTags: function() {
                 return this.fixedTags.concat(this.entryForm.dynamicTags)
@@ -90,16 +89,75 @@
                 this.contestAuthor = this.$route.params.author
                 this.contestPermlink = this.$route.params.permlink
             },
-             submitForm(formName) {
+            submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.createContest()
+                        this.createEntryPost();
                     } else {
                         console.log('error submit!!')
                         return false
                     }
                 })
+            },
+            createEntryPost() {
+    
+                // Parent author and parentPermLink not required for submitted a post to the blockchain
+    
+                let parentAuthor = ''
+                let parentPermlink = this.finalTags[0]
+    
+                // Create JSON Metadata
+    
+                let jsonMetaData = {
+                    'tags': this.finalTags,
+                    'app': 'contest_hero',
+                    'contest_hero': {
+                        'type': 'contest_entry',
+                        'parent_contest_permlink': this.contestPermlink
+                    }
+                }
+    
+                // Send post via SteemConnect
+    
+                this.$steemconnect.comment(
+                    parentAuthor,
+                    parentPermlink,
+                    this.$store.state.steemconnect.user.name,
+                    'contest-hero-' + this.entryForm.title.replace(/\s/g, '-'),
+                    this.entryForm.title,
+                    this.entryForm.body,
+                    jsonMetaData,
+                    (err) => {
+                        alert(err)
+                    })
             }
+        },
+        createEntryComment() {
+    
+            // Create JSON Metadata
+    
+            let jsonMetaData = {
+                'tags': this.finalTags,
+                'app': 'contest_hero',
+                'contest_hero': {
+                    'type': 'contest_entry_comment'
+                }
+            }
+    
+            // Send post via SteemConnect
+    
+            this.$steemconnect.comment(
+                this.contestAuthor,
+                this.contestPermlink,
+                this.$store.state.steemconnect.user.name,
+                this.contestPermlink + Math.floor(Math.random() * 9000000000) + 1000000000,
+                '',
+                this.entryForm.body,
+                jsonMetaData,
+                (err) => {
+                    alert(err)
+                })
+    
         },
         mounted() {
             this.setDetails()
