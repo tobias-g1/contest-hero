@@ -119,7 +119,7 @@
                         // Redirect if the contest wasn't made on Contest Hero
     
                         if (this.postJson.app !== 'contest_hero') {
-                           this.$router.push('/contests')
+                            this.$router.push('/contests')
                         }
                     })
             },
@@ -176,6 +176,8 @@
             },
             submitComment() {
     
+                this.$store.commit('setLoading', true)
+    
                 // Parent author and parentPermLink not required for submitted a post to the blockchain
     
                 // Create JSON Metadata
@@ -193,13 +195,13 @@
                     this.post.author,
                     this.post.permlink,
                     this.$store.state.steemconnect.user.name,
-                    this.post.permlink + 'test1',
+                    this.post.permlink + Math.floor(Math.random() * 9000000000) + 1000000000,
                     '',
                     this.ruleForm.commentbody,
-                    jsonMetaData,
-                    (err) => {
-                        alert(err)
-                    })
+                    jsonMetaData).then(err => {
+                    this.$store.commit('setLoading', false)
+                    this.getComments(this.post.author, this.post.permlink)
+                    })  
             }
         },
         mounted() {
