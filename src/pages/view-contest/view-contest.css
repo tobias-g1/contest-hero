@@ -27,3 +27,8 @@
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
+.vuejs-countdown {
+    letter-spacing: 3px;
+    padding: 5px 0px;
+}
