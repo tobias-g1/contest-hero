@@ -29,7 +29,7 @@
             </el-col>
             <el-col :span="24">
                 <el-form-item>
-                    <button @click="alert('hello')"  class="btn-fill">Enter Contest</button>
+                    <button @click="submitForm('entryForm')" class="btn-fill">Enter Contest</button>
                     <el-button @click="resetForm('entryForm')">Reset</el-button>
                 </el-form-item>
             </el-col>
@@ -90,6 +90,16 @@
                 this.contestAuthor = this.$route.params.author
                 this.contestPermlink = this.$route.params.permlink
             },
+             submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.createContest()
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                })
+            }
         },
         mounted() {
             this.setDetails()
