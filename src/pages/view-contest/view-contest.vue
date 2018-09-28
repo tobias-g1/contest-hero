@@ -37,6 +37,7 @@
         <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
     
             <!-- Contest Deadline -->
+
             <h3 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> This contest closes in:</h3>
             <Countdown :deadline="contestDeadline"></Countdown>
     
@@ -47,7 +48,8 @@
     
             <!-- Contest Entries -->
             <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
-            <!--  <entry v-for="(comments, index) in post.comments" :key="index" :comment="comments" /> -->
+            <noentries v-if="!contest.entries" />
+            <entry v-else v-for="(comments, index) in post.comments" :key="index" :comment="comments" /> 
         </el-col>
     </el-row>
 </template>
@@ -57,13 +59,14 @@
     import comment from '@/components/contest-comment/contest-comment.vue'
     import aboutauthor from '@/components/about-author/about-author.vue'
     import post from '@/components/post/post.vue'
+    import noentries from '@/components/no-entries/no-entries.vue'  
     import winners from '@/components/winners-panel/winners-panel.vue'
     import otherwinners from '@/components/other-winners/other-winners.vue'
     import markdownEditor from 'vue-simplemde/src/markdown-editor'
     import form from '@/mixins/form-actions.js'
     import dsteem from '@/mixins/dsteem.js'
     import Countdown from 'vuejs-countdown'
-    
+   
     export default {
         name: 'contest',
         mixins: [form, dsteem],
@@ -75,7 +78,8 @@
             Countdown,
             post,
             winners,
-            otherwinners
+            otherwinners,
+            noentries
         },
         data() {
             return {

@@ -1,0 +1,16 @@
+.no-entries-container {
+    background: white;
+    border-radius: 5px;
+    padding: 20px 40px;
+    -webkit-box-shadow: 0 0 10px 2px #f1f1f1;
+    box-shadow: 0 0 10px 2px #f1f1f1;
+
+    line-height: 25px;
+}
+
+.no-entries-text {
+    font-size: 15px;
+    font-family: sans-serif;
+    font-weight: lighter;
+}
+
