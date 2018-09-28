@@ -37,7 +37,7 @@
         <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
     
             <!-- Contest Deadline -->
-
+    
             <h3 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> This contest closes in:</h3>
             <Countdown :deadline="contestDeadline"></Countdown>
     
@@ -49,7 +49,7 @@
             <!-- Contest Entries -->
             <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
             <noentries v-if="!contest.entries" />
-            <entry v-else v-for="(comments, index) in post.comments" :key="index" :comment="comments" /> 
+            <entry v-else v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
         </el-col>
     </el-row>
 </template>
@@ -59,14 +59,14 @@
     import comment from '@/components/contest-comment/contest-comment.vue'
     import aboutauthor from '@/components/about-author/about-author.vue'
     import post from '@/components/post/post.vue'
-    import noentries from '@/components/no-entries/no-entries.vue'  
+    import noentries from '@/components/no-entries/no-entries.vue'
     import winners from '@/components/winners-panel/winners-panel.vue'
     import otherwinners from '@/components/other-winners/other-winners.vue'
     import markdownEditor from 'vue-simplemde/src/markdown-editor'
     import form from '@/mixins/form-actions.js'
     import dsteem from '@/mixins/dsteem.js'
     import Countdown from 'vuejs-countdown'
-   
+    
     export default {
         name: 'contest',
         mixins: [form, dsteem],
@@ -89,10 +89,10 @@
                     authorBio: null,
                     data: null,
                     permlink: null,
-                    comments: null
+                    comments: []
                 },
                 contest: {
-                    entries: null,
+                    entries: [],
                     winners: null,
                     otherwin: null
                 },
@@ -143,62 +143,57 @@
                     })
             },
             getComments(author, permlink) {
-                let postComments = []
                 this.getPostComments(author, permlink)
-                    .then(comments => {
-                        comments.forEach(comment => {
+                    .then(postComments => {
+                        postComments.forEach(comment => {
+                            let postCommentJSON = JSON.parse(comment.json_metadata)
                             this.getAccount(comment.author)
                                 .then(commentAuthorDetails => {
-                                    if ('json_metadata' in commentAuthorDetails[0]) {
-                                        let commentJSON = JSON.parse(commentAuthorDetails[0].json_metadata)
-                                        let combinedAuthorComment = Object.assign(commentJSON, comment)
-                                        postComments.push(combinedAuthorComment)
-                                    }
-                                }).catch(err => {
-                                    console.log(comment.author);
-                                })
+                                        comment.authorDetails = commentAuthorDetails[0]
+                                    },
+                                    (postCommentJSON.contest_hero.type === 'contest_entry_comment') ? this.post.comments.push(comment) : this.contest.entries.push(comment)
+                                )
                         })
                     })
-                this.post.comments = postComments
-            },
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        this.submitComment()
-                    } else {
-                        console.log('error submit!!')
-                        return false
-                    }
-                })
-            },
-            submitComment() {
-    
-                this.$store.commit('setLoading', true)
-    
-                // Create JSON Metadata
-    
-                let jsonMetaData = {
-                    'app': 'contest-hero',
-                    'contest-hero': {
-                        'type': 'contest_comment'
-                    }
-                }
-    
-                // Send comment via SteemConnect
-    
-                this.$steemconnect.comment(
-                    this.post.author,
-                    this.post.permlink,
-                    this.$store.state.steemconnect.user.name,
-                    this.post.permlink + Math.floor(Math.random() * 9000000000) + 1000000000,
-                    '',
-                    this.ruleForm.commentbody,
-                    jsonMetaData).then(err => {
-                    this.$store.commit('setLoading', false)
-                    this.getComments(this.post.author, this.post.permlink)
-                    this.ruleForm.commentbody = ''
-                })
             }
+        },
+        submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.submitComment()
+                } else {
+                    console.log('error submit!!')
+                    return false
+                }
+            })
+        },
+        submitComment() {
+    
+            this.$store.commit('setLoading', true)
+    
+            // Create JSON Metadata
+    
+            let jsonMetaData = {
+                'app': 'contest-hero',
+                'contest-hero': {
+                    'type': 'contest_comment'
+                }
+            }
+    
+            // Send comment via SteemConnect
+    
+            this.$steemconnect.comment(
+                this.post.author,
+                this.post.permlink,
+                this.$store.state.steemconnect.user.name,
+                this.post.permlink + Math.floor(Math.random() * 9000000000) + 1000000000,
+                '',
+                this.ruleForm.commentbody,
+                jsonMetaData).then(err => {
+                this.$store.commit('setLoading', false)
+                this.getComments(this.post.author, this.post.permlink)
+                this.ruleForm.commentbody = ''
+            })
         },
         mounted() {
             this.loadContent()
@@ -220,7 +215,7 @@
 </script>
 
 <style src="@/pages/view-contest/view-contest.css">
-      
+    
 </style>
 
 <style>
