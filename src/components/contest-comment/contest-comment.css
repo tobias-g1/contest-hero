@@ -9,18 +9,22 @@
 }
 
 .comment-details {
-    padding-left: 10px;
+    padding-left: 20px;
     width: 100%;
 }
 
 .comment-author {
     display: block;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 14px;
+    font-family: sans-serif;
 }
 
 .comment-body {
-    font-size: 14px;
+    font-size: 15px;
+    font-family: sans-serif;
+    font-weight: lighter;
+    line-height: 25px;
 }
 
 .comment-body img {

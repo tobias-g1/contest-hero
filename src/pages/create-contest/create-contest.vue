@@ -11,14 +11,14 @@
             <el-col :span="12">
                 <el-form-item label="Deadline" required>
                     <el-form-item prop="deadline">
-                        <el-date-picker type="date"  placeholder="Select Deadline" v-model="contestForm.deadline" style="width: 100%;" value-format="dd/MM/yyyy"></el-date-picker>
+                        <el-date-picker type="date"  placeholder="Select Deadline" v-model="contestForm.deadline" style="width: 100%;" value-format="MM/dd/yyyy"></el-date-picker>
                     </el-form-item>
                 </el-form-item>
             </el-col>
             <el-col :span="12">
                 <el-form-item label="Contest Type" prop="type">
                     <el-select v-model="contestForm.type" placeholder="Select Type">
-                        <el-option label="Writing" default value="contest-hero-writing"></el-option>
+                        <el-option label="Writing" default value="434343"></el-option>
                         <el-option label="Design" value="contest-hero-design"></el-option>
                         <el-option label="Photo" value="contest-hero-photo"></el-option>
                         <el-option label="Giveaway" value="contest-hero-giveaway"></el-option>
@@ -111,7 +111,7 @@
         mixins: [form, tags],
         computed: {
             fixedTags: function() {
-                let fixedTags = ['ch-test1aaaaa']
+                let fixedTags = ['test434343']
                 fixedTags.push(this.contestForm.type)
                 return fixedTags
             },
@@ -142,8 +142,8 @@
     
                 let jsonMetaData = {
                     'tags': this.finalTags,
-                    'app': 'contest-hero',
-                    'contest-hero': {
+                    'app': 'contest_hero',
+                    'contest_hero': {
                         'type': 'contest',
                         'deadline': this.contestForm.deadline
                     }

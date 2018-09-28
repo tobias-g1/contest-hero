@@ -3,43 +3,43 @@
         <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="16">
     
             <!-- Post Container -->
-    
             <h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
             <post :postbody="post.data.body"></post>
             <a v-bind:href="postLink"><button class="btn-fill enter-contest">Enter Contest</button></a>
     
             <!-- Winners -->
-            
-            <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Winners</h1>
-            <winners v-for="(winner, index) in contest.winners" :key="index" :winners="winner" />
+            <div class="winners-container" v-show="contest.winners">
+                <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Winners</h1>
+                <winners v-for="(winner, index) in contest.winners" :key="index" :winners="winner" />
+            </div>
     
             <!-- Other Winners -->
-    
-            <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Other Winners</h1>
-            <div>
-                <otherwinners v-for="(otherwin, index) in contest.otherwin" :key="index" :otherWinners="otherwin" />
+            <div class="other-winners-container" v-show="contest.otherwinners">
+                <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Other Winners</h1>
+                <div class="other-winners-list-container">
+                    <otherwinners v-for="(otherwin, index) in contest.otherwin" :key="index" :otherWinners="otherwin" />
+                </div>
             </div>
     
             <!-- Comments -->
-    
             <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Comments</h1>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
                 <el-form-item prop="commentbody">
                     <markdownEditor v-model="ruleForm.commentbody" />
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="submitForm('ruleForm')">Create</el-button>
+                    <el-button type="primary" @click="submitForm('ruleForm')">Submit Comment</el-button>
                     <el-button @click="resetForm('ruleForm')">Reset</el-button>
                 </el-form-item>
             </el-form>
-            <!-- <comment v-for="(comments, index) in comments" :key="index" :comment="comments" /> -->
+            <comment v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
         </el-col>
         <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
     
             <!-- Contest Deadline -->
-    
+
             <h3 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> This contest closes in:</h3>
-            <Countdown :deadline="contest.deadline"></Countdown>
+            <Countdown :deadline="contestDeadline"></Countdown>
     
             <!-- About Author -->
     
@@ -47,9 +47,9 @@
             <aboutauthor :authorBio="post.authorBio" :authorImage="post.authorImage" :authorName="post.author"></aboutauthor>
     
             <!-- Contest Entries -->
-    
             <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
-            <entry v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
+            <noentries v-if="!contest.entries" />
+            <entry v-else v-for="(comments, index) in post.comments" :key="index" :comment="comments" /> 
         </el-col>
     </el-row>
 </template>
@@ -59,13 +59,14 @@
     import comment from '@/components/contest-comment/contest-comment.vue'
     import aboutauthor from '@/components/about-author/about-author.vue'
     import post from '@/components/post/post.vue'
+    import noentries from '@/components/no-entries/no-entries.vue'  
     import winners from '@/components/winners-panel/winners-panel.vue'
     import otherwinners from '@/components/other-winners/other-winners.vue'
     import markdownEditor from 'vue-simplemde/src/markdown-editor'
     import form from '@/mixins/form-actions.js'
     import dsteem from '@/mixins/dsteem.js'
     import Countdown from 'vuejs-countdown'
-    
+   
     export default {
         name: 'contest',
         mixins: [form, dsteem],
@@ -77,7 +78,8 @@
             Countdown,
             post,
             winners,
-            otherwinners
+            otherwinners,
+            noentries
         },
         data() {
             return {
@@ -91,42 +93,11 @@
                 },
                 contest: {
                     entries: null,
-                    deadline: 'August 22, 2022',
-                    winners: [{
-                            'author': 'tobias-g',
-                            'place': '1'
-                        },
-                        {
-                            'author': 'dave',
-                            'place': '2'
-                        },
-                        {
-                            'author': 'john',
-                            'place': '3'
-                        }
-                    ],
-                    otherwin: [{
-                            "author": 'james'
-                        },
-                        {
-                            "author": 'jack',
-                        },
-                        {
-                            "author": 'sam',
-                        },
-                        {
-                            "author": 'james'
-                        },
-                        {
-                            "author": 'jack',
-                        },
-                        {
-                            "author": 'sam',
-                        }
-                    ]
+                    winners: null,
+                    otherwin: null
                 },
                 ruleForm: {
-                    commentbody: ''
+                    commentBody: ''
                 },
                 rules: {
                     commentbody: [{
@@ -144,6 +115,10 @@
                 this.loadPost(this.post.author, this.post.permlink)
                     .then(discussions => {
                         this.post.data = discussions[0]
+                        // Redirect if the contest wasn't made on Contest Hero
+                        if (this.postJson.app !== 'contest_hero') {
+                            this.$router.push('/contests')
+                        }
                     })
             },
             getAuthorDetails(author) {
@@ -156,7 +131,7 @@
                         if ('profile_image' in userJson.profile) {
                             this.post.authorImage = userJson.profile.profile_image
                         } else {
-                            this.post.authorImage = "https://hlfppt.org/wp-content/uploads/2017/04/placeholder-768x576.png"
+                            this.post.authorImage = require('@/assets/post-placeholder.png')
                         }
     
                         if ('about' in userJson.profile) {
@@ -175,8 +150,7 @@
                             this.getAccount(comment.author)
                                 .then(commentAuthorDetails => {
                                     if ('json_metadata' in commentAuthorDetails[0]) {
-                                        let commentJSON = commentAuthorDetails[0].json_metadata
-                                        commentJSON = JSON.parse(commentJSON)
+                                        let commentJSON = JSON.parse(commentAuthorDetails[0].json_metadata)
                                         let combinedAuthorComment = Object.assign(commentJSON, comment)
                                         postComments.push(combinedAuthorComment)
                                     }
@@ -186,6 +160,44 @@
                         })
                     })
                 this.post.comments = postComments
+            },
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.submitComment()
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                })
+            },
+            submitComment() {
+    
+                this.$store.commit('setLoading', true)
+    
+                // Create JSON Metadata
+    
+                let jsonMetaData = {
+                    'app': 'contest-hero',
+                    'contest-hero': {
+                        'type': 'contest_comment'
+                    }
+                }
+    
+                // Send comment via SteemConnect
+    
+                this.$steemconnect.comment(
+                    this.post.author,
+                    this.post.permlink,
+                    this.$store.state.steemconnect.user.name,
+                    this.post.permlink + Math.floor(Math.random() * 9000000000) + 1000000000,
+                    '',
+                    this.ruleForm.commentbody,
+                    jsonMetaData).then(err => {
+                    this.$store.commit('setLoading', false)
+                    this.getComments(this.post.author, this.post.permlink)
+                    this.ruleForm.commentbody = ''
+                })
             }
         },
         mounted() {
@@ -195,30 +207,22 @@
         },
         computed: {
             postLink: function() {
-                let postLink = `#/enter-contest/${this.post.author}/${this.post.permlink}`
-                return postLink
+                return `#/enter-contest/${this.post.author}/${this.post.permlink}`
+            },
+            postJson: function() {
+                return JSON.parse(this.post.data.json_metadata)
+            },
+            contestDeadline: function() {
+                return this.postJson.contest_hero.deadline
             }
         }
     }
 </script>
 
+<style src="@/pages/view-contest/view-contest.css">
+      
+</style>
+
 <style>
     @import '~simplemde/dist/simplemde.min.css';
-    .post-container {
-        background: white;
-        border-radius: 5px;
-        padding: 20px 40px;
-        box-shadow: 0 0 10px 2px #f1f1f1;
-    }
-    
-    .post-container img {
-        max-width: 100%;
-        height: auto;
-    }
-    
-    .enter-contest {
-        margin-top: 20px;
-        width: 100%;
-        box-shadow: 0 0 10px 2px #f1f1f1;
-    }
 </style>

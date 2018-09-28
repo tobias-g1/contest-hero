@@ -1,6 +1,6 @@
 <template>
     <div class="comment-container">
-        <img class="comment-image" :src="comment.profile.profile_image" alt="" v-on:error="imageLoadError">
+        <img class="comment-image" :src="comment.profile.profile_image" alt="" v-on:error="setDefault">
         <div class="comment-details">
             <span class="comment-author">{{ comment.author }} says:</span>
              <VueMarkdown class="comment-body" :source="comment.body"></VueMarkdown>
@@ -23,8 +23,8 @@ export default {
 
   },
   methods: {
-    imageLoadError: function () {
-      this.comment.profile.profile_image = 'https://www.wonderplugin.com/videos/demo-image0.jpg'
+      setDefault: function() {
+      this.comment.profile.profile_image = require('@/assets/profile-placeholder.png')
     }
   }
 }
