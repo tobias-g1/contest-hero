@@ -111,7 +111,6 @@
                 this.loadPost(this.post.author, this.post.permlink)
                     .then(discussions => {
                         this.post.data = discussions[0]
-    
                         // Redirect if the contest wasn't made on Contest Hero
                         if (this.postJson.app !== 'contest_hero') {
                             this.$router.push('/contests')
@@ -121,14 +120,14 @@
             getAuthorDetails(author) {
                 this.getAccount(author)
                     .then(authorDetails => {
-
+    
                         let userImage = ''
                         let userJson = JSON.parse(authorDetails[0].json_metadata)
     
                         if ('profile_image' in userJson.profile) {
                             this.post.authorImage = userJson.profile.profile_image
                         } else {
-                            this.post.authorImage = "https://hlfppt.org/wp-content/uploads/2017/04/placeholder-768x576.png"
+                            this.post.authorImage = require('@/assets/post-placeholder.png')
                         }
     
                         if ('about' in userJson.profile) {
@@ -147,8 +146,7 @@
                             this.getAccount(comment.author)
                                 .then(commentAuthorDetails => {
                                     if ('json_metadata' in commentAuthorDetails[0]) {
-                                        let commentJSON = commentAuthorDetails[0].json_metadata
-                                        commentJSON = JSON.parse(commentJSON)
+                                        let commentJSON = JSON.parse(commentAuthorDetails[0].json_metadata)
                                         let combinedAuthorComment = Object.assign(commentJSON, comment)
                                         postComments.push(combinedAuthorComment)
                                     }
@@ -195,7 +193,7 @@
                     this.$store.commit('setLoading', false)
                     this.getComments(this.post.author, this.post.permlink)
                     this.ruleForm.commentbody = ''
-                    })  
+                })
             }
         },
         mounted() {
@@ -205,8 +203,7 @@
         },
         computed: {
             postLink: function() {
-                let postLink = `#/enter-contest/${this.post.author}/${this.post.permlink}`
-                return postLink
+                return `#/enter-contest/${this.post.author}/${this.post.permlink}`
             },
             postJson: function() {
                 return JSON.parse(this.post.data.json_metadata)
@@ -218,7 +215,8 @@
     }
 </script>
 
-<style src="@/pages/view-contest/view-contest.css">  
+<style src="@/pages/view-contest/view-contest.css">
+      
 </style>
 
 <style>
