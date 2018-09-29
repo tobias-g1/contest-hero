@@ -95,28 +95,20 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.createContest()
+                        this.createEntryPost()
                     } else {
                         console.log('error submit!!')
                         return false
                     }
                 })
             },
-            createContest() {
-                this.createEntryPost()
-                setTimeout(function() {
-                    this.createEntryComment()
-                }, 3000);
-            },
             createEntryPost() {
-    
+
                 // Parent author and parentPermLink not required for submitted a post to the blockchain
-    
                 let parentAuthor = ''
                 let parentPermlink = this.finalTags[0]
     
                 // Create JSON Metadata
-    
                 let jsonMetaData = {
                     'tags': this.finalTags,
                     'app': 'contest_hero',
@@ -127,7 +119,6 @@
                 }
     
                 // Send post via SteemConnect
-    
                 this.$steemconnect.comment(
                     parentAuthor,
                     parentPermlink,
@@ -140,33 +131,6 @@
                         alert(err)
                     })
             }
-        },
-        createEntryComment() {
-    
-            // Create JSON Metadata
-    
-            let jsonMetaData = {
-                'tags': this.finalTags,
-                'app': 'contest_hero',
-                'contest_hero': {
-                    'type': 'contest_entry_comment'
-                }
-            }
-    
-            // Send post via SteemConnect
-    
-            this.$steemconnect.comment(
-                this.contestAuthor,
-                this.contestPermlink,
-                this.$store.state.steemconnect.user.name,
-                this.contestPermlink + '-' + Math.floor(Math.random() * 9000000000) + 1000000000,
-                '',
-                `I have just entered this contest, you can view my entry <a href="/#/${this.entryPermlink}">here</a>`,
-                jsonMetaData,
-                (err) => {
-                    alert(err)
-                })
-    
         },
         mounted() {
             this.setDetails()
