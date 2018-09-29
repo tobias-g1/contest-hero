@@ -21,7 +21,7 @@
                 </div>
             </div>
     
-            <!-- Comments -->
+            <!-- Post Comments -->
             <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Comments</h1>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
                 <el-form-item prop="commentbody">
@@ -32,17 +32,17 @@
                     <el-button @click="resetForm('ruleForm')">Reset</el-button>
                 </el-form-item>
             </el-form>
+
+            <!-- Comments List -->
             <comment v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
         </el-col>
         <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
     
             <!-- Contest Deadline -->
-    
             <h3 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> This contest closes in:</h3>
             <Countdown :deadline="contestDeadline"></Countdown>
     
             <!-- About Author -->
-    
             <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">About the Author</h3>
             <aboutauthor :authorBio="post.authorBio" :authorImage="post.authorImage" :authorName="post.author"></aboutauthor>
     
