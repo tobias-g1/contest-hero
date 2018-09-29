@@ -32,7 +32,7 @@
                     <el-button @click="resetForm('ruleForm')">Reset</el-button>
                 </el-form-item>
             </el-form>
-
+    
             <!-- Comments List -->
             <comment v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
         </el-col>
@@ -126,8 +126,8 @@
                     .then(authorDetails => {
                         let userJson = JSON.parse(authorDetails[0].json_metadata)
                         if (userJson !== undefined) {
-                        ('profile_image' in userJson.profile) ? this.post.authorImage = userJson.profile.profile_image : this.post.authorImage = require('@/assets/post-placeholder.png'),
-                        ('about' in userJson.profile) ? this.post.authorBio = userJson.profile.about : this.post.authorBio = "This user has not added a bio"
+                            ('profile_image' in userJson.profile) ? this.post.authorImage = userJson.profile.profile_image: this.post.authorImage = require('@/assets/post-placeholder.png'),
+                                ('about' in userJson.profile) ? this.post.authorBio = userJson.profile.about : this.post.authorBio = "This user has not added a bio"
                         }
                     })
             },
@@ -138,6 +138,7 @@
                             let postCommentJSON = JSON.parse(comment.json_metadata)
                             this.getAccount(comment.author)
                                 .then(commentAuthorDetails => {
+                                        commentAuthorDetails[0].json_metadata = JSON.parse(commentAuthorDetails[0].json_metadata)
                                         comment.authorDetails = commentAuthorDetails[0]
                                     },
                                     (postCommentJSON.contest_hero.type === 'contest_entry_comment') ? this.post.comments.push(comment) : this.contest.entries.push(comment)
