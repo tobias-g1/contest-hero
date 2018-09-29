@@ -80,7 +80,7 @@
                 return 'contest-hero-' + this.entryForm.title.toLowerCase().replace(/\s/g, '-') + '-' + Math.floor(Math.random() * 9000000000) + 1000000000
             },
             fixedTags: function() {
-                return ['456545654']
+                return ['test434343']
             },
             finalTags: function() {
                 return this.fixedTags.concat(this.entryForm.dynamicTags)
