@@ -141,7 +141,7 @@
                                         commentAuthorDetails[0].json_metadata = JSON.parse(commentAuthorDetails[0].json_metadata)
                                         comment.authorDetails = commentAuthorDetails[0]
                                     },
-                                    (postCommentJSON.contest_hero.type === 'contest_entry_comment') ? this.post.comments.push(comment) : this.contest.entries.push(comment)
+                                    (postCommentJSON.contest_hero.type === 'contest_entry_comment') ? this.contest.entries.push(comment) : this.post.comments.push(comment)
                                 )
                         })
                     })
