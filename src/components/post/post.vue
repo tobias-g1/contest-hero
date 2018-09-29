@@ -1,5 +1,5 @@
 <template>
-    <div class="post-container">
+    <div>
         <VueMarkdown :source="adjustedPost"></VueMarkdown>
     </div>
 </template>

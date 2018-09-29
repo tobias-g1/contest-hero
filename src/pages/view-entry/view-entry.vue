@@ -1,13 +1,20 @@
 <template>
-
-<el-row :gutter="20">
+    <el-row :gutter="20">
         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <!-- Post Container -->
             <h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
-            <post :postbody="post.data.body"></post>
+            <div class="post-container">
+            <post :postbody="post.data.body">
+
+                
+            </post>
+                <div class="tags">
+                <el-tag v-for="(tag, index) in tags" :key="index" :comment="comments">{{ tag}}</el-tag>
+            </div>
+            </div>
+        
         </el-col>
-</el-row>
-    
+    </el-row>
 </template>
 
 <script>
@@ -42,6 +49,15 @@
         },
         mounted() {
             this.loadContent();
+        },
+        computed: {
+            postJson: function() {
+                return JSON.parse(this.post.data.json_metadata)
+            },
+            tags: function() {
+                return this.postJson.tags
+            }
+    
         }
     }
 </script>
