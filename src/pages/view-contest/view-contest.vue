@@ -46,10 +46,11 @@
             <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">About the Author</h3>
             <aboutauthor :authorBio="post.authorBio" :authorImage="post.authorImage" :authorName="post.author"></aboutauthor>
     
-            <!-- Contest Entries -->
+            <!-- Contest Entries 
             <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
             <noentries v-if="!contest.entries" />
             <entry v-else v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
+            -->
         </el-col>
     </el-row>
 </template>
@@ -135,13 +136,12 @@
                 this.getPostComments(author, permlink)
                     .then(postComments => {
                         postComments.forEach(comment => {
-                            let postCommentJSON = JSON.parse(comment.json_metadata)
                             this.getAccount(comment.author)
                                 .then(commentAuthorDetails => {
                                         commentAuthorDetails[0].json_metadata = JSON.parse(commentAuthorDetails[0].json_metadata)
                                         comment.authorDetails = commentAuthorDetails[0]
-                                    },
-                                    (postCommentJSON.contest_hero.type === 'contest_entry_comment') ? this.contest.entries.push(comment) : this.post.comments.push(comment)
+                                        this.post.comments.push(comment)
+                                    }, 
                                 )
                         })
                     })
