@@ -47,7 +47,7 @@
             <el-col :span="24">
                 <el-form-item>
                     <button @click="submitForm('contestForm')" class="btn-fill">Create Contest</button>
-                    <el-button @click="resetForm('contestForm')">Reset</el-button>
+                    <el-button @click="resetForm('contestForm'), contestForm.dynamicTags = []">Reset</el-button>
                 </el-form-item>
             </el-col>
         </el-form>
