@@ -6,6 +6,7 @@ import entercontest from './pages/enter-contest/enter-contest.vue'
 import contest from './pages/view-contest/view-contest.vue'
 import auth from './pages/auth/auth.vue'
 import notfound from './pages/404/404.vue'
+import viewentry from './pages/view-entry/view-entry.vue'
 
 Vue.use(Router)
 
@@ -39,6 +40,11 @@ export default new Router({
       path: '/enter-contest/:author/:permlink',
       name: 'enter-contest',
       component: entercontest
+    },
+    {
+      path: '/view-entry/:author/:permlink',
+      name: 'view-entry',
+      component: viewentry
     },
     {
       path: '*',
