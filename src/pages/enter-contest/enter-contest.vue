@@ -2,7 +2,7 @@
 <template>
     <el-row :gutter="20">
         <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> Enter contest </h1>
-        <el-form :model="entryForm" :label-position="labelPosition" :rules="rules" ref="entryForm" class="demo-entry">
+        <el-form :model="entryForm" :label-position="labelPosition" :rules="rules" ref="entryForm" class="demo-entry" @submit.native.prevent>
             <el-col :span="24">
                 <el-form-item label="Entry Title" prop="title">
                     <el-input v-model="entryForm.title" placeholder="Enter a title"></el-input>
