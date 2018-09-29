@@ -15,7 +15,7 @@
     </el-header>
     <aboutbanner v-show="!user"/>
     <el-main>
-      <ElementLoading :active="$store.state.isLoading" spinner="bar-fade-scale" color="#FF6700" :is-full-screen="true" />
+      <ElementLoading :active="$store.state.isLoading" spinner="spinner" color="#FF1480" :is-full-screen="true" />
       <router-view/>
     </el-main>
   </el-container>

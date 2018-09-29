@@ -2,7 +2,7 @@
 <template>
     <el-row :gutter="20">
         <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> Enter contest </h1>
-        <el-form :model="entryForm" :label-position="labelPosition" :rules="rules" ref="entryForm" class="demo-entry">
+        <el-form :model="entryForm" :label-position="labelPosition" :rules="rules" ref="entryForm" class="demo-entry" @submit.native.prevent @keydown.enter.native.prevent="submitForm">
             <el-col :span="24">
                 <el-form-item label="Entry Title" prop="title">
                     <el-input v-model="entryForm.title" placeholder="Enter a title"></el-input>
@@ -17,10 +17,10 @@
                 <el-form-item label="Tags">
                     <div class="tags-container">
                         <el-tag>Contest-Hero</el-tag>
-                        <el-tag :key="tag" v-for="tag in entryForm.dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)">
+                        <el-tag :key="tag" v-for="tag in entryForm.dynamicTags" closable :disable-transitions="false" @close="handleClose(tag, entryForm)">
                             {{tag}}
                         </el-tag>
-                        <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
+                        <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm(entryForm)" @blur="handleInputConfirm(entryForm)">
                         </el-input>
                         <el-button v-else class="button-new-tag" v-show="(finalTags.length < 5)" size="small" @click="showInput">+ New Tag</el-button>
                     </div>
@@ -29,7 +29,7 @@
             <el-col :span="24">
                 <el-form-item>
                     <button @click="submitForm('entryForm')" class="btn-fill">Enter Contest</button>
-                    <el-button @click="resetForm('entryForm')">Reset</el-button>
+                    <el-button @click="resetForm('entryForm'), entryForm.dynamicTags = []">Reset</el-button>
                 </el-form-item>
             </el-col>
         </el-form>
@@ -80,7 +80,7 @@
                 return 'contest-hero-' + this.entryForm.title.toLowerCase().replace(/\s/g, '-') + '-' + Math.floor(Math.random() * 9000000000) + 1000000000
             },
             fixedTags: function() {
-                return ['456545654']
+                return ['test434343']
             },
             finalTags: function() {
                 return this.fixedTags.concat(this.entryForm.dynamicTags)

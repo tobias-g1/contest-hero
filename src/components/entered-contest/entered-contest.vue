@@ -1,8 +1,8 @@
 <template>
   <div class="entry-container">
-    <img class="entry-image" v-bind:src="userImage" alt="" v-on:error="imageLoadError">
+    <img class="entry-image" src="profileImage" alt="" @error="setDefault">
     <div class="entry-details">
-      <span class="enter-author"><strong>{{ comment.author }}</strong> has entered this contest</span>
+      <span class="enter-author"><strong> {{ comment.author }} </strong> has entered this contest</span>
       <i class="material-icons">keyboard_arrow_right</i>
     </div>
   </div>
@@ -18,23 +18,18 @@
       comment: Object
     },
     methods: {
-      imageLoadError: function() {
-        let userImage = 'https://www.wonderplugin.com/videos/demo-image0.jpg'
-      },
+       setDefault: function() {
+        this.profileImage = require('@/assets/profile-placeholder.png')
+      }
     },
     computed: {
-      userImage: function() {
-        let userImage = ''
-        if (this.comment.profile) {
-          if ('profile_image' in this.comment.profile) {
-            userImage = this.comment.profile.profile_image
-          } else {
-            userImage = "https://hlfppt.org/wp-content/uploads/2017/04/placeholder-768x576.png"
-          }
-          return userImage
-        }
-      }
-    }
+     /* profileImage: function() {
+        let userJSON = JSON.parse(this.comment.authorDetails.json_metadata)
+        let profileImage;
+        ('image' in userJSON) ? ((userJSON.profile.profile_image != undefined) ? profileImage = userJSON.profile.profile_image : profileImage = require('@/assets/post-placeholder.png')) : profileImage = require('@/assets/post-placeholder.png')
+        return profileImage
+      }*/
+    } 
   }
 </script>
 

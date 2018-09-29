@@ -2,7 +2,7 @@
 <template>
     <el-row :gutter="20">
         <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> Create a contest </h1>
-        <el-form :model="contestForm" :label-position="labelPosition" :rules="rules" ref="contestForm">
+        <el-form :model="contestForm" :label-position="labelPosition" :rules="rules" ref="contestForm" @submit.native.prevent @keydown.enter.native.prevent="submitForm">
             <el-col :span="24">
                 <el-form-item label="Contest Title" prop="title">
                     <el-input v-model="contestForm.title" placeholder="Enter a title"></el-input>
@@ -38,7 +38,7 @@
                         <el-tag :key="tag" v-for="tag in contestForm.dynamicTags" closable :disable-transitions="false" @close="handleClose(tag, contestForm)">
                             {{tag}}
                         </el-tag>
-                        <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm(contestForm)" @blur="handleInputConfirm">
+                        <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm(contestForm)" @blur="handleInputConfirm(contestForm)" @submit.native.prevent>
                         </el-input>
                         <el-button v-else class="button-new-tag" size="small" @click="showInput" v-show="(finalTags.length < 5)">+ New Tag</el-button>
                     </div>
@@ -46,8 +46,8 @@
             </el-col>
             <el-col :span="24">
                 <el-form-item>
-                    <button @click="submitForm('contestForm')" :disabled="!contestForm.title || !contestForm.type || !contestForm.deadline || !contestForm.body" class="btn-fill">Create Contest</button>
-                    <el-button @click="resetForm('contestForm')">Reset</el-button>
+                    <button @click="submitForm('contestForm')" class="btn-fill">Create Contest</button>
+                    <el-button @click="resetForm('contestForm'), contestForm.dynamicTags = []">Reset</el-button>
                 </el-form-item>
             </el-col>
         </el-form>
@@ -118,13 +118,16 @@
             finalTags: function() {
                 return this.fixedTags.concat(this.contestForm.dynamicTags)
             },
+             contestPermlink: function() {
+                return 'contest-hero-' + this.contestForm.title.toLowerCase().replace(/\s/g, '-') + '-' + Math.floor(Math.random() * 9000000000) + 1000000000
+            },
             ...mapGetters('steemconnect', ['user']),
         },
         methods: {
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.createContest()
+                        alert('submit');
                     } else {
                         console.log('error submit!!')
                         return false
@@ -155,12 +158,12 @@
                     parentAuthor,
                     parentPermlink,
                     this.$store.state.steemconnect.user.name,
-                    'contest-hero-' + this.contestForm.title.replace(/\s/g, '-'),
+                    this.contestPermlink,
                     this.contestForm.title,
                     this.contestForm.body,
                     jsonMetaData,
                     (err) => {
-                        alert(err)
+                        (err) ? alert(err) : alert('sucess')
                     })
             }
         }
