@@ -1,9 +1,8 @@
 <template>
   <div class="entry-container">
-    <img class="entry-image" src="profileImage" alt="" @error="setDefault">
     <div class="entry-details">
       <span class="enter-author"><strong> {{ comment.author }} </strong> has entered this contest</span>
-      <i class="material-icons">keyboard_arrow_right</i>
+      <a :href="postLink"><i class="material-icons">keyboard_arrow_right</i></a>
     </div>
   </div>
 </template>
@@ -17,19 +16,11 @@
     props: {
       comment: Object
     },
-    methods: {
-       setDefault: function() {
-        this.profileImage = require('@/assets/profile-placeholder.png')
-      }
-    },
     computed: {
-     /* profileImage: function() {
-        let userJSON = JSON.parse(this.comment.authorDetails.json_metadata)
-        let profileImage;
-        ('image' in userJSON) ? ((userJSON.profile.profile_image != undefined) ? profileImage = userJSON.profile.profile_image : profileImage = require('@/assets/post-placeholder.png')) : profileImage = require('@/assets/post-placeholder.png')
-        return profileImage
-      }*/
-    } 
+      postLink: function() {
+        return `#/view-entry/${this.comment.author}/${this.comment.permlink}`
+      }
+    }
   }
 </script>
 
