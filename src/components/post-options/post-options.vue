@@ -6,6 +6,10 @@
 </template>
 
 <script>
+    import {
+        mapGetters
+    } from 'vuex'
+    
     export default {
         name: 'post-options',
         data() {
@@ -13,26 +17,29 @@
                 voted: false
             }
         },
-        props: {
-            post: Object
-        },
+    props: ['post'],
         methods: {
             vote(currentUser, author, permlink, weight) {
                 this.$store.commit('setLoading', true)
-                this.$steemconnect.vote(currentUser, author, permlink, weight)
-                    .then(err => {
-                        this.voted = true
-                        this.$store.commit('setLoading', false)
-                    })
+
+                this.$steemconnect.vote(currentUser, author, permlink, weight,  (err) => {
+                    (err) ? alert(err) : this.vote = true
+                    this.$store.commit('setLoading', false)
+                })
+                  
+                
             },
             checkVote: function() {
                 for (let i = 0; i < this.post.active_votes.length; i++) {
                     console.log(this.post.active_votes[i])
-                    if (this.post.active_votes[i].voter == this.$store.state.steemconnect.user.name) {
+                    if (this.post.active_votes[i].voter == this.user.name) {
                         this.voted = true
                     }
                 }
             }
+        },
+        computed: {
+            ...mapGetters('steemconnect', ['user']),
         },
         mounted() {
             this.checkVote();
