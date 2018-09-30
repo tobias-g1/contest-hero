@@ -11,7 +11,7 @@
             </div>
             <!-- Post Comments -->
             <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Comments</h1>
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" @submit.native.prevent>
                 <el-form-item prop="commentbody">
                     <markdownEditor v-model="ruleForm.commentbody" />
                 </el-form-item>
