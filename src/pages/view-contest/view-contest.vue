@@ -4,8 +4,11 @@
     
             <!-- Post Container -->
             <h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
-            <post :postbody="post.data.body"></post>
+            <div class="post-container">
+                <post :postbody="post.data.body"></post>
+            </div>
             <a v-bind:href="postLink"><button class="btn-fill enter-contest">Enter Contest</button></a>
+    
     
             <!-- Winners -->
             <div class="winners-container" v-show="contest.winners">
@@ -129,11 +132,10 @@
                         postComments.forEach(comment => {
                             this.getAccount(comment.author)
                                 .then(commentAuthorDetails => {
-                                        commentAuthorDetails[0].json_metadata = JSON.parse(commentAuthorDetails[0].json_metadata)
-                                        comment.authorDetails = commentAuthorDetails[0]
-                                        this.post.comments.push(comment)
-                                    }, 
-                                )
+                                    commentAuthorDetails[0].json_metadata = JSON.parse(commentAuthorDetails[0].json_metadata)
+                                    comment.authorDetails = commentAuthorDetails[0]
+                                    this.post.comments.push(comment)
+                                }, )
                         })
                     })
             }
