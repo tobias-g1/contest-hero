@@ -1,7 +1,18 @@
 <template>
     <div class="stats-container">
-        <i class="material-icons stat-option vote" :class="{ voted: voted }" @click.prevent="vote($store.state.steemconnect.user.name, post.author, post.permlink, 100)">thumb_up</i> <span>{{ post.active_votes.length}}</span>
+        <i class="material-icons stat-option vote" :class="{ voted: voted }" @click="dialogVisible = true">thumb_up</i> <span>{{ post.active_votes.length}}</span>
         <i class="material-icons stat-option">attach_money</i> <span>{{post.pending_payout_value.slice(0, -3) * 1 }}</span>
+    
+        <el-dialog title="Select Vote Percentage" :visible.sync="dialogVisible" width="65%">
+            <div class="slider">
+                <el-slider v-model="votePercentage" show-input>
+                </el-slider>
+            </div>
+            <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible = false">Cancel</el-button>
+            <el-button type="primary" @click="dialogVisible = false, vote($store.state.steemconnect.user.name, post.author, post.permlink, votePercentage * 100)">Confirm</el-button>
+          </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -14,20 +25,20 @@
         name: 'post-options',
         data() {
             return {
-                voted: false
+                voted: false,
+                dialogVisible: false,
+                votePercentage: 100 
             }
         },
-    props: ['post'],
+        props: ['post'],
         methods: {
             vote(currentUser, author, permlink, weight) {
                 this.$store.commit('setLoading', true)
-
-                this.$steemconnect.vote(currentUser, author, permlink, weight,  (err) => {
-                    (err) ? alert(err) : this.vote = true
+    
+                this.$steemconnect.vote(currentUser, author, permlink, weight, (err) => {
+                    (err) ? alert(err): this.vote = true
                     this.$store.commit('setLoading', false)
                 })
-                  
-                
             },
             checkVote: function() {
                 for (let i = 0; i < this.post.active_votes.length; i++) {
@@ -70,5 +81,9 @@
         display: inline-flex;
         justify-content: space-between;
         width: 100%;
+    }
+
+    .slider {
+        padding: 0.5rem;
     }
 </style>
