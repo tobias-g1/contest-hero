@@ -26,7 +26,7 @@
   } from 'vuex'
   
   export default {
-    name: 'feed-item',
+    name: 'post-card',
     props: {
       post: Object
     },

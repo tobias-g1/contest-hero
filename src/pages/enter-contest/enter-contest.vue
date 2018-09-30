@@ -45,6 +45,7 @@
     } from 'vuex'
     
     export default {
+       name: 'enter-contest',
         data() {
             return {
                 labelPosition: 'top',

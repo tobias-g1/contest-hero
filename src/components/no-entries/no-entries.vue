@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'no-entries'
+    name: 'no-entries-panel'
   }
 </script>
 

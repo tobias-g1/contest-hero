@@ -7,6 +7,11 @@
         <a href="#/contests/"><button class="btn btn-outline">View Contests</button></a>
     </div>
 </template>
+<script>
+  export default {
+    name: '404'
+  }
+</script>
 
 <style src='@/pages/404/404.css'>
     

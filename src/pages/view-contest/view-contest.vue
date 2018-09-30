@@ -68,7 +68,7 @@
     import Countdown from 'vuejs-countdown'
     
     export default {
-        name: 'contest',
+        name: 'view-contest',
         mixins: [form, dsteem],
         components: {
             comment,

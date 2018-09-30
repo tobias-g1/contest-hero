@@ -63,6 +63,7 @@
     } from 'vuex'
     
     export default {
+        name: 'create-contest',
         data() {
             return {
                 labelPosition: 'top',
