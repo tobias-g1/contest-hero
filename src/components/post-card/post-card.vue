@@ -1,20 +1,13 @@
 <template>
   <div class="card">
     <span class="card-header" v-bind:style="imageBackground">
-                        <div v-bind:class="status === 'Open' ? 'contest_open' : 'contest_closed'" class="status-tag">{{ status }}</div>
-                				<span class="card-title">
-                				<a v-bind:href="postLink"><h3>{{ post.title }}</h3></a>
-                				</span>
+      <div v-bind:class="status === 'Open' ? 'contest_open' : 'contest_closed'" class="status-tag">{{ status }}</div>
+      	<span class="card-title">
+        	<a v-bind:href="postLink"><h3>{{ post.title }}</h3></a>
+      	</span>
     </span>
     <span class="card-summary">
-                			<div class="post-stats">
-                      <div class="stats-item">
-              <i class="material-icons">message</i> <span>{{ post.children }}</span>
-  </div>
-  <div class="stats-item">
-    <i class="material-icons" @click.prevent="$steemconnect.vote(user.name, post.author, post.permlink, voteweight)">thumb_up</i> <span>{{ post.net_votes }}</span>
-  </div>
-  </div>
+      <postoptions :post="post"/>
   <span class="contest-details">A {{ contestType }} contest created by {{ post.author }} </span>
   </span>
   </div>
@@ -24,13 +17,16 @@
   import {
     mapGetters
   } from 'vuex'
+  import postoptions from '@/components/post-options/post-options.vue'
   
   export default {
     name: 'post-card',
     props: {
       post: Object
     },
-    components: {},
+    components: {
+      postoptions
+    },
     data() {
       return {
         voteweight: 100

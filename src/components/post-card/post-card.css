@@ -21,7 +21,8 @@
   .contest-details {
     font-size: 11px;
     text-align: right;
-    font-weight: bold;
+    font-weight: normal;
+    margin-left: 20px;
   }
   
   .status-tag {

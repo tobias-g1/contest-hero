@@ -6,10 +6,15 @@
             <h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
             <div class="post-container">
                 <post :postbody="post.data.body"></post>
-                <div class="tags">
-                    <el-tag v-for="(tag, index) in tags" :key="index">{{ tag }}</el-tag>
+                <div class="post-bar">
+                    <div class="tags">
+                        <el-tag v-for="(tag, index) in tags" :key="index">{{ tag }}</el-tag>
+                    </div>
+                    <postoptions :post="post.data" />
                 </div>
+    
             </div>
+    
             <a v-bind:href="postLink" v-show="contestOpen"><button class="btn-fill enter-contest">Enter Contest</button></a>
     
     
@@ -66,6 +71,7 @@
     import form from '@/mixins/form-actions.js'
     import dsteem from '@/mixins/dsteem.js'
     import Countdown from 'vuejs-countdown'
+    import postoptions from '@/components/post-options/post-options.vue'
     
     export default {
         name: 'view-contest',
@@ -77,7 +83,8 @@
             Countdown,
             post,
             winners,
-            otherwinners
+            otherwinners,
+            postoptions
         },
         data() {
             return {
@@ -144,46 +151,46 @@
                         })
                     })
             },
-        submitForm(formName) {
-            this.$refs[formName].validate((valid) => {
-                if (valid) {
-                    this.submitComment()
-                } else {
-                    console.log('error submit!!')
-                    return false
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.submitComment()
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                })
+            },
+            submitComment() {
+    
+                this.$store.commit('setLoading', true)
+    
+                // Create JSON Metadata
+    
+                let jsonMetaData = {
+                    'app': 'contest-hero',
+                    "format": "markdown",
+                    'contest-hero': {
+                        'type': 'contest_comment'
+                    },
+                    "tags": [this.tags[0]]
                 }
-            })
-        },
-        submitComment() {
     
-            this.$store.commit('setLoading', true)
+                // Send comment via SteemConnect
     
-            // Create JSON Metadata
-    
-            let jsonMetaData = {
-                'app': 'contest-hero',
-                "format": "markdown",
-                'contest-hero': {
-                    'type': 'contest_comment'
-                },
-                "tags": [this.tags[0]]
+                this.$steemconnect.comment(
+                    this.post.author,
+                    this.post.permlink,
+                    this.$store.state.steemconnect.user.name,
+                    this.post.permlink + Math.floor(Math.random() * 9000000000) + 1000000000,
+                    '',
+                    this.ruleForm.commentbody,
+                    jsonMetaData).then(err => {
+                    this.$store.commit('setLoading', false)
+                    this.getComments(this.post.author, this.post.permlink)
+                    this.ruleForm.commentbody = ''
+                })
             }
-    
-            // Send comment via SteemConnect
-    
-            this.$steemconnect.comment(
-                this.post.author,
-                this.post.permlink,
-                this.$store.state.steemconnect.user.name,
-                this.post.permlink + Math.floor(Math.random() * 9000000000) + 1000000000,
-                '',
-                this.ruleForm.commentbody,
-                jsonMetaData).then(err => {
-                this.$store.commit('setLoading', false)
-                this.getComments(this.post.author, this.post.permlink)
-                this.ruleForm.commentbody = ''
-            })
-        }
         },
         mounted() {
             this.loadContent()
