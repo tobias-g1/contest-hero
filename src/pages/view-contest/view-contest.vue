@@ -10,7 +10,7 @@
                     <el-tag v-for="(tag, index) in tags" :key="index">{{ tag }}</el-tag>
                 </div>
             </div>
-            <a v-bind:href="postLink"><button class="btn-fill enter-contest">Enter Contest</button></a>
+            <a v-bind:href="postLink" v-show="contestOpen"><button class="btn-fill enter-contest">Enter Contest</button></a>
     
     
             <!-- Winners -->
@@ -198,6 +198,14 @@
             },
             tags: function() {
                 return this.postJson.tags
+            },
+            contestOpen: function() {
+    
+                if (new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= this.contestDeadline) {
+                    return false
+                } else {
+                    return true
+                }
             }
         }
     }
