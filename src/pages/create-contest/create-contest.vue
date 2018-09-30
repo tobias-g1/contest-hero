@@ -119,7 +119,7 @@
                 return this.fixedTags.concat(this.contestForm.dynamicTags)
             },
             contestPermlink: function() {
-                return this.contestForm.title.toLowerCase().replace(/[\s#/]/g, '-') + '-' + this.contestId 
+                return this.contestForm.title.toLowerCase().replace(/[\s#/]/g, '-') + '-' + this.contestId
             },
             contestId: function() {
                 return 'ch-xxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -127,6 +127,9 @@
                         v = c == 'x' ? r : (r & 0x3 | 0x8);
                     return v.toString(16);
                 });
+            },
+            postImages: function() {
+                return this.contestForm.body.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|svg)/g)
             },
             ...mapGetters('steemconnect', ['user']),
         },
@@ -142,7 +145,7 @@
                 })
             },
             createContest() {
-
+    
                 this.$store.commit('setLoading', true)
     
                 // Parent author and parentPermLink not required for submitted a post to the blockchain
@@ -155,6 +158,8 @@
                 let jsonMetaData = {
                     'tags': this.finalTags,
                     'app': 'contest_hero',
+                    "image": this.postImages,
+                    "format": "markdown",
                     'contest_hero': {
                         'type': 'contest',
                         'deadline': this.contestForm.deadline,
@@ -173,7 +178,7 @@
                     this.contestForm.body,
                     jsonMetaData,
                     (err) => {
-                         (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') :  this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}`) 
+                        (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github'): this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}`)
                         this.$store.commit('setLoading', false)
                     })
             }

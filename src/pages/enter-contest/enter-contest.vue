@@ -85,6 +85,9 @@
             finalTags: function() {
                 return this.fixedTags.concat(this.entryForm.dynamicTags)
             },
+            postImages: function() {
+                return this.entryForm.body.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|svg)/g)
+            },
             ...mapGetters('steemconnect', ['user']),
         },
         methods: {
@@ -103,9 +106,9 @@
                 })
             },
             createEntryPost() {
-
+    
                 this.$store.commit('setLoading', true)
-
+    
                 // Parent author and parentPermLink not required for submitted a post to the blockchain
                 let parentAuthor = ''
                 let parentPermlink = this.finalTags[0]
@@ -114,6 +117,8 @@
                 let jsonMetaData = {
                     'tags': this.finalTags,
                     'app': 'contest_hero',
+                    "format": "markdown",
+                    "image": this.postImages,
                     'contest_hero': {
                         'type': 'contest_entry',
                         'parent_contest_permlink': this.contestPermlink,
@@ -131,7 +136,7 @@
                     this.entryForm.body,
                     jsonMetaData,
                     (err) => {
-                        (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') :  this.$router.push(`/view-entry/${this.$store.state.steemconnect.user.name}/${this.entryPermlink}`) 
+                        (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github'): this.$router.push(`/view-entry/${this.$store.state.steemconnect.user.name}/${this.entryPermlink}`)
                         this.$store.commit('setLoading', false)
                     })
             }

@@ -163,9 +163,11 @@
     
             let jsonMetaData = {
                 'app': 'contest-hero',
+                "format": "markdown",
                 'contest-hero': {
                     'type': 'contest_comment'
-                }
+                },
+                "tags": [this.tags[0]]
             }
     
             // Send comment via SteemConnect
