@@ -4,17 +4,20 @@
     <div class="comment-details">
       <span class="comment-author">{{ comment.author }} says:</span>
       <VueMarkdown class="comment-body" :source="comment.body"></VueMarkdown>
+      <postoptions :post="comment" />
     </div>
   </div>
 </template>
 
 <script>
   import VueMarkdown from 'vue-markdown'
+  import postoptions from '@/components/post-options/post-options.vue'
   
   export default {
     name: 'comment',
     components: {
-      VueMarkdown
+      VueMarkdown,
+      postoptions
     },
     props: {
       comment: Object
@@ -28,6 +31,8 @@
       setDefault: function() {
         this.commentProfileImage = require('@/assets/profile-placeholder.png')
       }
+    },
+    computed: {
     }
   }
 </script>
