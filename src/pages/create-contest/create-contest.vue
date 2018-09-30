@@ -129,7 +129,12 @@
                 });
             },
             postImages: function() {
-                return this.contestForm.body.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|svg)/g)
+                let images =  this.contestForm.body.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|svg)/g)
+                if (images !== null) {
+                    return images
+                } else {
+                    return []
+                }
             },
             ...mapGetters('steemconnect', ['user']),
         },

@@ -86,7 +86,12 @@
                 return this.fixedTags.concat(this.entryForm.dynamicTags)
             },
             postImages: function() {
-                return this.entryForm.body.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|svg)/g)
+                let images = this.entryForm.body.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|svg)/g)
+                if (images !== null) {
+                    return images
+                } else {
+                    return []
+                }
             },
             ...mapGetters('steemconnect', ['user']),
         },
