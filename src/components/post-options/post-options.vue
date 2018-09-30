@@ -42,7 +42,6 @@
             },
             checkVote: function() {
                 for (let i = 0; i < this.post.active_votes.length; i++) {
-                    console.log(this.post.active_votes[i])
                     if (this.post.active_votes[i].voter == this.user.name) {
                         this.voted = true
                     }
