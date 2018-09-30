@@ -77,7 +77,7 @@
             Countdown,
             post,
             winners,
-            otherwinners,
+            otherwinners
         },
         data() {
             return {
@@ -143,8 +143,7 @@
                                 }, )
                         })
                     })
-            }
-        },
+            },
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
@@ -184,6 +183,7 @@
                 this.getComments(this.post.author, this.post.permlink)
                 this.ruleForm.commentbody = ''
             })
+        }
         },
         mounted() {
             this.loadContent()
