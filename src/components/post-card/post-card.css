@@ -34,13 +34,13 @@
     font-weight: bold;
   }
   
-  .contest--open {
+  .contest_open {
     color:  #3B773B;
     background: #DFF0D7;
     border-color: #D6EAC5;
   }
   
-  .contest--closed {
+  .contest_closed {
     color: #c70047;
     background: #F2DEDE;
      border-color: #ECCCD1;

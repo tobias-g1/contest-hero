@@ -11,7 +11,7 @@
             <el-col :span="12">
                 <el-form-item label="Deadline" required>
                     <el-form-item prop="deadline">
-                        <el-date-picker type="date" placeholder="Select Deadline" v-model="contestForm.deadline" style="width: 100%;" value-format="MM/dd/yyyy"></el-date-picker>
+                        <el-date-picker type="date" placeholder="Select Deadline" v-model="contestForm.deadline" style="width: 100%;" value-format="yyyy/MM/dd"></el-date-picker>
                     </el-form-item>
                 </el-form-item>
             </el-col>
