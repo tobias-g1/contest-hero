@@ -20,7 +20,7 @@
                     <el-button @click="resetForm('ruleForm')">Reset</el-button>
                 </el-form-item>
             </el-form>
-              <comment v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
+            <comment v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
     
         </el-col>
     </el-row>
@@ -64,12 +64,14 @@
         },
         methods: {
             loadContent() {
+                this.$store.commit('setLoading', true)
                 this.post.author = this.$route.params.author
                 this.post.permlink = this.$route.params.permlink
                 this.loadPost(this.post.author, this.post.permlink)
                     .then(discussions => {
                         this.post.data = discussions[0]
                     })
+                this.$store.commit('setLoading', false)
             },
             getComments(author, permlink) {
                 this.getPostComments(author, permlink)
@@ -84,46 +86,46 @@
                         })
                     })
             },
-        submitForm(formName) {
-            this.$refs[formName].validate((valid) => {
-                if (valid) {
-                    this.submitComment()
-                } else {
-                    console.log('error submit!!')
-                    return false
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.submitComment()
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                })
+            },
+            submitComment() {
+    
+                this.$store.commit('setLoading', true)
+    
+                // Create JSON Metadata
+    
+                let jsonMetaData = {
+                    'app': 'contest-hero',
+                    'contest-hero': {
+                        'type': 'entry_comment'
+                    }
                 }
-            })
+    
+                // Send comment via SteemConnect
+    
+                this.$steemconnect.comment(
+                    this.post.author,
+                    this.post.permlink,
+                    this.$store.state.steemconnect.user.name,
+                    this.post.permlink + Math.floor(Math.random() * 9000000000) + 1000000000,
+                    '',
+                    this.ruleForm.commentbody,
+                    jsonMetaData).then(err => {
+                    this.$store.commit('setLoading', false)
+                    this.getComments(this.post.author, this.post.permlink)
+                    this.ruleForm.commentbody = ''
+                })
+            },
         },
-        submitComment() {
-    
-            this.$store.commit('setLoading', true)
-    
-            // Create JSON Metadata
-    
-            let jsonMetaData = {
-                'app': 'contest-hero',
-                'contest-hero': {
-                    'type': 'entry_comment'
-                }
-            }
-    
-            // Send comment via SteemConnect
-    
-            this.$steemconnect.comment(
-                this.post.author,
-                this.post.permlink,
-                this.$store.state.steemconnect.user.name,
-                this.post.permlink + Math.floor(Math.random() * 9000000000) + 1000000000,
-                '',
-                this.ruleForm.commentbody,
-                jsonMetaData).then(err => {
-                this.$store.commit('setLoading', false)
-                this.getComments(this.post.author, this.post.permlink)
-                this.ruleForm.commentbody = ''
-            })
-        },
-    },
-    mounted() {
+        mounted() {
             this.loadContent();
             this.getComments(this.post.author, this.post.permlink)
         },

@@ -108,6 +108,7 @@
         },
         methods: {
             loadContent() {
+                this.$store.commit('setLoading', true)
                 this.post.author = this.$route.params.author
                 this.post.permlink = this.$route.params.permlink
                 this.loadPost(this.post.author, this.post.permlink)
@@ -118,6 +119,7 @@
                             this.$router.push('/contests')
                         }
                     })
+                this.$store.commit('setLoading', false)
             },
             getAuthorDetails(author) {
                 this.getAccount(author)

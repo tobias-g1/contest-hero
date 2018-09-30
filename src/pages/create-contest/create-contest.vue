@@ -142,6 +142,8 @@
                 })
             },
             createContest() {
+
+                this.$store.commit('setLoading', true)
     
                 // Parent author and parentPermLink not required for submitted a post to the blockchain
     
@@ -171,7 +173,8 @@
                     this.contestForm.body,
                     jsonMetaData,
                     (err) => {
-                        (err) ? alert(err) : alert('sucess')
+                         (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') :  this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}`) 
+                        this.$store.commit('setLoading', false)
                     })
             }
         }
