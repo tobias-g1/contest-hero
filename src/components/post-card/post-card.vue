@@ -1,15 +1,15 @@
 <template>
   <div class="card">
     <span class="card-header" v-bind:style="imageBackground">
-                  <div v-bind:class='modifiers' class="status-tag">{{ status }}</div>
-          				<span class="card-title">
-          				<a v-bind:href="postLink"><h3>{{ post.title }}</h3></a>
-          				</span>
+                    <div v-bind:class='modifiers' class="status-tag">{{ status }}</div>
+            				<span class="card-title">
+            				<a v-bind:href="postLink"><h3>{{ post.title }}</h3></a>
+            				</span>
     </span>
     <span class="card-summary">
-          			<div class="post-stats">
-                <div class="stats-item">
-        <i class="material-icons">message</i> <span>{{ post.children }}</span>
+            			<div class="post-stats">
+                  <div class="stats-item">
+          <i class="material-icons">message</i> <span>{{ post.children }}</span>
   </div>
   <div class="stats-item">
     <i class="material-icons" @click.prevent="$steemconnect.vote(user.name, post.author, post.permlink, voteweight)">thumb_up</i> <span>{{ post.net_votes }}</span>
@@ -41,15 +41,14 @@
       }
     },
     computed: {
+      postJSON: function() {
+        return JSON.parse(this.post.json_metadata)
+      },
       imageBackground: function() {
-  
-        let postImage = JSON.parse(this.post.json_metadata)
-  
+        let postImage;
         // Check if a post image can be found in the JSON metadata of post and if doesn't exist set a default
-        if (postImage != undefined) {
-          if ('image' in postImage) {
-            (postImage.image[0] != undefined) ? postImage = postImage.image[0]: postImage = require('@/assets/post-placeholder.png')
-          }
+        if ('image' in this.postJSON) {
+          (this.postJSON.image[0] != undefined) ? postImage = this.postJSON.image[0]: postImage = require('@/assets/post-placeholder.png')
         } else {
           postImage = require('@/assets/post-placeholder.png')
         }
@@ -57,13 +56,13 @@
   
       },
       postLink: function() {
-         return `#/view-contest/${this.post.author}/${this.post.permlink}`
-       
+        return `#/view-contest/${this.post.author}/${this.post.permlink}`
+  
       },
       status: function() {
-        let status = 'open'
-        return status
+       return 'open'
       },
+  
       contestType: function() {
         let contestType = 'writing'
         return contestType
