@@ -12,12 +12,9 @@
                     </div>
                     <postoptions :post="post.data" />
                 </div>
-    
             </div>
-    
             <a v-bind:href="postLink" v-show="contestOpen"><button class="btn-fill enter-contest">Enter Contest</button></a>
-    
-    
+           
             <!-- Winners -->
             <div class="winners-container" v-show="contest.winners">
                 <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Winners</h1>
@@ -57,6 +54,11 @@
             <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">About the Author</h3>
             <aboutauthor :authorBio="post.authorBio" :authorImage="post.authorImage" :authorName="post.author"></aboutauthor>
     
+                <!-- Contest Entries -->
+            <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
+            <noentries v-if="contest.entries.length === 0" />
+            <entry v-else v-for="(entry, index) in contest.entries" :key="index" :comment="entry" />
+
         </el-col>
     </el-row>
 </template>
@@ -72,6 +74,8 @@
     import dsteem from '@/mixins/dsteem.js'
     import Countdown from 'vuejs-countdown'
     import postoptions from '@/components/post-options/post-options.vue'
+    import entry from '@/components/entered-contest/entered-contest.vue'
+    import noentries from '@/components/no-entries/no-entries.vue'
     
     export default {
         name: 'view-contest',
@@ -84,7 +88,9 @@
             post,
             winners,
             otherwinners,
-            postoptions
+            postoptions,
+            entry,
+            noentries
         },
         data() {
             return {
@@ -121,6 +127,8 @@
                 this.loadPost(this.post.author, this.post.permlink)
                     .then(discussions => {
                         this.post.data = discussions[0]
+                        let postJSON = (JSON.parse(this.post.data.json_metadata))
+                        this.getEntries(postJSON.contest_hero.contestId)
                         // Redirect if the contest wasn't made on Contest Hero
                         if (this.postJson.app !== 'contest_hero') {
                             this.$router.push('/contests')
@@ -161,12 +169,24 @@
                     }
                 })
             },
+            getEntries(id) {
+                this.getContests(id, 100).then(discussions => {
+                    discussions.forEach(discussion => {
+                        let postJSON = JSON.parse(discussion.json_metadata)
+                        if ('app' in postJSON) {
+                            if (postJSON.app === 'contest_hero') {
+                                if (postJSON.contest_hero.type === 'contest_entry') {
+                                this.contest.entries.push(discussion)
+                                }
+                            }
+                        }
+                    })
+                })
+            },
             submitComment() {
-    
                 this.$store.commit('setLoading', true)
     
                 // Create JSON Metadata
-    
                 let jsonMetaData = {
                     'app': 'contest-hero',
                     "format": "markdown",
@@ -199,7 +219,7 @@
         },
         computed: {
             postLink: function() {
-                return `#/enter-contest/${this.post.author}/${this.post.permlink}`
+                return `#/enter-contest/${this.contestId}/${this.post.author}/${this.post.permlink}`
             },
             postJson: function() {
                 return JSON.parse(this.post.data.json_metadata)
@@ -217,6 +237,9 @@
                 } else {
                     return true
                 }
+            },
+            contestId: function() {
+                return this.postJson.contest_hero.contestId
             }
         }
     }
