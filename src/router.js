@@ -37,7 +37,7 @@ export default new Router({
       component: contest
     },
     {
-      path: '/enter-contest/:author/:permlink',
+      path: '/enter-contest/:contestId/:author/:permlink/',
       name: 'enter-contest',
       component: entercontest
     },

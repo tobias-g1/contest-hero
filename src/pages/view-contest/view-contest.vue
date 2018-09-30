@@ -199,7 +199,7 @@
         },
         computed: {
             postLink: function() {
-                return `#/enter-contest/${this.post.author}/${this.post.permlink}`
+                return `#/enter-contest/${this.contestId}/${this.post.author}/${this.post.permlink}`
             },
             postJson: function() {
                 return JSON.parse(this.post.data.json_metadata)
@@ -217,6 +217,9 @@
                 } else {
                     return true
                 }
+            },
+            contestId: function() {
+                return this.postJson.contest_hero.contestId
             }
         }
     }
