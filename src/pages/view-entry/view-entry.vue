@@ -6,7 +6,7 @@
             <div class="post-container">
                 <post :postbody="post.data.body"></post>
                 <div class="tags">
-                    <el-tag v-for="(tag, index) in tags" :key="index" :comment="comments">{{ tag}}</el-tag>
+                    <el-tag v-for="(tag, index) in tags" :key="index">{{ tag}}</el-tag>
                 </div>
             </div>
             <!-- Post Comments -->
