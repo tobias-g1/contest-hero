@@ -77,7 +77,7 @@
         mixins: [form, tags],
         computed: {
             entryPermlink: function() {
-                return 'contest-hero-' + this.entryForm.title.toLowerCase().replace(/\s/g, '-') + '-' + Math.floor(Math.random() * 9000000000) + 1000000000
+                return this.entryForm.title.toLowerCase().replace(/[\s#/]/g, '-') + '-' + Math.floor(Math.random() * 9000000000) + 1000000000
             },
             fixedTags: function() {
                 return ['test434343']

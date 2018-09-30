@@ -119,7 +119,7 @@
                 return this.fixedTags.concat(this.contestForm.dynamicTags)
             },
             contestPermlink: function() {
-                return this.contestForm.title.toLowerCase().replace(/\s/g, '-') + '-' + this.contestId 
+                return this.contestForm.title.toLowerCase().replace(/[\s#/]/g, '-') + '-' + this.contestId 
             },
             contestId: function() {
                 return 'ch-xxxxxxxxx'.replace(/[xy]/g, function(c) {
