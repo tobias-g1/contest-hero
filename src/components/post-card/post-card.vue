@@ -1,15 +1,15 @@
 <template>
   <div class="card">
     <span class="card-header" v-bind:style="imageBackground">
-                <div v-bind:class='modifiers' class="status-tag">{{ status }}</div>
-        				<span class="card-title">
-        				<a v-bind:href="postLink"><h3>{{ post.title }}</h3></a>
-        				</span>
+                        <div v-bind:class="status === 'Open' ? 'contest_open' : 'contest_closed'" class="status-tag">{{ status }}</div>
+                				<span class="card-title">
+                				<a v-bind:href="postLink"><h3>{{ post.title }}</h3></a>
+                				</span>
     </span>
     <span class="card-summary">
-        			<div class="post-stats">
-              <div class="stats-item">
-      <i class="material-icons">message</i> <span>{{ post.children }}</span>
+                			<div class="post-stats">
+                      <div class="stats-item">
+              <i class="material-icons">message</i> <span>{{ post.children }}</span>
   </div>
   <div class="stats-item">
     <i class="material-icons" @click.prevent="$steemconnect.vote(user.name, post.author, post.permlink, voteweight)">thumb_up</i> <span>{{ post.net_votes }}</span>
@@ -21,58 +21,55 @@
 </template>
 
 <script>
-import {
+  import {
     mapGetters
   } from 'vuex'
-
-export default {
-  name: 'feed-item',
-  props: {
-    post: Object
-  },
-  components: {
-  },
-  data () {
-    return {
-      modifiers: {
-        'contest--open': true,
-        'contest--closed': false
+  
+  export default {
+    name: 'post-card',
+    props: {
+      post: Object
+    },
+    components: {},
+    data() {
+      return {
+        voteweight: 100
+      }
+    },
+    computed: {
+      postJSON: function() {
+        return JSON.parse(this.post.json_metadata)
       },
-      voteweight: 100
-    }
-  },
-  computed: {
-    imageBackground: function () {
-      
-      let postImage = JSON.parse(this.post.json_metadata)
-
-      // Check if a post image can be found in the JSON metadata of post and if doesn't exist set a default
-if (postImage != undefined) {
-      if ('image' in postImage) {
-        (postImage.image[0] != undefined) ? postImage = postImage.image[0] : postImage = require('@/assets/post-placeholder.png')
-      } 
-} else {
-  postImage = require('@/assets/post-placeholder.png')
-}
-
-    return  `background-image: url(${postImage});`
-
-    },
-    postLink: function () {
-      let postLink = `#/view-contest/${this.post.author}/${this.post.permlink}`
-      return postLink
-    },
-    status: function () {
-      let status = 'open'
-      return status
-    },
-    contestType: function () {
-      let contestType = 'writing'
-      return contestType
-    },
+      imageBackground: function() {
+        let postImage;
+        // Check if a post image can be found in the JSON metadata of post and if doesn't exist set a default
+        if ('image' in this.postJSON) {
+          (this.postJSON.image[0] != undefined) ? postImage = this.postJSON.image[0]: postImage = require('@/assets/post-placeholder.png')
+        } else {
+          postImage = require('@/assets/post-placeholder.png')
+        }
+        return `background-image: url(${postImage});`
+      },
+      postLink: function() {
+        return `#/view-contest/${this.post.author}/${this.post.permlink}`
+  
+      },
+      status: function() {
+        if (new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= this.postJSON.contest_hero.deadline) {
+          return 'Complete'
+        } else {
+          return 'Open'
+        }
+      },
+      contestType: function() {
+        let contestType = 'writing'
+        return contestType
+      },
       ...mapGetters('steemconnect', ['user']),
-  },
+    },
   }
 </script>
 
-<style scoped src='@/components/post-card/post-card.css'></style>
+<style scoped src='@/components/post-card/post-card.css'>
+  
+</style>

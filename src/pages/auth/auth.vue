@@ -8,6 +8,7 @@
 
 <script>
   export default {
+    name: 'auth',
     async mounted () {
       let accessToken = this.$route.query['access_token']
       if (accessToken) {

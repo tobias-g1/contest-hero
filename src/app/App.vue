@@ -8,12 +8,13 @@
         <router-link to="/"><i class="material-icons">dashboard</i></router-link>
         <router-link to="/create-contest"><i class="material-icons">add_circle_outline</i></router-link>
         <a class="nav-link" href="#" @click.prevent="$store.dispatch('steemconnect/logout')"><i class="material-icons">exit_to_app</i></a>
+        <img class="user-image" :src="userImage" alt="">
       </div>
       <div class="menu-options" v-else>
         <a class="nav-link" :href="$steemconnect.getLoginURL()"><button class="btn btn-outline">Login</button></a>
       </div>
     </el-header>
-    <aboutbanner v-show="!user"/>
+    <aboutbanner v-show="!user" />
     <el-main>
       <ElementLoading :active="$store.state.isLoading" spinner="spinner" color="#FF1480" :is-full-screen="true" />
       <router-view/>
@@ -34,7 +35,20 @@
       ElementLoading,
       aboutbanner
     },
+    data() {
+      return {
+        userProfileImage: this.userImage,
+      }
+    },
     computed: {
+      currentUserJSON: function() {
+        return JSON.parse(this.user.account.json_metadata)
+      },
+      userImage: function() {
+        let userImage;
+        ('profile_image' in this.currentUserJSON.profile) ? userImage = this.currentUserJSON.profile.profile_image: userImage = require('@/assets/profile-placeholder.png')
+        return userImage
+      },
       ...mapGetters('steemconnect', ['user']),
     },
     async mounted() {
@@ -75,10 +89,13 @@
     padding: 25px 50px !important;
     background: white;
     box-shadow: 0 0 10px 2px #f1f1f1;
+    align-items: center;
   }
   
   .el-header a {
     text-decoration: none;
+    width: auto;
+    height: fit-content;
   }
   
   .logo-container {
@@ -88,6 +105,7 @@
   .menu-options {
     display: inline-flex;
     justify-content: space-between;
+    align-items: center;
   }
   
   .text-logo {
@@ -95,5 +113,15 @@
     text-transform: uppercase;
     font-size: 18px;
     padding-top: 2.5px;
+  }
+  
+  .user-image {
+    height: 35px;
+    min-width: 35px;
+    max-width: 35px;
+    border: 2px solid white;
+    border-radius: 50px;
+    box-shadow: 0 0 10px 2px #f1f1f1;
+    margin-left: 10px;
   }
 </style>

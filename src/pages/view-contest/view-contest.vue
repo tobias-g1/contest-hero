@@ -4,8 +4,14 @@
     
             <!-- Post Container -->
             <h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
-            <post :postbody="post.data.body"></post>
-            <a v-bind:href="postLink"><button class="btn-fill enter-contest">Enter Contest</button></a>
+            <div class="post-container">
+                <post :postbody="post.data.body"></post>
+                <div class="tags">
+                    <el-tag v-for="(tag, index) in tags" :key="index">{{ tag }}</el-tag>
+                </div>
+            </div>
+            <a v-bind:href="postLink" v-show="contestOpen"><button class="btn-fill enter-contest">Enter Contest</button></a>
+    
     
             <!-- Winners -->
             <div class="winners-container" v-show="contest.winners">
@@ -23,7 +29,7 @@
     
             <!-- Post Comments -->
             <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Comments</h1>
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" @submit.native.prevent>
                 <el-form-item prop="commentbody">
                     <markdownEditor v-model="ruleForm.commentbody" />
                 </el-form-item>
@@ -62,7 +68,7 @@
     import Countdown from 'vuejs-countdown'
     
     export default {
-        name: 'contest',
+        name: 'view-contest',
         mixins: [form, dsteem],
         components: {
             comment,
@@ -71,7 +77,7 @@
             Countdown,
             post,
             winners,
-            otherwinners,
+            otherwinners
         },
         data() {
             return {
@@ -102,6 +108,7 @@
         },
         methods: {
             loadContent() {
+                this.$store.commit('setLoading', true)
                 this.post.author = this.$route.params.author
                 this.post.permlink = this.$route.params.permlink
                 this.loadPost(this.post.author, this.post.permlink)
@@ -112,6 +119,7 @@
                             this.$router.push('/contests')
                         }
                     })
+                this.$store.commit('setLoading', false)
             },
             getAuthorDetails(author) {
                 this.getAccount(author)
@@ -129,15 +137,13 @@
                         postComments.forEach(comment => {
                             this.getAccount(comment.author)
                                 .then(commentAuthorDetails => {
-                                        commentAuthorDetails[0].json_metadata = JSON.parse(commentAuthorDetails[0].json_metadata)
-                                        comment.authorDetails = commentAuthorDetails[0]
-                                        this.post.comments.push(comment)
-                                    }, 
-                                )
+                                    commentAuthorDetails[0].json_metadata = JSON.parse(commentAuthorDetails[0].json_metadata)
+                                    comment.authorDetails = commentAuthorDetails[0]
+                                    this.post.comments.push(comment)
+                                }, )
                         })
                     })
-            }
-        },
+            },
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
@@ -156,9 +162,11 @@
     
             let jsonMetaData = {
                 'app': 'contest-hero',
+                "format": "markdown",
                 'contest-hero': {
                     'type': 'contest_comment'
-                }
+                },
+                "tags": [this.tags[0]]
             }
     
             // Send comment via SteemConnect
@@ -175,6 +183,7 @@
                 this.getComments(this.post.author, this.post.permlink)
                 this.ruleForm.commentbody = ''
             })
+        }
         },
         mounted() {
             this.loadContent()
@@ -190,6 +199,17 @@
             },
             contestDeadline: function() {
                 return this.postJson.contest_hero.deadline
+            },
+            tags: function() {
+                return this.postJson.tags
+            },
+            contestOpen: function() {
+    
+                if (new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= this.contestDeadline) {
+                    return false
+                } else {
+                    return true
+                }
             }
         }
     }

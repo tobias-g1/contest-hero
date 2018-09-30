@@ -11,7 +11,7 @@
             <el-col :span="12">
                 <el-form-item label="Deadline" required>
                     <el-form-item prop="deadline">
-                        <el-date-picker type="date"  placeholder="Select Deadline" v-model="contestForm.deadline" style="width: 100%;" value-format="MM/dd/yyyy"></el-date-picker>
+                        <el-date-picker type="date" placeholder="Select Deadline" v-model="contestForm.deadline" style="width: 100%;" value-format="yyyy/MM/dd"></el-date-picker>
                     </el-form-item>
                 </el-form-item>
             </el-col>
@@ -63,6 +63,7 @@
     } from 'vuex'
     
     export default {
+        name: 'create-contest',
         data() {
             return {
                 labelPosition: 'top',
@@ -118,8 +119,23 @@
             finalTags: function() {
                 return this.fixedTags.concat(this.contestForm.dynamicTags)
             },
-             contestPermlink: function() {
-                return 'contest-hero-' + this.contestForm.title.toLowerCase().replace(/\s/g, '-') + '-' + Math.floor(Math.random() * 9000000000) + 1000000000
+            contestPermlink: function() {
+                return this.contestForm.title.toLowerCase().replace(/[\s#/]/g, '-') + '-' + this.contestId
+            },
+            contestId: function() {
+                return 'ch-xxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    var r = Math.random() * 16 | 0,
+                        v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            },
+            postImages: function() {
+                let images =  this.contestForm.body.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|svg)/g)
+                if (images !== null) {
+                    return images
+                } else {
+                    return []
+                }
             },
             ...mapGetters('steemconnect', ['user']),
         },
@@ -127,7 +143,7 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        alert('submit');
+                        this.createContest();
                     } else {
                         console.log('error submit!!')
                         return false
@@ -135,23 +151,28 @@
                 })
             },
             createContest() {
-
+    
+                this.$store.commit('setLoading', true)
+    
                 // Parent author and parentPermLink not required for submitted a post to the blockchain
     
                 let parentAuthor = ''
                 let parentPermlink = this.finalTags[0]
-
+    
                 // Create JSON Metadata
     
                 let jsonMetaData = {
                     'tags': this.finalTags,
                     'app': 'contest_hero',
+                    "image": this.postImages,
+                    "format": "markdown",
                     'contest_hero': {
                         'type': 'contest',
-                        'deadline': this.contestForm.deadline
+                        'deadline': this.contestForm.deadline,
+                        'contestId': this.contestId
                     }
                 }
-
+    
                 // Send post via SteemConnect
     
                 this.$steemconnect.comment(
@@ -163,7 +184,8 @@
                     this.contestForm.body,
                     jsonMetaData,
                     (err) => {
-                        (err) ? alert(err) : alert('sucess')
+                        (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github'): this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}`)
+                        this.$store.commit('setLoading', false)
                     })
             }
         }
