@@ -13,7 +13,7 @@
         <a class="nav-link" :href="$steemconnect.getLoginURL()"><button class="btn btn-outline">Login</button></a>
       </div>
     </el-header>
-    <aboutbanner v-show="!user"/>
+    <aboutbanner v-show="!user" />
     <el-main>
       <ElementLoading :active="$store.state.isLoading" spinner="spinner" color="#FF1480" :is-full-screen="true" />
       <router-view/>
@@ -75,10 +75,13 @@
     padding: 25px 50px !important;
     background: white;
     box-shadow: 0 0 10px 2px #f1f1f1;
+    align-items: center;
   }
   
   .el-header a {
     text-decoration: none;
+    width: auto;
+    height: fit-content;
   }
   
   .logo-container {
