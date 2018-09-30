@@ -56,7 +56,7 @@
     
                 <!-- Contest Entries -->
             <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
-            <noentries v-if="!contest.entries" />
+            <noentries v-if="contest.entries.length === 0" />
             <entry v-else v-for="(entry, index) in contest.entries" :key="index" :comment="entry" />
 
         </el-col>
