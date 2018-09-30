@@ -5,22 +5,25 @@
             <h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
             <div class="post-container">
                 <post :postbody="post.data.body"></post>
-                <div class="tags">
-                    <el-tag v-for="(tag, index) in tags" :key="index">{{ tag}}</el-tag>
+                <div class="post-bar">
+                    <div class="tags">
+                        <el-tag v-for="(tag, index) in tags" :key="index">{{ tag }}</el-tag>
+                    </div>
+                    <postoptions :post="post.data" />
                 </div>
             </div>
-            <!-- Post Comments -->
-            <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Comments</h1>
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" @submit.native.prevent>
-                <el-form-item prop="commentbody">
-                    <markdownEditor v-model="ruleForm.commentbody" />
-                </el-form-item>
-                <el-form-item>
-                    <button @click="submitForm('ruleForm')" class="btn-fill">Create Comment</button>
-                    <el-button @click="resetForm('ruleForm')">Reset</el-button>
-                </el-form-item>
-            </el-form>
-            <comment v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
+                <!-- Post Comments -->
+                <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Comments</h1>
+                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" @submit.native.prevent>
+                    <el-form-item prop="commentbody">
+                        <markdownEditor v-model="ruleForm.commentbody" />
+                    </el-form-item>
+                    <el-form-item>
+                        <button @click="submitForm('ruleForm')" class="btn-fill">Create Comment</button>
+                        <el-button @click="resetForm('ruleForm')">Reset</el-button>
+                    </el-form-item>
+                </el-form>
+                <comment v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
     
         </el-col>
     </el-row>
@@ -32,6 +35,7 @@
     import form from '@/mixins/form-actions.js'
     import markdownEditor from 'vue-simplemde/src/markdown-editor'
     import comment from '@/components/contest-comment/contest-comment.vue'
+    import postoptions from '@/components/post-options/post-options.vue'
     
     export default {
         name: 'view-entry',
@@ -39,8 +43,8 @@
         components: {
             markdownEditor,
             post,
-            comment
-    
+            comment,
+            postoptions
         },
         data() {
             return {
@@ -107,7 +111,7 @@
                     "format": "markdown",
                     'contest-hero': {
                         'type': 'entry_comment'
-                    }, 
+                    },
                     "tags": [this.tags[0]]
                 }
     
