@@ -114,7 +114,8 @@
                     'app': 'contest_hero',
                     'contest_hero': {
                         'type': 'contest_entry',
-                        'parent_contest_permlink': this.contestPermlink
+                        'parent_contest_permlink': this.contestPermlink,
+                        'parent_contest_author': this.contestAuthor
                     }
                 }
     
