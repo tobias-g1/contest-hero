@@ -6,6 +6,9 @@
             <h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
             <div class="post-container">
                 <post :postbody="post.data.body"></post>
+                <div class="tags">
+                    <el-tag v-for="(tag, index) in tags" :key="index">{{ tag }}</el-tag>
+                </div>
             </div>
             <a v-bind:href="postLink"><button class="btn-fill enter-contest">Enter Contest</button></a>
     
@@ -192,6 +195,9 @@
             },
             contestDeadline: function() {
                 return this.postJson.contest_hero.deadline
+            },
+            tags: function() {
+                return this.postJson.tags
             }
         }
     }
