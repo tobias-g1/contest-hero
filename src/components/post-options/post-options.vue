@@ -36,7 +36,7 @@
                 this.$store.commit('setLoading', true)
     
                 this.$steemconnect.vote(currentUser, author, permlink, weight, (err) => {
-                    (err) ? alert(err): this.vote = true
+                    (err) ? alert(err): this.voted = true
                     this.$store.commit('setLoading', false)
                 })
             },
