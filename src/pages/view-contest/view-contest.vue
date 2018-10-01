@@ -1,5 +1,5 @@
 <template>
-    <el-row :gutter="20">
+    <el-row v-if="post.data" :gutter="20">
         <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="16">
     
             <!-- Post Container -->
