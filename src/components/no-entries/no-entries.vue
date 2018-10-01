@@ -5,11 +5,9 @@
 </template>
 
 <script>
-  export default {
-    name: 'no-entries-panel'
-  }
+export default {
+  name: 'no-entries-panel'
+}
 </script>
 
-<style scoped src='@/components/no-entries/no-entries.css'>
-  
-</style>
+<style scoped src='@/components/no-entries/no-entries.css'></style>

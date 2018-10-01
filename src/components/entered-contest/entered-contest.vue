@@ -8,22 +8,20 @@
 </template>
 
 <script>
-  export default {
-    name: 'entered-contest',
-    components: {
-  
-    },
-    props: {
-      comment: Object
-    },
-    computed: {
-      postLink: function() {
-        return `#/view-entry/${this.comment.author}/${this.comment.permlink}`
-      }
+export default {
+  name: 'entered-contest',
+  components: {
+
+  },
+  props: {
+    comment: Object
+  },
+  computed: {
+    postLink: function () {
+      return `#/view-entry/${this.comment.author}/${this.comment.permlink}`
     }
   }
+}
 </script>
 
-<style scoped src='@/components/entered-contest/entered-contest.css'>
-  
-</style>
+<style scoped src='@/components/entered-contest/entered-contest.css'></style>

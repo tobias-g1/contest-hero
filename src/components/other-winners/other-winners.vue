@@ -9,21 +9,16 @@
 </template>
 
 <script>
-    import VueMarkdown from 'vue-markdown'
-    
-    export default {
-        name: 'other-winner-panel',
-        props: {
-            otherWinners: Object
-        },
-        data() {
-            return {
-    
-            }
-        },
-        computed: {
-            adjustedPost: function() {}
-        }
+export default {
+  name: 'other-winner-panel',
+  props: {
+    otherWinners: Object
+  },
+  data () {
+    return {
+
     }
+  }
+}
 </script>
 <style src='@/components/other-winners/other-winners.css'>

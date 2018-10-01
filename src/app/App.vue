@@ -23,48 +23,41 @@
 </template>
 
 <script>
-  import ElementLoading from 'vue-element-loading'
-  import aboutbanner from '@/components/about-banner/about-banner.vue'
-  import {
-    mapGetters
-  } from 'vuex'
-  
-  export default {
-    name: 'app',
-    components: {
-      ElementLoading,
-      aboutbanner
-    },
-    data() {
-      return {
-        userProfileImage: this.userImage,
-      }
-    },
-    computed: {
-      currentUserJSON: function() {
-        return JSON.parse(this.user.account.json_metadata)
-      },
-      userImage: function() {
-        let userImage;
-        ('profile_image' in this.currentUserJSON.profile) ? userImage = this.currentUserJSON.profile.profile_image: userImage = require('@/assets/profile-placeholder.png')
-        return userImage
-      },
-      ...mapGetters('steemconnect', ['user']),
-    },
-    async mounted() {
-      // login
-      await this.$store.dispatch('steemconnect/login')
+import ElementLoading from 'vue-element-loading'
+import aboutbanner from '@/components/about-banner/about-banner.vue'
+import { mapGetters } from 'vuex'
+
+export default {
+  name: 'app',
+  components: {
+    ElementLoading,
+    aboutbanner
+  },
+  data () {
+    return {
+      userProfileImage: this.userImage
     }
+  },
+  computed: {
+    currentUserJSON: function () {
+      return JSON.parse(this.user.account.json_metadata)
+    },
+    userImage: function () {
+      let userImage;
+      ('profile_image' in this.currentUserJSON.profile) ? userImage = this.currentUserJSON.profile.profile_image : userImage = require('@/assets/profile-placeholder.png')
+      return userImage
+    },
+    ...mapGetters('steemconnect', ['user'])
+  },
+  async mounted () {
+    // login
+    await this.$store.dispatch('steemconnect/login')
   }
+}
 </script>
 
-<style src='@/app/app.css'>
-  
-</style>
-
-<style src='@/pages/shared/shared.css'>
-  
-</style>
+<style src='@/app/app.css'></style>
+<style src='@/pages/shared/shared.css'></style>
 
 <style>
   @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
@@ -72,15 +65,15 @@
     color: #000000;
     margin-left: 10px;
   }
-  
+
   .router-link-active {
     color: #000000;
   }
-  
+
   .material-icons:hover {
     color: #FF1480;
   }
-  
+
   .el-header {
     height: auto !important;
     display: flex;
@@ -91,30 +84,30 @@
     box-shadow: 0 0 10px 2px #f1f1f1;
     align-items: center;
   }
-  
+
   .el-header a {
     text-decoration: none;
     width: auto;
     height: fit-content;
   }
-  
+
   .logo-container {
     display: inline-flex;
   }
-  
+
   .menu-options {
     display: inline-flex;
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .text-logo {
     letter-spacing: 3px;
     text-transform: uppercase;
     font-size: 18px;
     padding-top: 2.5px;
   }
-  
+
   .user-image {
     height: 35px;
     min-width: 35px;

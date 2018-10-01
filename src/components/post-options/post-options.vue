@@ -16,10 +16,7 @@
 </template>
 
 <script>
-import {
-  mapGetters
-} from 'vuex'
-
+import { mapGetters } from 'vuex'
 export default {
   name: 'post-options',
   data () {
@@ -61,26 +58,21 @@ export default {
         display: flex;
         align-items: center;
     }
-
     .stat-option {
         font-size: 20px;
         margin: 5px;
     }
-
     .vote {
         cursor: pointer;
     }
-
     .voted {
         color: #FF1480;
     }
-
     .post-bar {
         display: inline-flex;
         justify-content: space-between;
         width: 100%;
     }
-
     .slider {
         padding: 0.5rem;
     }

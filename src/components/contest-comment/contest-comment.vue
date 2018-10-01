@@ -10,33 +10,31 @@
 </template>
 
 <script>
-  import VueMarkdown from 'vue-markdown'
-  import postoptions from '@/components/post-options/post-options.vue'
-  
-  export default {
-    name: 'comment',
-    components: {
-      VueMarkdown,
-      postoptions
-    },
-    props: {
-      comment: Object
-    },
-    data() {
-      return {
-        commentProfileImage: this.comment.authorDetails.json_metadata.profile.profile_image
-      }
-    },
-    methods: {
-      setDefault: function() {
-        this.commentProfileImage = require('@/assets/profile-placeholder.png')
-      }
-    },
-    computed: {
+import VueMarkdown from 'vue-markdown'
+import postoptions from '@/components/post-options/post-options.vue'
+
+export default {
+  name: 'comment',
+  components: {
+    VueMarkdown,
+    postoptions
+  },
+  props: {
+    comment: Object
+  },
+  data () {
+    return {
+      commentProfileImage: this.comment.authorDetails.json_metadata.profile.profile_image
     }
+  },
+  methods: {
+    setDefault: function () {
+      this.commentProfileImage = require('@/assets/profile-placeholder.png')
+    }
+  },
+  computed: {
   }
+}
 </script>
 
-<style src='@/components/contest-comment/contest-comment.css'>
-  
-</style>
+<style src='@/components/contest-comment/contest-comment.css'></style>
