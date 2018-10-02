@@ -1,7 +1,7 @@
 <template>
     <div class="stats-container">
-        <i class="material-icons stat-option vote" :class="{ voted: voted }" @click="dialogVisible = true">thumb_up</i> <span>{{ voteCount }}</span>
-        <i class="material-icons stat-option">attach_money</i> <span>{{post.pending_payout_value.slice(0, -3) * 1 }}</span>
+        <i class="material-icons stat-option vote" :class="{ voted: voted }" @click="dialogVisible = true">thumb_up</i> <span class="icon-label">{{ voteCount }}</span>
+        <i class="material-icons stat-option">attach_money</i> <span class="icon-label">{{post.pending_payout_value.slice(0, -3) * 1 }}</span>
         <el-dialog title="Select Vote Percentage" :visible.sync="dialogVisible" width="65%">
             <div class="slider">
                 <el-slider v-model="votePercentage" show-input>
@@ -62,8 +62,9 @@ export default {
         align-items: center;
     }
     .stat-option {
-        font-size: 20px;
+        font-size: 18px;
         margin: 5px;
+        color: #424242;
     }
     .vote {
         cursor: pointer;
@@ -78,5 +79,9 @@ export default {
     }
     .slider {
         padding: 0.5rem;
+    }
+
+    .icon-label {
+      font-weight: lighter;
     }
 </style>
