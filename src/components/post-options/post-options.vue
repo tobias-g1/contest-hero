@@ -1,6 +1,6 @@
 <template>
     <div class="stats-container">
-        <i class="material-icons stat-option vote" :class="{ voted: voted }" @click="dialogVisible = true">thumb_up</i> <span>{{ post.active_votes.length}}</span>
+        <i class="material-icons stat-option vote" :class="{ voted: voted }" @click="dialogVisible = true">thumb_up</i> <span>{{ voteCount }}</span>
         <i class="material-icons stat-option">attach_money</i> <span>{{post.pending_payout_value.slice(0, -3) * 1 }}</span>
         <el-dialog title="Select Vote Percentage" :visible.sync="dialogVisible" width="65%">
             <div class="slider">
@@ -23,7 +23,8 @@ export default {
     return {
       voted: false,
       dialogVisible: false,
-      votePercentage: 100
+      votePercentage: 100,
+      voteCount: this.post.active_votes.length
     }
   },
   props: ['post'],
@@ -33,6 +34,8 @@ export default {
 
       this.$steemconnect.vote(currentUser, author, permlink, weight, (err) => {
         (err) ? alert(err) : this.voted = true
+        this.voteCount = this.post.active_votes.length
+        this.voteCount++
         this.$store.commit('setLoading', false)
       })
     },
