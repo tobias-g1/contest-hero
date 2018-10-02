@@ -38,7 +38,7 @@ export default {
       let postImage
       // Check if a post image can be found in the JSON metadata of post and if doesn't exist set a default
       if ('image' in this.postJSON) {
-        (this.postJSON.image[0] != undefined) ? postImage = this.postJSON.image[0] : postImage = require('@/assets/post-placeholder.png')
+        (this.postJSON.image[0] !== undefined) ? postImage = this.postJSON.image[0] : postImage = require('@/assets/post-placeholder.png')
       } else {
         postImage = require('@/assets/post-placeholder.png')
       }
