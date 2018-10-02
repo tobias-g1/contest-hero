@@ -170,16 +170,39 @@ export default {
         }
       }
 
+      const operations = [
+        ['comment',
+          {
+            parent_author: parentAuthor,
+            parent_permlink: parentPermlink,
+            author: this.$store.state.steemconnect.user.name,
+            permlink: this.contestPermlink,
+            title: this.contestForm.title,
+            body: this.contestForm.body,
+            json_metadata: JSON.stringify(jsonMetaData)
+          }
+        ],
+        ['comment_options', {
+          author: this.$store.state.steemconnect.user.name,
+          permlink: this.contestPermlink,
+          max_accepted_payout: '1000000.000 SBD',
+          percent_steem_dollars: 10000,
+          allow_votes: true,
+          allow_curation_rewards: true,
+          extensions: [
+            [0, {
+              beneficiaries: [
+                { account: 'contest-hero', weight: 1000 }
+              ]
+            }]
+          ]
+        }]
+      ]
+
       // Send post via SteemConnect
 
-      this.$steemconnect.comment(
-        parentAuthor,
-        parentPermlink,
-        this.$store.state.steemconnect.user.name,
-        this.contestPermlink,
-        this.contestForm.title,
-        this.contestForm.body,
-        jsonMetaData,
+      this.$steemconnect.broadcast(
+        operations,
         (err) => {
           (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') : this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}`)
           this.$store.commit('setLoading', false)
