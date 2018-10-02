@@ -205,8 +205,8 @@ export default {
         '',
         this.ruleForm.commentbody,
         jsonMetaData).then(err => {
+        (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') : this.getComments(this.post.author, this.post.permlink)
         this.$store.commit('setLoading', false)
-        this.getComments(this.post.author, this.post.permlink)
         this.ruleForm.commentbody = ''
       })
     }
