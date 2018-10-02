@@ -4,9 +4,10 @@
       <filterpanel @messageSent='onMessageSent' @click.native="$store.commit('setLoading', true)" />
     </el-col>
     <el-col :span="24">
-      <div class="card-container">
+      <div v-if="messages[0]" class="card-container">
         <postcard v-for="(messages, index) in messages" :key="index" :post="messages" />
       </div>
+      <noposts v-else />
     </el-col>
   </el-row>
 </template>
@@ -15,12 +16,14 @@
 import postcard from '@/components/post-card/post-card.vue'
 import filterpanel from '@/components/filter-panel/filter-panel.vue'
 import dsteem from '@/mixins/dsteem.js'
+import noposts from '@/components/no-post/no-post.vue'
 
 export default {
   name: 'feed',
   components: {
     postcard,
-    filterpanel
+    filterpanel,
+    noposts
   },
   mixins: [dsteem],
   data () {
