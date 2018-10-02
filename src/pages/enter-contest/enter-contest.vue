@@ -83,7 +83,7 @@ export default {
       return this.entryForm.title.toLowerCase().replace(/[\s#/]/g, '-') + '-' + Math.floor(Math.random() * 9000000000) + 1000000000
     },
     fixedTags: function () {
-      return ['test434343', this.contestId]
+      return ['contest-hero', this.contestId]
     },
     finalTags: function () {
       return this.fixedTags.concat(this.entryForm.dynamicTags)
