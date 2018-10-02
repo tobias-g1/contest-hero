@@ -1,14 +1,16 @@
 <template>
   <div class="card">
     <span class="card-header" v-bind:style="imageBackground">
-      <div v-bind:class="status === 'Open' ? 'contest_open' : 'contest_closed'" class="status-tag">{{ status }}</div>
       <span class="card-title">
-          <a v-bind:href="postLink"><h3>{{ post.title }}</h3></a>
+          <a v-bind:href="postLink"><h3>{{ post.title }} </h3></a>
           </span>
     </span>
     <span class="card-summary">
       <postoptions :post="post"/>
-  <span class="contest-details">A {{ contestType }} contest created by {{ post.author }} </span>
+      <div>
+<span class="contest">{{ contestType }}</span>
+ <el-tag v-bind:class="status === 'Open' ? 'contest_open' : 'contest_closed'" size="small">{{ status }}</el-tag>
+ </div>
   </span>
   </div>
 </template>
@@ -55,8 +57,7 @@ export default {
       }
     },
     contestType: function () {
-      let contestType = 'writing'
-      return contestType
+      return this.postJSON.tags[1].slice(3, 20)
     },
     ...mapGetters('steemconnect', ['user'])
   }
