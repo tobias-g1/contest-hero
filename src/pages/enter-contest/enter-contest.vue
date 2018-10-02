@@ -96,6 +96,9 @@ export default {
         return []
       }
     },
+    adjustBody: function () {
+      return this.entryForm.body + `<p class="contest-hero-post-footer">*This contest was created on [contesthero.io](link), you can view and enter this contest by clicking [here](link)* </p>`
+    },
     ...mapGetters('steemconnect', ['user'])
   },
   methods: {

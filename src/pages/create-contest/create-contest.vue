@@ -135,6 +135,9 @@ export default {
         return []
       }
     },
+    adjustBody: function () {
+      return this.contestForm.body + `<p class="contest-hero-post-footer">*This contest was created on [contesthero.io](link), you can view and enter this contest by clicking [here](link)* </p>`
+    },
     ...mapGetters('steemconnect', ['user'])
   },
   methods: {
@@ -178,7 +181,7 @@ export default {
             author: this.$store.state.steemconnect.user.name,
             permlink: this.contestPermlink,
             title: this.contestForm.title,
-            body: this.contestForm.body,
+            body: this.adjustBody,
             json_metadata: JSON.stringify(jsonMetaData)
           }
         ],
