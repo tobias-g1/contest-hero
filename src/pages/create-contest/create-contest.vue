@@ -111,6 +111,7 @@ export default {
   computed: {
     fixedTags: function () {
       let fixedTags = ['contest-hero']
+
       fixedTags.push(this.contestForm.type)
       return fixedTags
     },
