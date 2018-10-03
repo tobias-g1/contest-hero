@@ -11,6 +11,7 @@
     "dsteem": "^0.9.0",
     "element-ui": "^2.4.7",
     "express": "^4.16.3",
+    "express-force-https": "^1.0.0",
     "path-to-regexp": "^2.4.0",
     "serve-static": "^1.13.2",
     "vue": "^2.5.17",
