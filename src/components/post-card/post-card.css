@@ -25,26 +25,28 @@
     margin-left: 20px;
   }
   
-  .status-tag {
-    padding: 7px 10px;
-    margin: 10px;
+
+  .contest {
     height: fit-content;
-    border-radius: 5px;
-    border: 2px solid;
     font-size: 13px;
-    font-weight: bold;
+    font-weight: 400; 
+    margin-right: 10px;
+  }
+
+  .el-tag--small {
+    margin: 0;
   }
   
   .contest_open {
-    color:  #3B773B;
-    background: #DFF0D7;
-    border-color: #D6EAC5;
+    color:  #3B773B !important;
+    background: #DFF0D7 !important;
+    border-color: #D6EAC5 !important;
   }
   
   .contest_closed {
-    color: #c70047;
-    background: #F2DEDE;
-     border-color: #ECCCD1;
+    color: #c70047 !important;
+    background: #F2DEDE !important;
+     border-color: #ECCCD1 !important;
   }
   
   .cards {
@@ -90,9 +92,7 @@
     display: inline-flex;
   }
   
-  .card .card-summary {
-    padding: 5% 5% 5% 5%;
-  }
+ 
   
   .card .card-header {
     position: relative;
@@ -105,7 +105,7 @@
     -webkit-border-radius: 4px;
     border-radius: 10px 10px 0 0;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
   }
   
   .card .card-header:hover,
@@ -123,6 +123,21 @@
     width: 100%;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.7' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
 
+  }
+
+  .card .card-summary {
+       display: -webkit-box;
+       display: -ms-flexbox;
+       display: flex;
+       -webkit-box-orient: horizontal;
+       -webkit-box-direction: normal;
+       -ms-flex-direction: row;
+       flex-direction: row;
+       -webkit-box-pack: justify;
+       -ms-flex-pack: justify;
+       justify-content: space-between;
+       padding: 10px;
+       align-items: center;
   }
   
   .card .card-title h3 {

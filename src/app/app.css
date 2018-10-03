@@ -13,4 +13,8 @@
   body>.el-container {
     margin-bottom: 40px;
   }
+
+  .contest-hero-post-footer{
+    display: none;
+  }
   

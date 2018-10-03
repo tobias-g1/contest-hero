@@ -11,7 +11,7 @@
             <el-col :span="12">
                 <el-form-item label="Deadline" required>
                     <el-form-item prop="deadline">
-                        <el-date-picker type="date" placeholder="Select Deadline" v-model="contestForm.deadline" style="width: 100%;" value-format="yyyy/MM/dd"></el-date-picker>
+                        <el-date-picker type="date" placeholder="Select Deadline" :picker-options="pickerOptions" v-model="contestForm.deadline" style="width: 100%;" value-format="yyyy/MM/dd"></el-date-picker>
                     </el-form-item>
                 </el-form-item>
             </el-col>
@@ -55,146 +55,167 @@
 </template>
 
 <script>
-    import markdownEditor from 'vue-simplemde/src/markdown-editor'
-    import form from '@/mixins/form-actions.js'
-    import tags from '@/mixins/tags.js'
-    import {
-        mapGetters
-    } from 'vuex'
-    
-    export default {
-        name: 'create-contest',
-        data() {
-            return {
-                labelPosition: 'top',
-                inputVisible: false,
-                inputValue: '',
-                contestForm: {
-                    title: '',
-                    type: '',
-                    deadline: '',
-                    body: '',
-                    dynamicTags: []
-                },
-                rules: {
-                    title: [{
-                        required: true,
-                        message: 'Please enter a title',
-                        trigger: 'blur'
-                    }],
-                    type: [{
-                        required: true,
-                        message: 'Please select a contest category',
-                        trigger: 'change'
-                    }],
-                    deadline: [{
-                        required: true,
-                        message: 'Please select a deadline',
-                        trigger: 'change'
-                    }],
-                    body: [{
-                            required: true,
-                            message: 'Please enter the body of your contest',
-                            trigger: 'blur'
-                        },
-                        {
-                            min: 150,
-                            message: 'Your contest body should be at least 150 characters',
-                            trigger: 'blur'
-                        }
-                    ]
-                }
-            }
+import markdownEditor from 'vue-simplemde/src/markdown-editor'
+import form from '@/mixins/form-actions.js'
+import tags from '@/mixins/tags.js'
+import { mapGetters } from 'vuex'
+
+export default {
+  name: 'create-contest',
+  data () {
+    return {
+      labelPosition: 'top',
+      inputVisible: false,
+      inputValue: '',
+      contestForm: {
+        title: '',
+        type: '',
+        deadline: '',
+        body: '',
+        dynamicTags: []
+      },
+      rules: {
+        title: [{
+          required: true,
+          message: 'Please enter a title',
+          trigger: 'blur'
+        }],
+        type: [{
+          required: true,
+          message: 'Please select a contest category',
+          trigger: 'change'
+        }],
+        deadline: [{
+          required: true,
+          message: 'Please select a deadline',
+          trigger: 'change'
+        }],
+        body: [{
+          required: true,
+          message: 'Please enter the body of your contest',
+          trigger: 'blur'
         },
-        components: {
-            markdownEditor
-        },
-        mixins: [form, tags],
-        computed: {
-            fixedTags: function() {
-                let fixedTags = ['test434343']
-                fixedTags.push(this.contestForm.type)
-                return fixedTags
-            },
-            finalTags: function() {
-                return this.fixedTags.concat(this.contestForm.dynamicTags)
-            },
-            contestPermlink: function() {
-                return this.contestForm.title.toLowerCase().replace(/[\s#/]/g, '-') + '-' + this.contestId
-            },
-            contestId: function() {
-                return 'ch-xxxxxxxxx'.replace(/[xy]/g, function(c) {
-                    var r = Math.random() * 16 | 0,
-                        v = c == 'x' ? r : (r & 0x3 | 0x8);
-                    return v.toString(16);
-                });
-            },
-            postImages: function() {
-                let images =  this.contestForm.body.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|svg)/g)
-                if (images !== null) {
-                    return images
-                } else {
-                    return []
-                }
-            },
-            ...mapGetters('steemconnect', ['user']),
-        },
-        methods: {
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        this.createContest();
-                    } else {
-                        console.log('error submit!!')
-                        return false
-                    }
-                })
-            },
-            createContest() {
-    
-                this.$store.commit('setLoading', true)
-    
-                // Parent author and parentPermLink not required for submitted a post to the blockchain
-    
-                let parentAuthor = ''
-                let parentPermlink = this.finalTags[0]
-    
-                // Create JSON Metadata
-    
-                let jsonMetaData = {
-                    'tags': this.finalTags,
-                    'app': 'contest_hero',
-                    "image": this.postImages,
-                    "format": "markdown",
-                    'contest_hero': {
-                        'type': 'contest',
-                        'deadline': this.contestForm.deadline,
-                        'contestId': this.contestId
-                    }
-                }
-    
-                // Send post via SteemConnect
-    
-                this.$steemconnect.comment(
-                    parentAuthor,
-                    parentPermlink,
-                    this.$store.state.steemconnect.user.name,
-                    this.contestPermlink,
-                    this.contestForm.title,
-                    this.contestForm.body,
-                    jsonMetaData,
-                    (err) => {
-                        (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github'): this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}`)
-                        this.$store.commit('setLoading', false)
-                    })
-            }
+        {
+          min: 150,
+          message: 'Your contest body should be at least 150 characters',
+          trigger: 'blur'
         }
+        ]
+      }
     }
+  },
+  components: {
+    markdownEditor
+  },
+  mixins: [form, tags],
+  computed: {
+    fixedTags: function () {
+      let fixedTags = ['test434343']
+      fixedTags.push(this.contestForm.type)
+      return fixedTags
+    },
+    finalTags: function () {
+      return this.fixedTags.concat(this.contestForm.dynamicTags)
+    },
+    contestPermlink: function () {
+      return this.contestForm.title.toLowerCase().replace(/[\s#/]/g, '-') + '-' + this.contestId
+    },
+    contestId: function () {
+      return 'ch-xxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0
+        var v = c === 'x' ? r : (r & 0x3 | 0x8)
+        return v.toString(16)
+      })
+    },
+    postImages: function () {
+      let images = this.contestForm.body.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|svg)/g)
+      if (images !== null) {
+        return images
+      } else {
+        return []
+      }
+    },
+    adjustBody: function () {
+      return this.contestForm.body + `<p class="ch-footer">*This contest was created on [contesthero.io](https://contesthero.io), you can view and enter this contest by clicking [here](https://contesthero.io/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink})* </p>`
+    },
+    ...mapGetters('steemconnect', ['user'])
+  },
+  methods: {
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.createContest()
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    createContest () {
+      this.$store.commit('setLoading', true)
+
+      // Parent author and parentPermLink not required for submitted a post to the blockchain
+
+      let parentAuthor = ''
+      let parentPermlink = this.finalTags[0]
+
+      // Create JSON Metadata
+
+      let jsonMetaData = {
+        'tags': this.finalTags,
+        'app': 'contest_hero',
+        'image': this.postImages,
+        'format': 'markdown',
+        'contest_hero': {
+          'type': 'contest',
+          'deadline': this.contestForm.deadline,
+          'contestId': this.contestId
+        }
+      }
+
+      const operations = [
+        ['comment',
+          {
+            parent_author: parentAuthor,
+            parent_permlink: parentPermlink,
+            author: this.$store.state.steemconnect.user.name,
+            permlink: this.contestPermlink,
+            title: this.contestForm.title,
+            body: this.adjustBody,
+            json_metadata: JSON.stringify(jsonMetaData)
+          }
+        ],
+        ['comment_options', {
+          author: this.$store.state.steemconnect.user.name,
+          permlink: this.contestPermlink,
+          max_accepted_payout: '1000000.000 SBD',
+          percent_steem_dollars: 10000,
+          allow_votes: true,
+          allow_curation_rewards: true,
+          extensions: [
+            [0, {
+              beneficiaries: [
+                { account: 'contest-hero', weight: 1000 }
+              ]
+            }]
+          ]
+        }]
+      ]
+
+      // Send post via SteemConnect
+
+      this.$steemconnect.broadcast(
+        operations,
+        (err) => {
+          (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') : this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}`)
+          this.$store.commit('setLoading', false)
+        })
+    }
+  }
+}
 </script>
 
-<style src="@/pages/create-contest/create-contest.css">
-    
-</style>
+<style src="@/pages/create-contest/create-contest.css"></style>
 
 <style>
     @import '~simplemde/dist/simplemde.min.css';

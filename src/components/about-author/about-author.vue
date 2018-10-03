@@ -17,7 +17,7 @@ export default {
     authorBio: String
   },
   methods: {
-    setDefault: function() {
+    setDefault: function () {
       this.authorImage = require('@/assets/profile-placeholder.png')
     }
   }
