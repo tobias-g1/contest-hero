@@ -21,7 +21,7 @@
                         <el-option label="Writing" default value="ch-writing"></el-option>
                         <el-option label="Design" value="ch-design"></el-option>
                         <el-option label="Photo" value="ch-photo"></el-option>
-                        <el-option label="Giveaway" value="ch-giveaway"></el-option>
+                        <el-option label="Giveaway" value="ch-giveaways"></el-option>
                         <el-option label="Other" value="ch-other"></el-option>
                     </el-select>
                 </el-form-item>
@@ -46,7 +46,7 @@
             </el-col>
             <el-col :span="24">
                 <el-form-item>
-                    <button :disabled="!$steemconnect.user" @click="submitForm('contestForm')" class="btn-fill">Create Contest</button>
+                    <button :disabled="!this.$store.state.steemconnect.user" @click="submitForm('contestForm')" class="btn-fill">Create Contest</button>
                     <el-button @click="resetForm('contestForm'), contestForm.dynamicTags = []">Reset</el-button>
                 </el-form-item>
             </el-col>
@@ -137,7 +137,7 @@ export default {
       }
     },
     adjustBody: function () {
-      return this.contestForm.body + `<p class="ch-footer">*This contest was created on [contesthero.io](https://contesthero.io), you can view and enter this contest by clicking [here](https://contesthero.io/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink})* </p>`
+      return this.contestForm.body + `<p class="ch-footer">*This contest was created on [contesthero.io](https://www.contesthero.io), you can view and enter this contest by clicking [here](https://www.contesthero.io/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink})* </p>`
     },
     ...mapGetters('steemconnect', ['user'])
   },

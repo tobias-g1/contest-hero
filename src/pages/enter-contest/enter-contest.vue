@@ -29,7 +29,7 @@
             </el-col>
             <el-col :span="24">
                 <el-form-item>
-                    <button :disabled="!$steemconnect.user" @click="submitForm('entryForm')" class="btn-fill">Enter Contest</button>
+                    <button :disabled="!this.$store.state.steemconnect.user" @click="submitForm('entryForm')" class="btn-fill">Enter Contest</button>
                     <el-button @click="resetForm('entryForm'), entryForm.dynamicTags = []">Reset</el-button>
                 </el-form-item>
             </el-col>
@@ -97,7 +97,7 @@ export default {
       }
     },
     adjustBody: function () {
-      return this.entryForm.body + `<p class="ch-footer">*This contest was created on [contesthero.io](https://contesthero.io), you can view and enter this contest by clicking [here](https://contesthero.io/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink})* </p>`
+      return this.entryForm.body + `<p class="ch-footer">*This is an entry for a contest on [contesthero.io](https://contesthero.io), you can view and enter this contest by clicking [here](https://contesthero.io/view-contest/${this.contestAuthor}/${this.contestPermlink})* </p>`
     },
     ...mapGetters('steemconnect', ['user'])
   },
@@ -145,7 +145,7 @@ export default {
             author: this.$store.state.steemconnect.user.name,
             permlink: this.entryPermlink,
             title: this.entryForm.title,
-            body: this.entryForm.body,
+            body: this.adjustBody,
             json_metadata: JSON.stringify(jsonMetaData)
           }
         ],

@@ -33,19 +33,15 @@ export default {
   },
   mounted () {
     this.$store.commit('setLoading', true)
-    this.getContests('contest-hero', 100).then(discussions => {
+    this.getContests('contest-hero', 100, 'trending').then(discussions => {
       if (discussions.length === 0) {
         this.messages = []
       }
       discussions.forEach(discussion => {
         let postJSON = JSON.parse(discussion.json_metadata)
-        if ('app' in postJSON) {
-          if (postJSON.app === 'contest_hero') {
-            if (postJSON.contest_hero.type === 'contest') {
-              this.messages.push(discussion)
-            }
-          } else {
-            this.messages = []
+        if ('contest_hero' in postJSON) {
+          if (postJSON.contest_hero.type === 'contest') {
+            this.messages.push(discussion)
           }
         }
       })

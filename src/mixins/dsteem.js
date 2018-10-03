@@ -5,8 +5,8 @@ const client = new Client('https://api.steemit.com')
 var dsteem = {
 
   methods: {
-    getContests: function (tag, limit) {
-      return client.database.getDiscussions('active', {
+    getContests: function (tag, limit, type) {
+      return client.database.getDiscussions(type, {
         tag: tag,
         limit: limit
       })

@@ -19,7 +19,7 @@
                         <markdownEditor v-model="ruleForm.commentbody" />
                     </el-form-item>
                     <el-form-item>
-                        <button @click="submitForm('ruleForm')" class="btn-fill">Create Comment</button>
+                        <button :disabled="!this.$store.state.steemconnect.user" @click="submitForm('ruleForm')" class="btn-fill">Create Comment</button>
                         <el-button @click="resetForm('ruleForm')">Reset</el-button>
                     </el-form-item>
                 </el-form>

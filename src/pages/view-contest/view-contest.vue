@@ -36,7 +36,7 @@
                     <markdownEditor v-model="ruleForm.commentbody" />
                 </el-form-item>
                 <el-form-item>
-                    <button :disabled="!$steemconnect.user" @click="submitForm('ruleForm')" class="btn-fill">Create Comment</button>
+                    <button :disabled="!this.$store.state.steemconnect.user" @click="submitForm('ruleForm')" class="btn-fill">Create Comment</button>
                     <el-button @click="resetForm('ruleForm')">Reset</el-button>
                 </el-form-item>
             </el-form>
@@ -130,8 +130,10 @@ export default {
           let postJSON = (JSON.parse(this.post.data.json_metadata))
           this.getEntries(postJSON.contest_hero.contestId)
           // Redirect if the contest wasn't made on Contest Hero
-          if (this.postJson.app !== 'contest_hero') {
-            this.$router.push('/contests')
+          if ('contest_hero' in postJSON) {
+            if (postJSON.contest_hero.type !== 'contest') {
+              this.$router.push('/contests')
+            }
           }
         })
       this.$store.commit('setLoading', false)
@@ -169,7 +171,7 @@ export default {
       })
     },
     getEntries (id) {
-      this.getContests(id, 100).then(discussions => {
+      this.getContests(id, 100, 'created').then(discussions => {
         discussions.forEach(discussion => {
           let postJSON = JSON.parse(discussion.json_metadata)
           if ('app' in postJSON) {
