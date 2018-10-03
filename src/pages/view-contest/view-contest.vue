@@ -171,7 +171,7 @@ export default {
       })
     },
     getEntries (id) {
-      this.getContests(id, 100).then(discussions => {
+      this.getContests(id, 100, 'created').then(discussions => {
         discussions.forEach(discussion => {
           let postJSON = JSON.parse(discussion.json_metadata)
           if ('app' in postJSON) {

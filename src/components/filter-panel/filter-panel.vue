@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     getPostsByTag: function (tag, limit) {
-      this.getContests(tag, limit)
+      this.getContests(tag, limit, 'trending')
         .then(discussions => {
           let messages = []
 
