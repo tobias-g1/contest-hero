@@ -1,0 +1,8 @@
+.no-post-container {
+    padding: 20px;
+    margin: 15px auto;
+    display: flex;
+    border-radius: 5px;
+    width: fit-content;
+    text-align: center;
+}

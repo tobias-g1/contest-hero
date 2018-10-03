@@ -1,0 +1,33 @@
+.entry-container {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: inline-flex;
+    box-shadow: 0 0 10px 2px #f1f1f1;
+    width: -webkit-fill-available;
+    border-radius: 5px;
+}
+
+.entry-details {
+    padding-left: 10px;
+    display: inline-flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.entry-author {
+    display: block;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.entry-image {
+    border: 2px solid white;
+    border-radius: 50px;
+    height: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    box-shadow: 0 0 10px 2px #f1f1f1;
+}
