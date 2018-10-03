@@ -27,11 +27,9 @@ export default {
 
           discussions.forEach(discussion => {
             let postJSON = JSON.parse(discussion.json_metadata)
-            if ('app' in postJSON) {
-              if (postJSON.app === 'contest_hero') {
-                if (postJSON.contest_hero.type === 'contest') {
-                  messages.push(discussion)
-                }
+            if ('contest_hero' in postJSON) {
+              if (postJSON.contest_hero.type === 'contest') {
+                messages.push(discussion)
               }
             }
           })

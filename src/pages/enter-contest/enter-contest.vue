@@ -29,7 +29,7 @@
             </el-col>
             <el-col :span="24">
                 <el-form-item>
-                    <button :disabled="!$steemconnect.user" @click="submitForm('entryForm')" class="btn-fill">Enter Contest</button>
+                    <button :disabled="user = ''" @click="submitForm('entryForm')" class="btn-fill">Enter Contest</button>
                     <el-button @click="resetForm('entryForm'), entryForm.dynamicTags = []">Reset</el-button>
                 </el-form-item>
             </el-col>
