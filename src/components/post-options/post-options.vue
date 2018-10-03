@@ -1,6 +1,6 @@
 <template>
     <div class="stats-container">
-        <i class="material-icons stat-option vote" :class="{ voted: voted }" @click="dialogVisible = true">thumb_up</i> <span class="icon-label">{{ post.net_votes }}</span>
+        <i class="material-icons stat-option vote" :class="{ voted: voted }" @click=" (user) ? dialogVisible = true : ''">thumb_up</i> <span class="icon-label">{{ post.net_votes }}</span>
         <i class="material-icons stat-option">attach_money</i> <span class="icon-label">{{post.pending_payout_value.slice(0, -3) * 1 }}</span>
         <el-dialog title="Select Vote Percentage" :visible.sync="dialogVisible" width="65%">
             <div class="slider">
