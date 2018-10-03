@@ -21,7 +21,7 @@
                         <el-option label="Writing" default value="ch-writing"></el-option>
                         <el-option label="Design" value="ch-design"></el-option>
                         <el-option label="Photo" value="ch-photo"></el-option>
-                        <el-option label="Giveaway" value="ch-giveaway"></el-option>
+                        <el-option label="Giveaway" value="ch-giveaways"></el-option>
                         <el-option label="Other" value="ch-other"></el-option>
                     </el-select>
                 </el-form-item>
