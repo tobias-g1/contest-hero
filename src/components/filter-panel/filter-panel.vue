@@ -23,8 +23,20 @@ export default {
     getPostsByTag: function (tag, limit) {
       this.getContests(tag, limit)
         .then(discussions => {
+          let messages = []
+
+          discussions.forEach(discussion => {
+            let postJSON = JSON.parse(discussion.json_metadata)
+            if ('app' in postJSON) {
+              if (postJSON.app === 'contest_hero') {
+                if (postJSON.contest_hero.type === 'contest') {
+                  messages.push(discussion)
+                }
+              }
+            }
+          })
           this.$emit('messageSent', {
-            message: discussions
+            message: messages
           })
         })
     }

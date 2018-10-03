@@ -18,11 +18,11 @@
             <el-col :span="12">
                 <el-form-item label="Contest Type" prop="type">
                     <el-select v-model="contestForm.type" placeholder="Select Type">
-                        <el-option label="Writing" default value="434343"></el-option>
-                        <el-option label="Design" value="contest-hero-design"></el-option>
-                        <el-option label="Photo" value="contest-hero-photo"></el-option>
-                        <el-option label="Giveaway" value="contest-hero-giveaway"></el-option>
-                        <el-option label="Other" value="contest-hero-other"></el-option>
+                        <el-option label="Writing" default value="ch-writing"></el-option>
+                        <el-option label="Design" value="ch-design"></el-option>
+                        <el-option label="Photo" value="ch-photo"></el-option>
+                        <el-option label="Giveaway" value="ch-giveaway"></el-option>
+                        <el-option label="Other" value="ch-other"></el-option>
                     </el-select>
                 </el-form-item>
             </el-col>
@@ -46,7 +46,7 @@
             </el-col>
             <el-col :span="24">
                 <el-form-item>
-                    <button @click="submitForm('contestForm')" class="btn-fill">Create Contest</button>
+                    <button :disabled="!$steemconnect.user" @click="submitForm('contestForm')" class="btn-fill">Create Contest</button>
                     <el-button @click="resetForm('contestForm'), contestForm.dynamicTags = []">Reset</el-button>
                 </el-form-item>
             </el-col>
@@ -110,7 +110,8 @@ export default {
   mixins: [form, tags],
   computed: {
     fixedTags: function () {
-      let fixedTags = ['test434343']
+      let fixedTags = ['contest-hero']
+
       fixedTags.push(this.contestForm.type)
       return fixedTags
     },

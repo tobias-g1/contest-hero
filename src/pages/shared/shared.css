@@ -2,6 +2,9 @@ body {
     background: #FAFAFA;
     margin: 0;
     font-family: sans-serif;
+    height: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
   }
   
   h1.header {

@@ -44,6 +44,8 @@ export default {
             if (postJSON.contest_hero.type === 'contest') {
               this.messages.push(discussion)
             }
+          } else {
+            this.messages = []
           }
         }
       })
@@ -51,7 +53,11 @@ export default {
   },
   methods: {
     onMessageSent: function (message) {
-      this.messages = message.message
+      if (message.length === 0) {
+        this.messages = []
+      } else {
+        this.messages = message.message
+      }
     }
   },
   watch: {

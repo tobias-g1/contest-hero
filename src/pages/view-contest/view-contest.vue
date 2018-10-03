@@ -36,7 +36,7 @@
                     <markdownEditor v-model="ruleForm.commentbody" />
                 </el-form-item>
                 <el-form-item>
-                    <button @click="submitForm('ruleForm')" class="btn-fill">Create Comment</button>
+                    <button :disabled="!$steemconnect.user" @click="submitForm('ruleForm')" class="btn-fill">Create Comment</button>
                     <el-button @click="resetForm('ruleForm')">Reset</el-button>
                 </el-form-item>
             </el-form>
@@ -204,11 +204,12 @@ export default {
         this.post.permlink + Math.floor(Math.random() * 9000000000) + 1000000000,
         '',
         this.ruleForm.commentbody,
-        jsonMetaData).then(err => {
-        (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') : this.getComments(this.post.author, this.post.permlink)
-        this.$store.commit('setLoading', false)
-        this.ruleForm.commentbody = ''
-      })
+        jsonMetaData,
+        (err) => {
+          (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') : this.getComments(this.post.author, this.post.permlink)
+          this.$store.commit('setLoading', false)
+          this.ruleForm.commentbody = ''
+        })
     }
   },
   mounted () {
