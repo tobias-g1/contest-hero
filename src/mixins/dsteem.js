@@ -6,7 +6,7 @@ var dsteem = {
 
   methods: {
     getContests: function (tag, limit) {
-      return client.database.getDiscussions('active', {
+      return client.database.getDiscussions('trending', {
         tag: tag,
         limit: limit
       })
