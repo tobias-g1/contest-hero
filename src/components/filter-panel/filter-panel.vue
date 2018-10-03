@@ -4,7 +4,7 @@
     <span class="option" v-bind:class="[ activecategory === 2 ? 'active' : '' ]" @click="getPostsByTag('ch-writing', 100), activecategory=2">Writing Contests</span>
     <span class="option" v-bind:class="[ activecategory === 3 ? 'active' : '' ]" @click="getPostsByTag('ch-design', 100), activecategory=3">Design Contests</span>
     <span class="option" v-bind:class="[ activecategory === 4 ? 'active' : '' ]" @click="getPostsByTag('ch-photo', 100), activecategory=4">Photo Contests</span>
-    <span class="option" v-bind:class="[ activecategory === 5 ? 'active' : '' ]" @click="getPostsByTag('ch-giveaway', 100), activecategory=5">Giveaway Contests</span>
+    <span class="option" v-bind:class="[ activecategory === 5 ? 'active' : '' ]" @click="getPostsByTag('ch-giveaway', 100), activecategory=5">Giveaways</span>
     <span class="option" v-bind:class="[ activecategory === 6 ? 'active' : '' ]" @click="getPostsByTag('ch-other', 100), activecategory=6">Other</span>
   </div>
 </template>
