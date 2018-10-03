@@ -79,7 +79,7 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 25px 50px !important;
+    padding: 25px 30px !important;
     background: white;
     box-shadow: 0 0 10px 2px #f1f1f1;
     align-items: center;
