@@ -2,8 +2,9 @@ body {
     background: #FAFAFA;
     margin: 0;
     font-family: sans-serif;
-  }
-  
+    height: -webkit-fill-available;
+    display: flex;
+}
   h1.header {
     font-weight: bold;
     font-size: 16px;
