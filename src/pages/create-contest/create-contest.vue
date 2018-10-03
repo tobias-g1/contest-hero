@@ -46,7 +46,7 @@
             </el-col>
             <el-col :span="24">
                 <el-form-item>
-                    <button :disabled="this.$store.state.steemconnect.user.name !== ''" @click="submitForm('contestForm')" class="btn-fill">Create Contest</button>
+                    <button :disabled="!this.$store.state.steemconnect.user" @click="submitForm('contestForm')" class="btn-fill">Create Contest</button>
                     <el-button @click="resetForm('contestForm'), contestForm.dynamicTags = []">Reset</el-button>
                 </el-form-item>
             </el-col>
