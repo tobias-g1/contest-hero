@@ -22,10 +22,17 @@ export default {
   props: {
     comment: Object
   },
-  computed: {
-    commentProfileImage: function () {
-      return `https://steemitimages.com/u/${this.comment.author}/avatar`
+  data () {
+    return {
+      commentProfileImage: this.comment.authorDetails.json_metadata.profile.profile_image
     }
+  },
+  methods: {
+    setDefault: function () {
+      this.commentProfileImage = require('@/assets/profile-placeholder.png')
+    }
+  },
+  computed: {
   }
 }
 </script>

@@ -33,9 +33,19 @@ export default {
     ElementLoading,
     aboutbanner
   },
+  data () {
+    return {
+      userProfileImage: this.userImage
+    }
+  },
   computed: {
+    currentUserJSON: function () {
+      return JSON.parse(this.user.account.json_metadata)
+    },
     userImage: function () {
-      return `https://steemitimages.com/u/${this.user.name}/avatar`
+      let userImage;
+      ('profile_image' in this.currentUserJSON.profile) ? userImage = this.currentUserJSON.profile.profile_image : userImage = require('@/assets/profile-placeholder.png')
+      return userImage
     },
     ...mapGetters('steemconnect', ['user'])
   },
