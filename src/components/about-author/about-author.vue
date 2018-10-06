@@ -1,6 +1,6 @@
 <template>
     <div class="author-container">
-        <img v-bind:src="authorImage" @error="setDefault">
+        <img :src="authorImage" @error="setDefault">
         <div class="author-details">
         <span class="author-name"> {{ authorName }} </span>
         <span class="author-bio "> {{ authorBio }} </span>
@@ -13,15 +13,13 @@ export default {
   name: 'about-author',
   props: {
     authorName: String,
-    authorImage: String,
     authorBio: String
   },
-  methods: {
-    setDefault: function () {
-      this.authorImage = require('@/assets/profile-placeholder.png')
+  computed: {
+    authorImage: function () {
+      return `https://steemitimages.com/u/${this.authorName}/avatar`
     }
   }
-
 }
 </script>
 
