@@ -9,7 +9,7 @@
       <postoptions :post="post"/>
       <div>
 <span class="contest">{{ contestType }}</span>
- <el-tag v-bind:class="status === 'Open' ? 'contest_open' : 'contest_closed'" size="small">{{ status }}</el-tag>
+ <el-tag v-bind:class="status === 'Live' ? 'contest_open' : 'contest_closed'" size="small">{{ status }}</el-tag>
  </div>
   </span>
   </div>
@@ -53,7 +53,7 @@ export default {
       if (new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= this.postJSON.contest_hero.deadline) {
         return 'Complete'
       } else {
-        return 'Open'
+        return 'Live'
       }
     },
     contestType: function () {
