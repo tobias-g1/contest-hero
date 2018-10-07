@@ -28,7 +28,7 @@
             </el-col>
             <el-col :span="24">
                 <el-form-item label="Contest Body" prop="body">
-                    <markdownEditor v-model="contestForm.body" />
+                    <markdownEditor :configs="editorConfig" v-model="contestForm.body" />
                 </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -101,6 +101,10 @@ export default {
           trigger: 'blur'
         }
         ]
+      },
+      editorConfig: {
+        spellChecker: true,
+        placeholder: 'Remember to add a description of your contest, any prizes you plan to offer and any additional information a reader should know about entering your contest. A user will automatically be able to enter your contest through the "Enter Contest" button shown on your contest page.'
       }
     }
   },
