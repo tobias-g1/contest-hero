@@ -5,9 +5,15 @@
         <div class="logo-container"><span class="text-logo"><strong>Contest</strong> Hero</span></div>
       </router-link>
       <div class="menu-options" v-if="user">
+          <el-tooltip class="item" effect="dark" content="Feed" placement="bottom-start">
         <router-link to="/"><i class="material-icons">dashboard</i></router-link>
+          </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="Add Contest" placement="bottom-start">
         <router-link to="/create-contest"><i class="material-icons">add_circle_outline</i></router-link>
+            </el-tooltip>
+              <el-tooltip class="item" effect="dark" content="Log out" placement="bottom-start">
         <a class="nav-link" href="#" @click.prevent="$store.dispatch('steemconnect/logout')"><i class="material-icons">exit_to_app</i></a>
+              </el-tooltip>
         <img class="user-image" :src="userImage" alt="">
       </div>
       <div class="menu-options" v-else>

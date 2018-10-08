@@ -47,7 +47,7 @@ export default {
       return `background-image: url(${postImage});`
     },
     postLink: function () {
-      return `#/view-contest/${this.post.author}/${this.post.permlink}`
+      return `/view-contest/${this.post.author}/${this.post.permlink}`
     },
     status: function () {
       if (new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= this.postJSON.contest_hero.deadline) {
