@@ -8,9 +8,9 @@ const history = require('connect-history-api-fallback')
 const app = express()
 
 // create middleware to handle the serving the app
+app.use(history({}))
 app.use(secure)
 app.use('/', serveStatic(path.join(__dirname, '/dist')))
-app.use(history())
 
 // Create default port to serve the app on
 const port = process.env.PORT || 5000
