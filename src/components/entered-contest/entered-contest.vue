@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     postLink: function () {
-      return `#/view-entry/${this.comment.author}/${this.comment.permlink}`
+      return `/view-entry/${this.comment.author}/${this.comment.permlink}`
     }
   }
 }
