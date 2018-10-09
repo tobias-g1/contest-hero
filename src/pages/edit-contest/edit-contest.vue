@@ -136,6 +136,7 @@ export default {
           this.contest.type = postJSON.tags[1]
           this.contest.image = postJSON.image
           this.dynamicTags = postJSON.tags.slice(3, 5)
+          this.contestId = postJSON.contest_hero.contestId
         })
     },
     submitForm (formName) {
