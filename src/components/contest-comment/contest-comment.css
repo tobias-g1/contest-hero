@@ -5,6 +5,8 @@
     display: inline-flex;
     box-shadow: 0 0 10px 2px #f1f1f1;
     width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
     border-radius: 5px;
 }
 
