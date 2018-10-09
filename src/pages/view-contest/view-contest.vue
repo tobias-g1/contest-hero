@@ -1,66 +1,80 @@
 <template>
-    <el-row v-if="post.data" :gutter="20">
-        <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="16">
+  <el-row v-if="post.data" :gutter="20">
+    <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="16">
 
-            <!-- Post Container -->
-            <h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
-            <div class="post-container">
-                <post :postbody="post.data.body"></post>
-                <div class="post-bar">
-                    <div class="tags">
-                        <el-tag v-for="(tag, index) in tags" :key="index">{{ tag }}</el-tag>
-                    </div>
-                    <postoptions :post="post.data" />
-                </div>
-            </div>
-            <a v-bind:href="postLink" v-show="contestOpen"><button class="btn-fill enter-contest">Enter Contest</button></a>
+      <!-- Post Container -->
+      <div class="header-row"><h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
 
-            <!-- Winners -->
-            <div class="winners-container" v-show="contest.winners">
-                <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Winners</h1>
-                <winners v-for="(winner, index) in contest.winners" :key="index" :winners="winner" />
-            </div>
+      <el-dropdown>
+        <span class="el-dropdown-link" v-if="this.post.author === user.name">
+               <span class="el-dropdown-link more-options">
+          <i class="material-icons">more_vert</i>
+               </span>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>
+            <router-link :to="editLink">Edit Contest</router-link>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      </div>
+      <div class="post-container">
+        <post :postbody="post.data.body"></post>
+        <div class="post-bar">
+          <div class="tags">
+            <el-tag v-for="(tag, index) in tags" :key="index">{{ tag }}</el-tag>
+          </div>
+          <postoptions :post="post.data" />
+        </div>
+      </div>
+      <router-link :to="postLink" v-show="contestOpen"><button class="btn-fill enter-contest">Enter Contest</button></router-link>
 
-            <!-- Other Winners -->
-            <div class="other-winners-container" v-show="contest.otherwinners">
-                <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Other Winners</h1>
-                <div class="other-winners-list-container">
-                    <otherwinners v-for="(otherwin, index) in contest.otherwin" :key="index" :otherWinners="otherwin" />
-                </div>
-            </div>
+      <!-- Winners -->
+      <div class="winners-container" v-show="contest.winners">
+        <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Winners</h1>
+        <winners v-for="(winner, index) in contest.winners" :key="index" :winners="winner" />
+      </div>
 
-            <!-- Post Comments -->
-            <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Comments</h1>
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" @submit.native.prevent>
-                <el-form-item prop="commentbody">
-                    <markdownEditor v-model="ruleForm.commentbody" />
-                </el-form-item>
-                <el-form-item>
-                    <button :disabled="!this.$store.state.steemconnect.user" @click="submitForm('ruleForm')" class="btn-fill">Create Comment</button>
-                    <el-button @click="resetForm('ruleForm')">Reset</el-button>
-                </el-form-item>
-            </el-form>
+      <!-- Other Winners -->
+      <div class="other-winners-container" v-show="contest.otherwinners">
+        <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Other Winners</h1>
+        <div class="other-winners-list-container">
+          <otherwinners v-for="(otherwin, index) in contest.otherwin" :key="index" :otherWinners="otherwin" />
+        </div>
+      </div>
 
-            <!-- Comments List -->
-            <comment v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
-        </el-col>
-        <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
+      <!-- Post Comments -->
+      <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Comments</h1>
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" @submit.native.prevent>
+        <el-form-item prop="commentbody">
+          <markdownEditor v-model="ruleForm.commentbody" />
+        </el-form-item>
+        <el-form-item>
+          <button :disabled="!this.$store.state.steemconnect.user" @click="submitForm('ruleForm')" class="btn-fill">Create Comment</button>
+          <el-button @click="resetForm('ruleForm')">Reset</el-button>
+        </el-form-item>
+      </el-form>
 
-            <!-- Contest Deadline -->
-            <h3 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> This contest closes in:</h3>
-            <Countdown :deadline="contestDeadline"></Countdown>
+      <!-- Comments List -->
+      <comment v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
+    </el-col>
+    <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
 
-            <!-- About Author -->
-            <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">About the Author</h3>
-            <aboutauthor :authorBio="post.authorBio" :authorImage="post.authorImage" :authorName="post.author"></aboutauthor>
+      <!-- Contest Deadline -->
+      <h3 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> This contest closes in:</h3>
+      <Countdown :deadline="contestDeadline"></Countdown>
 
-                <!-- Contest Entries -->
-            <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
-            <noentries v-if="contest.entries.length === 0" />
-            <entry v-else v-for="(entry, index) in contest.entries" :key="index" :comment="entry" />
+      <!-- About Author -->
+      <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">About the Author</h3>
+      <aboutauthor :authorBio="post.authorBio" :authorImage="post.authorImage" :authorName="post.author"></aboutauthor>
 
-        </el-col>
-    </el-row>
+      <!-- Contest Entries -->
+      <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
+      <noentries v-if="contest.entries.length === 0" />
+      <entry v-else v-for="(entry, index) in contest.entries" :key="index" :comment="entry" />
+
+    </el-col>
+  </el-row>
 </template>
 
 <script>
@@ -76,6 +90,7 @@ import Countdown from 'vuejs-countdown'
 import postoptions from '@/components/post-options/post-options.vue'
 import entry from '@/components/entered-contest/entered-contest.vue'
 import noentries from '@/components/no-entries/no-entries.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'view-contest',
@@ -241,7 +256,11 @@ export default {
     },
     contestId: function () {
       return this.postJson.contest_hero.contestId
-    }
+    },
+    editLink: function () {
+      return `/edit-contest/${this.post.author}/${this.post.permlink}`
+    },
+    ...mapGetters('steemconnect', ['user'])
   }
 }
 </script>
@@ -251,5 +270,5 @@ export default {
 </style>
 
 <style>
-    @import '~simplemde/dist/simplemde.min.css';
+  @import '~simplemde/dist/simplemde.min.css';
 </style>

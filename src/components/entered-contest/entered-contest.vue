@@ -2,7 +2,7 @@
   <div class="entry-container">
     <div class="entry-details">
       <span class="enter-author"><strong> {{ comment.author }} </strong> has entered this contest</span>
-      <a :href="postLink"><button class="btn btn-outline">View</button></a>
+      <router-link :to="postLink"><button class="btn btn-outline">View</button></router-link>
     </div>
   </div>
 </template>

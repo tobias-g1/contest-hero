@@ -7,20 +7,17 @@
 </template>
 
 <script>
-  export default {
-    name: 'auth',
-    async mounted () {
-      let accessToken = this.$route.query['access_token']
-      if (accessToken) {
-        localStorage.setItem('access_token', accessToken)
-        await this.$store.dispatch('steemconnect/login')
-        this.$router.push('/')
-      }
+export default {
+  name: 'auth',
+  async mounted () {
+    let accessToken = this.$route.query['access_token']
+    if (accessToken) {
+      localStorage.setItem('access_token', accessToken)
+      await this.$store.dispatch('steemconnect/login')
+      this.$router.push('/')
     }
   }
+}
 </script>
-
-
-
 
 <style src='@/pages/auth/auth.css'>

@@ -2,7 +2,7 @@
   <div class="card">
     <span class="card-header" v-bind:style="imageBackground">
       <span class="card-title">
-          <a v-bind:href="postLink"><h3>{{ post.title }} </h3></a>
+          <router-link :to="postLink"><h3>{{ post.title }} </h3></router-link>
           </span>
     </span>
     <span class="card-summary">
