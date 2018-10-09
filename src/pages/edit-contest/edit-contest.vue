@@ -127,76 +127,73 @@ export default {
       this.contest.permlink = this.$route.params.permlink
       this.loadPost(this.contest.author, this.contest.permlink)
         .then(discussions => {
-          if (this.contest.author !== this.$store.state.steemconnect.user.name) {
-            this.$router.push('/contests')
-          } else {
-            let postJSON = (JSON.parse(discussions[0].json_metadata))
-            this.contest.title = discussions[0].title
-            this.contest.body = discussions[0].body
-            this.contest.tags = postJSON.tags
-            this.contest.deadline = postJSON.contest_hero.deadline
-            this.contest.type = postJSON.tags[1]
-            this.contest.image = postJSON.image
-          }
+          let postJSON = (JSON.parse(discussions[0].json_metadata))
+          this.contest.title = discussions[0].title
+          this.contest.body = discussions[0].body
+          this.contest.tags = postJSON.tags
+          this.contest.deadline = postJSON.contest_hero.deadline
+          this.contest.type = postJSON.tags[1]
+          this.contest.image = postJSON.image
         })
-    }
-  },
-  submitForm (formName) {
-    this.$refs[formName].validate((valid) => {
-      if (valid) {
-        this.editContest()
-      } else {
-        console.log('error submit!!')
-        return false
-      }
-    })
-  },
-  editContest () {
-    this.$store.commit('setLoading', true)
-
-    // Parent author and parentPermLink not required for submitted a post to the blockchain
-
-    let parentAuthor = ''
-    let parentPermlink = this.contest.tags[0]
-
-    // Create JSON Metadata
-
-    let jsonMetaData = {
-      'tags': this.contest.tags,
-      'app': 'contest_hero',
-      'image': this.contest.images,
-      'format': 'markdown',
-      'contest_hero': {
-        'type': 'contest',
-        'deadline': this.contest.deadline,
-        'contestId': this.contest.contestId
-      }
-    }
-
-    const operations = [
-      ['comment',
-        {
-          parent_author: parentAuthor,
-          parent_permlink: parentPermlink,
-          author: this.$store.state.steemconnect.user.name,
-          permlink: this.contest.permlink,
-          title: this.contest.title,
-          body: this.contest.body,
-          json_metadata: JSON.stringify(jsonMetaData)
+    },
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.editContest()
+        } else {
+          console.log('error submit!!')
+          return false
         }
-      ]
-    ]
+      })
+    },
+    editContest () {
+      this.$store.commit('setLoading', true)
 
-    // Send post via SteemConnect
-    if (this.$store.state.steemconnect.user.name === 'this.contest.author') {
-      this.$steemconnect.broadcast(
-        operations,
-        (err) => {
-          (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') : this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contest.permlink}`)
-          this.$store.commit('setLoading', false)
-        })
-    } else {
-      alert('Sorry, you cannot edit this post')
+      // Parent author and parentPermLink not required for submitted a post to the blockchain
+
+      let parentAuthor = ''
+      let parentPermlink = this.contest.tags[0]
+
+      // Create JSON Metadata
+
+      let jsonMetaData = {
+        'tags': this.contest.tags,
+        'app': 'contest_hero',
+        'image': this.contest.images,
+        'format': 'markdown',
+        'contest_hero': {
+          'type': 'contest',
+          'deadline': this.contest.deadline,
+          'contestId': this.contest.contestId
+        }
+      }
+
+      const operations = [
+        ['comment',
+          {
+            parent_author: parentAuthor,
+            parent_permlink: parentPermlink,
+            author: this.$store.state.steemconnect.user.name,
+            permlink: this.contest.permlink,
+            title: this.contest.title,
+            body: this.contest.body,
+            json_metadata: JSON.stringify(jsonMetaData)
+          }
+        ]
+      ]
+
+      // Send post via SteemConnect
+      if (this.$store.state.steemconnect.user.name === this.contest.author) {
+        this.$steemconnect.broadcast(
+          operations,
+          (err) => {
+            (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') : this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contest.permlink}`)
+            this.$store.commit('setLoading', false)
+          })
+      } else {
+        alert('You don\'t have permission to edit this contest')
+        this.$router.push('/contests')
+      }
     }
   }
 }
