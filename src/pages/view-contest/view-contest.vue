@@ -3,7 +3,7 @@
         <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="16">
 
             <!-- Post Container -->
-            <h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
+            <h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1><router-link :to="editLink"><button class="btn btn-outline">Edit Contest</button></router-link>
             <div class="post-container">
                 <post :postbody="post.data.body"></post>
                 <div class="post-bar">
@@ -13,7 +13,7 @@
                     <postoptions :post="post.data" />
                 </div>
             </div>
-            <a v-bind:href="postLink" v-show="contestOpen"><button class="btn-fill enter-contest">Enter Contest</button></a>
+            <router-link :to="postLink" v-show="contestOpen"><button class="btn-fill enter-contest">Enter Contest</button></router-link>
 
             <!-- Winners -->
             <div class="winners-container" v-show="contest.winners">
@@ -241,6 +241,9 @@ export default {
     },
     contestId: function () {
       return this.postJson.contest_hero.contestId
+    },
+    editLink: function () {
+      return `/edit-contest/${this.post.author}/${this.post.permlink}`
     }
   }
 }
