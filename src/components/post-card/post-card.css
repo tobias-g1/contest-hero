@@ -177,10 +177,6 @@
     background: #FF1480 0.5;
   }
   
-  img {
-    max-width: 100%;
-  }
-  
   body {
     background: #f0f0f0;
     font-size: 17px;
@@ -201,4 +197,17 @@
     -o-transition-timing-function: linear;
     -webkit-transition-timing-function: linear;
     transition-timing-function: linear;
+  }
+
+  .author-image-container {
+    background: white;
+    border-radius: 50px;
+    height: 45px;
+    width: 45px;
+    max-width: 45px;
+    margin: 10px 10px 10px auto;
+  }
+
+  .author-image {
+    height: inherit;
   }
