@@ -64,3 +64,7 @@ body {
     margin-right: 0.5rem;
     vertical-align: middle;
   }
+
+  body>.el-container {
+    margin: 0;
+  }
