@@ -37,7 +37,7 @@
                         <el-tag :key="tag" v-for="tag in contest.dynamicTags" closable :disable-transitions="false" @close="handleClose(tag, contest)">
                             {{tag}}
                         </el-tag>
-                        <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm(contestForm)" @blur="handleInputConfirm(contestForm)" @submit.native.prevent>
+                        <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm(contest)" @blur="handleInputConfirm(contest)" @submit.native.prevent>
                         </el-input>
                         <el-button v-else class="button-new-tag" size="small" @click="showInput" v-show="(contest.tags.length < 5)">+ New Tag</el-button>
                     </div>
@@ -45,7 +45,7 @@
             </el-col>
             <el-col :span="24">
                 <el-form-item>
-                    <button :disabled="!this.$store.state.steemconnect.user" @click="submitForm('contest')" class="btn-fill">Create Contest</button>
+                    <button :disabled="!this.$store.state.steemconnect.user" @click="submitForm('contest')" class="btn-fill">Edit Contest</button>
                     <el-button @click="resetForm('contest'), contest.tags = []">Reset</el-button>
                 </el-form-item>
             </el-col>
@@ -75,6 +75,7 @@ export default {
         deadline: '',
         body: '',
         tags: [],
+        dynamicTags: [],
         contestId: '',
         image: ''
       },
@@ -134,6 +135,7 @@ export default {
           this.contest.deadline = postJSON.contest_hero.deadline
           this.contest.type = postJSON.tags[1]
           this.contest.image = postJSON.image
+          this.dynamicTags = postJSON.tags.slice(3, 5)
         })
     },
     submitForm (formName) {
@@ -157,7 +159,7 @@ export default {
       // Create JSON Metadata
 
       let jsonMetaData = {
-        'tags': this.contest.tags,
+        'tags': this.contest.tags.concat(this.contest.dynamicTags),
         'app': 'contest_hero',
         'image': this.contest.images,
         'format': 'markdown',
