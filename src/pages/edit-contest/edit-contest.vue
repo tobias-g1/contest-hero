@@ -117,6 +117,14 @@ export default {
   },
   mixins: [form, tags, dsteem],
   computed: {
+    postImages: function () {
+      let images = this.contestForm.body.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|svg)/g)
+      if (images !== null) {
+        return images
+      } else {
+        return []
+      }
+    },
     ...mapGetters('steemconnect', ['user'])
   },
   mounted () {
@@ -162,7 +170,7 @@ export default {
       let jsonMetaData = {
         'tags': this.contest.tags.concat(this.contest.dynamicTags),
         'app': 'contest_hero',
-        'image': this.contest.images,
+        'image': this.postImages,
         'format': 'markdown',
         'contest_hero': {
           'type': 'contest',
