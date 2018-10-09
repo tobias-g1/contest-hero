@@ -5,7 +5,7 @@ import VueSteemConnect from 'vue-steemconnect'
 Vue.use(VueSteemConnect, {
   baseURL: 'https://steemconnect.com',
   app: 'contest-hero.app',
-  callbackURL: 'http://localhost:8080/auth',
+  callbackURL: 'https://contesthero.io/auth',
   scope: ['vote', 'comment', 'comment_options']
 })
 
