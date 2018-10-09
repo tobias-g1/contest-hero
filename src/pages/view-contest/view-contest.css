@@ -32,3 +32,18 @@
     letter-spacing: 3px;
     padding: 5px 0px;
 }
+
+.header-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.more-options {
+    cursor: pointer;
+}
+
+.more-options a {
+    text-decoration: none;
+}
