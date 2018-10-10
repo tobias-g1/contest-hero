@@ -72,3 +72,7 @@ body {
   body>.el-container {
     margin: 0;
   }
+
+  .el-container.is-vertical {
+    height: 100vh;
+  }
