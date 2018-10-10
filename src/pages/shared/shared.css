@@ -58,6 +58,10 @@ body {
     background: 0;
   }
 
+  .submit {
+    margin-right: 10px;
+  }
+
     
   .small-circle {
     height: 15px;
