@@ -56,32 +56,4 @@ export default {
 }
 </script>
 
-<style>
-    .stats-container {
-        display: flex;
-        align-items: center;
-    }
-    .stat-option {
-        font-size: 18px;
-        margin: 5px;
-        color: #424242;
-    }
-    .vote {
-        cursor: pointer;
-    }
-    .voted {
-        color: #FF1480;
-    }
-    .post-bar {
-        display: inline-flex;
-        justify-content: space-between;
-        width: 100%;
-    }
-    .slider {
-        padding: 0.5rem;
-    }
-
-    .icon-label {
-      font-weight: lighter;
-    }
-</style>
+<style src='@/components/post-options/post-options.css'></style>
