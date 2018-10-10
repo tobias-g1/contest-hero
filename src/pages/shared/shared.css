@@ -45,7 +45,6 @@ body {
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
-    margin-right: 10px;
   }
   
   .btn-fill {
@@ -59,9 +58,21 @@ body {
     background: 0;
   }
 
+  .submit {
+    margin-right: 10px;
+  }
+
     
   .small-circle {
     height: 15px;
     margin-right: 0.5rem;
     vertical-align: middle;
+  }
+
+  body>.el-container {
+    margin: 0;
+  }
+
+  .el-container.is-vertical {
+    height: 100vh;
   }

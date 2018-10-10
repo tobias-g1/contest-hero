@@ -1,10 +1,12 @@
 .comment-container {
     background: white;
-    padding: 20px;
+    padding: 30px;
     margin-bottom: 15px;
     display: inline-flex;
     box-shadow: 0 0 10px 2px #f1f1f1;
     width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
     border-radius: 5px;
 }
 
@@ -15,16 +17,19 @@
 
 .comment-author {
     display: block;
-    font-weight: bold;
+    font-weight: 400;
     font-size: 14px;
     font-family: sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
 }
 
 .comment-body {
-    font-size: 15px;
+    font-size: 14px;
     font-family: sans-serif;
     font-weight: lighter;
     line-height: 25px;
+    padding-right: 15px;
 }
 
 .comment-body img {
@@ -34,8 +39,8 @@
 .comment-image {
     border: 2px solid white;
     border-radius: 50px;
-    height: 50px;
-    min-width: 50px;
-    max-width: 50px;
+    height: 45px;
+    min-width: 45px;
+    max-width: 45px;
     box-shadow: 0 0 10px 2px #f1f1f1;
 }

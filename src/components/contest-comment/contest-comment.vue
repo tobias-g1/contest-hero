@@ -1,8 +1,8 @@
 <template>
   <div class="comment-container">
-    <img class="comment-image" :src="commentProfileImage" alt="" v-on:error="setDefault">
+    <img class="comment-image" :src="commentProfileImage" alt="">
     <div class="comment-details">
-      <span class="comment-author">{{ comment.author }} says:</span>
+      <span class="comment-author">{{ comment.author }}</span>
       <VueMarkdown class="comment-body" :source="comment.body"></VueMarkdown>
       <postoptions :post="comment" />
     </div>

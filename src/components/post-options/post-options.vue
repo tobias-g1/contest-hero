@@ -1,6 +1,6 @@
 <template>
     <div class="stats-container">
-        <i class="material-icons stat-option vote" :class="{ voted: voted }" @click=" (user) ? dialogVisible = true : ''">thumb_up</i> <span class="icon-label">{{ post.net_votes }}</span>
+        <i class="material-icons stat-option vote vote-pulse" :class="{ voted: voted }" @click=" (user) ? dialogVisible = true : ''">favorite</i> <span class="icon-label">{{ post.net_votes }}</span>
         <i class="material-icons stat-option">attach_money</i> <span class="icon-label">{{post.pending_payout_value.slice(0, -3) * 1 }}</span>
         <el-dialog title="Select Vote Percentage" :visible.sync="dialogVisible" width="65%">
             <div class="slider">
@@ -56,32 +56,4 @@ export default {
 }
 </script>
 
-<style>
-    .stats-container {
-        display: flex;
-        align-items: center;
-    }
-    .stat-option {
-        font-size: 18px;
-        margin: 5px;
-        color: #424242;
-    }
-    .vote {
-        cursor: pointer;
-    }
-    .voted {
-        color: #FF1480;
-    }
-    .post-bar {
-        display: inline-flex;
-        justify-content: space-between;
-        width: 100%;
-    }
-    .slider {
-        padding: 0.5rem;
-    }
-
-    .icon-label {
-      font-weight: lighter;
-    }
-</style>
+<style src='@/components/post-options/post-options.css'></style>
