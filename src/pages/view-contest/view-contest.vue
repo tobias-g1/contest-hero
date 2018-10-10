@@ -158,7 +158,8 @@ export default {
         .then(authorDetails => {
           let userJson = JSON.parse(authorDetails[0].json_metadata)
           if (userJson !== undefined) {
-            ('profile_image' in userJson.profile) ? this.post.authorImage = userJson.profile.profile_image : this.post.authorImage = require('@/assets/post-placeholder.png')('about' in userJson.profile) ? this.post.authorBio = userJson.profile.about : this.post.authorBio = 'This user has not added a bio'
+            ('profile_image' in userJson.profile) ? this.post.authorImage = userJson.profile.profile_image : this.post.authorImage = require('@/assets/post-placeholder.png'),
+            ('about' in userJson.profile) ? this.post.authorBio = userJson.profile.about : this.post.authorBio = 'This user has not added a bio'
           }
         })
     },
