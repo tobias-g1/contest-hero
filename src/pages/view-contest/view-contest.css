@@ -44,6 +44,8 @@
     cursor: pointer;
 }
 
-.more-options a {
+.el-dropdown-menu__item a {
     text-decoration: none;
+    color: black;
 }
+
