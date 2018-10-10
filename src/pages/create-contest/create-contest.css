@@ -54,6 +54,11 @@
     width: 100%;
 }
 
+.CodeMirror {
+    font-weight: 600;
+}
+
 .CodeMirror .CodeMirror-placeholder {
-    color: #a3a6ad;
+    color: #c0c4cc;
+    opacity: 1 !important;
 }
