@@ -17,7 +17,8 @@
         <img class="user-image" :src="userImage" alt="">
       </div>
       <div class="menu-options" v-else>
-        <a class="nav-link" :href="$steemconnect.getLoginURL()"><button class="btn btn-outline">Login</button></a>
+         <a class="sign-up" target="_blank" href="https://signup.steemit.com/?ref=contesthero">Sign up</a>
+        <a class="nav-link" :href="$steemconnect.getLoginURL()"><button class="btn btn-fill login">Login</button></a>
       </div>
     </el-header>
     <aboutbanner v-show="!user" />
@@ -75,7 +76,7 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 25px 30px !important;
+    padding: 15px 45px !important;
     background: white;
     box-shadow: 0 0 10px 2px #f1f1f1;
     align-items: center;
@@ -112,5 +113,16 @@ export default {
     border-radius: 50px;
     box-shadow: 0 0 10px 2px #f1f1f1;
     margin-left: 10px;
+  }
+
+  .sign-up {
+    margin-right: 10px;
+    font-size: 13px;
+    color: black;
+  }
+
+  .login {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 </style>
