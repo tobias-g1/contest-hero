@@ -1,6 +1,6 @@
 <template>
     <div class="author-container">
-        <img :src="authorImage" @error="setDefault">
+        <img :src="authorImage">
         <div class="author-details">
         <span class="author-name"> {{ authorName }} </span>
         <span class="author-bio "> {{ authorBio }} </span>

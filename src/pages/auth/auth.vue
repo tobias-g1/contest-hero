@@ -1,9 +1,11 @@
 
 <template>
-    <div class="auth-page">
-        <span class="auth-message">Logging into contest hero</span>
-        <span class="auth-details">You're being logged in, please wait a moment. </span>
+  <div id="auth">
+    <div class="auth-container">
+      <h1>Logging In</h1>
+      <span> We are logging you into Contest Hero now, it shouldn't take more than a few seconds...</span>
     </div>
+  </div>
 </template>
 
 <script>

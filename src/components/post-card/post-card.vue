@@ -1,6 +1,9 @@
 <template>
   <div class="card">
     <span class="card-header" v-bind:style="imageBackground">
+      <div class="author-image-container">
+      <img class="author-image" :src="authorImage" alt="">
+      </div>
       <span class="card-title">
           <router-link :to="postLink"><h3>{{ post.title }} </h3></router-link>
           </span>
@@ -58,6 +61,9 @@ export default {
     },
     contestType: function () {
       return this.postJSON.tags[1].slice(3, 20)
+    },
+    authorImage: function () {
+      return `https://steemitimages.com/u/${this.post.author}/avatar`
     },
     ...mapGetters('steemconnect', ['user'])
   }

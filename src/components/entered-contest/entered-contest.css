@@ -5,11 +5,12 @@
     display: inline-flex;
     box-shadow: 0 0 10px 2px #f1f1f1;
     width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
     border-radius: 5px;
 }
 
 .entry-details {
-    padding-left: 10px;
     display: inline-flex;
     justify-content: space-between;
     flex-direction: row;
@@ -17,17 +18,25 @@
     width: 100%;
 }
 
-.entry-author {
-    display: block;
-    font-weight: bold;
-    font-size: 13px;
+.enter-author {
+    font-size: 14px;
+    margin: 0px 10px;
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
 }
 
-.entry-image {
-    border: 2px solid white;
+.author-image-container {
+    background: white;
     border-radius: 50px;
-    height: 50px;
-    min-width: 50px;
-    max-width: 50px;
+    height: 45px;
+    width: 45px;
+    max-width: 45px;
     box-shadow: 0 0 10px 2px #f1f1f1;
-}
+    display: inline-flex;
+    vertical-align: middle;
+  }
+
+  .author-image {
+    height: inherit;
+  }
