@@ -11,7 +11,6 @@
 }
 
 .entry-details {
-    padding-left: 10px;
     display: inline-flex;
     justify-content: space-between;
     flex-direction: row;
