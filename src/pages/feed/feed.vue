@@ -42,7 +42,11 @@ export default {
         if ('contest_hero' in postJSON) {
           if (postJSON.contest_hero.type === 'contest') {
             this.messages.push(discussion)
+          } else {
+            this.$store.commit('setLoading', false)
           }
+        } else {
+          this.$store.commit('setLoading', false)
         }
       })
     })
