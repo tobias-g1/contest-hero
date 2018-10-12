@@ -22,6 +22,7 @@ db.once("open", function(callback){
 var Contest = require("../models/contest");
 
 // Add new contest
+
 app.post('/contests', (req, res) => {
 
     var db = req.db;
@@ -53,3 +54,14 @@ app.post('/contests', (req, res) => {
       })
     })
   })
+
+// Get all contests
+
+app.get('/contests', (req, res) => {
+  Contest.find({}, ['title', 'author', 'id', 'deadline', 'permlink'], function (error, contests) {
+    if (error) { console.error(error); }
+    res.send({
+      contests: contests
+    })
+  }).sort({_id:-1})
+})
