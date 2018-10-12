@@ -59,6 +59,7 @@ import markdownEditor from 'vue-simplemde/src/markdown-editor'
 import form from '@/mixins/form-actions.js'
 import tags from '@/mixins/tags.js'
 import { mapGetters } from 'vuex'
+import PostsService from '@/services/PostsService'
 
 export default {
   name: 'create-contest',
@@ -212,9 +213,26 @@ export default {
       this.$steemconnect.broadcast(
         operations,
         (err) => {
-          (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') : this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}`)
-          this.$store.commit('setLoading', false)
+          if (err) {
+            alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github')
+            this.$store.commit('setLoading', false)
+          } else {
+            this.createContestCH()
+          }
         })
+    },
+    // Post contest to DB
+    async createContestCH () {
+      await PostsService.createContest({
+        title: this.contestForm.title,
+        author: this.$store.state.steemconnect.user.name,
+        id: this.contestId,
+        deadline: this.contestForm.deadline,
+        category: 'test',
+        permlink: this.contestPermlink
+      })
+      this.$store.commit('setLoading', false)
+      this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}`)
     }
   }
 }
