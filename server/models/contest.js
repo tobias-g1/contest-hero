@@ -8,7 +8,10 @@ var ContestSchema = new Schema({
   id: String,
   deadline: String,
   category: String,
-  permlink: String
+  permlink: String,
+  body: String, 
+  tags: Array,
+  json: Object
 
 });
 

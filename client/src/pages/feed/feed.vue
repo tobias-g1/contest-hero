@@ -5,7 +5,7 @@
     </el-col>
     <el-col :span="24">
       <div v-if="messages[0]" class="card-container">
-        <postcard v-for="(messages, index) in messages" :key="index" :post="messages" />
+        <postcard v-if="messages" v-for="(messages, index) in messages" :key="index" :post="messages" />
       </div>
       <noposts v-else />
     </el-col>
@@ -15,17 +15,18 @@
 <script>
 import postcard from '@/components/post-card/post-card.vue'
 import filterpanel from '@/components/filter-panel/filter-panel.vue'
-import dsteem from '@/mixins/dsteem.js'
 import noposts from '@/components/no-post/no-post.vue'
+import dsteem from '@/mixins/dsteem.js'
+import contestsService from '@/services/contests'
 
 export default {
   name: 'feed',
+  mixins: [dsteem],
   components: {
     postcard,
     filterpanel,
     noposts
   },
-  mixins: [dsteem],
   data () {
     return {
       messages: []
@@ -33,23 +34,7 @@ export default {
   },
   mounted () {
     this.$store.commit('setLoading', true)
-    this.getContests('contest-hero', 100, 'trending').then(discussions => {
-      if (discussions.length === 0) {
-        this.messages = []
-      }
-      discussions.forEach(discussion => {
-        let postJSON = JSON.parse(discussion.json_metadata)
-        if ('contest_hero' in postJSON) {
-          if (postJSON.contest_hero.type === 'contest') {
-            this.messages.push(discussion)
-          } else {
-            this.$store.commit('setLoading', false)
-          }
-        } else {
-          this.$store.commit('setLoading', false)
-        }
-      })
-    })
+    this.getPosts()
   },
   methods: {
     onMessageSent: function (message) {
@@ -58,6 +43,17 @@ export default {
       } else {
         this.messages = message.message
       }
+    },
+    async getPosts () {
+      const response = await contestsService.getContests()
+      this.message = []
+      response.data.contests.forEach((contest, index) => {
+        this.loadPost(contest.author, contest.permlink)
+          .then(discussions => {
+            contest.blockchain = discussions[0]
+            this.messages.push(contest)
+          })
+      })
     }
   },
   watch: {

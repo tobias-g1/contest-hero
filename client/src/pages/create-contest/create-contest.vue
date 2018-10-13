@@ -59,7 +59,7 @@ import markdownEditor from 'vue-simplemde/src/markdown-editor'
 import form from '@/mixins/form-actions.js'
 import tags from '@/mixins/tags.js'
 import { mapGetters } from 'vuex'
-import PostsService from '@/services/PostsService'
+import contestsService from '@/services/contests'
 
 export default {
   name: 'create-contest',
@@ -223,7 +223,7 @@ export default {
     },
     // Post contest to DB
     async createContestCH () {
-      await PostsService.createContest({
+      await contestsService.createContest({
         title: this.contestForm.title,
         author: this.$store.state.steemconnect.user.name,
         id: this.contestId,

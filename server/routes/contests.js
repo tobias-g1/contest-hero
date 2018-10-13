@@ -15,14 +15,20 @@ router.post('/contests', (req, res) => {
     let deadline = req.body.deadline;
     let category = req.body.category;
     let permlink = req.body.permlink
-    
+    let body = req.body.body
+    let json = req.body.json
+    let tags = req.body.tags
+
     var new_contest = new Contest({
       title: title,
       author: author,
       id: id,
       deadline: deadline, 
       category: category,
-      permlink: permlink
+      permlink: permlink,
+      body: body,
+      json: json,
+      tags: tags
     })
 
 
@@ -40,7 +46,7 @@ router.post('/contests', (req, res) => {
 // Get all contests
 
 router.get('/contests', (req, res) => {
-  Contest.find({}, ['title', 'author', 'id', 'deadline', 'permlink', 'category'], function (error, contests) {
+  Contest.find({}, ['title', 'author', 'id', 'deadline', 'permlink', 'category', 'json', 'tags'], function (error, contests) {
     if (error) { console.error(error); }
     res.send({
       contests: contests
@@ -56,7 +62,7 @@ router.get('/contests/:category', (req, res) => {
 
     console.log(userCategory)
 
-    Contest.find({ category: userCategory }, ['title', 'author', 'id', 'deadline', 'permlink', 'category'], function (error, contests) {
+    Contest.find({ category: userCategory }, ['title', 'author', 'id', 'deadline', 'permlink', 'category', 'image'], function (error, contests) {
       if (error) { console.error(error); }
       res.send({
         contests: contests
