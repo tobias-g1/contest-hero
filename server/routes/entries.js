@@ -1,4 +1,3 @@
-
 var express = require('express');
 var router = express.Router();
 var Entry = require("../models/entries");
@@ -14,8 +13,8 @@ router.post('/entries', (req, res) => {
     let body = req.body.body;
     let permlink = req.body.permlink;
     let id = req.body.parent_contest.id;
-    let category = req.body.parent_contest.category;
-    let parentPemlink = req.body.parent_contest.permlink
+    let parentPemlink = req.body.parent_contest.permlink;
+    let parentAuthor = req.body.parent_contest.author
    
     var new_entry = new Entry({
         title: title,
@@ -24,11 +23,14 @@ router.post('/entries', (req, res) => {
         body: body,
         parent_contest: {
             id: id,
-            permlink: parentPemlink,
-            category: category
-        }
+            author: parentAuthor,
+            permlink: parentPemlink
+        },
+        hidden: false,
+        addedDateTime: new Date().getTime()
     })
 
+    console.log(new_entry)
 
     new_entry.save(function (error) {
       if (error) {

@@ -11,7 +11,9 @@ var ContestSchema = new Schema({
   permlink: String,
   body: String, 
   tags: Array,
-  json: Object
+  json: Object,
+  hidden: Boolean,
+  addedDateTime: Date
 
 });
 

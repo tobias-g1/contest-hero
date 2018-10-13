@@ -28,9 +28,10 @@ router.post('/contests', (req, res) => {
       permlink: permlink,
       body: body,
       json: json,
-      tags: tags
+      tags: tags,
+      hidden: false,
+      addedDateTime: new Date().getTime()
     })
-
 
     new_contest.save(function (error) {
       if (error) {

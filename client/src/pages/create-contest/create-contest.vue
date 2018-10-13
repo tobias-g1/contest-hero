@@ -167,7 +167,7 @@ export default {
 
       // Create JSON Metadata
 
-      let jsonMetaData = {
+      var jsonMetaData = {
         'tags': this.finalTags,
         'app': 'contest_hero_test',
         'image': this.postImages,
@@ -229,7 +229,8 @@ export default {
         id: this.contestId,
         deadline: this.contestForm.deadline,
         category: this.category,
-        permlink: this.contestPermlink
+        permlink: this.contestPermlink,
+        body: this.contestForm.body
       })
       this.$store.commit('setLoading', false)
       this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}`)

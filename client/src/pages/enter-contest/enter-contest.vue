@@ -81,7 +81,7 @@ export default {
       return this.entryForm.title.toLowerCase().replace(/[\s#/]/g, '-') + '-' + Math.floor(Math.random() * 9000000000) + 1000000000
     },
     fixedTags: function () {
-      return ['contest-hero', this.contestId]
+      return ['test', this.contestId]
     },
     finalTags: function () {
       return this.fixedTags.concat(this.entryForm.dynamicTags)
@@ -108,7 +108,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.createEntryPost()
+          this.addEntry()
         } else {
           console.log('error submit!!')
           return false
@@ -178,14 +178,13 @@ export default {
     async addEntry () {
       await entriesService.createEntry({
         title: this.entryForm.title,
-        author: this.author,
+        author: this.user.name,
         permlink: this.entryPermlink,
         body: this.entryForm.body,
         parent_contest: {
           id: this.contestId,
           permlink: this.contestPermlink,
-          author: this.contestAuthor,
-          category: 'writing'
+          author: this.contestAuthor
         }
       })
       this.$store.commit('setLoading', false)

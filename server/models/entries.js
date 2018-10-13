@@ -9,8 +9,11 @@ var EntrySchema = new Schema({
   parent_contest: {
       id: String,
       permlink: String,
-      category: String
-  }
+      category: String,
+      author: String
+  },
+  hidden: Boolean,
+  addedDateTime: Date
 });
 
 var Entry = mongoose.model("Entry", EntrySchema);
