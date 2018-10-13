@@ -72,7 +72,7 @@ router.get('/contests/category/:category', (req, res) => {
 
   router.get('/contests/permlink/:permlink', (req, res) => {
 
-    let permlink = req.params.category
+    let permlink = req.params.permlink
 
     Contest.find({ permlink: permlink }, ['title', 'author', 'id', 'deadline', 'permlink', 'category', 'image'], function (error, contests) {
       if (error) { console.error(error); }
