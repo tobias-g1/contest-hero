@@ -13,8 +13,6 @@ app.use(contests);
 
 require('dotenv').config();
 
-app.listen(process.env.PORT || 8081)
-
 var mongoose = require('mongoose');
 mongoose.connect(`${process.env.DB}/contests`);
 var db = mongoose.connection;
@@ -22,4 +20,8 @@ db.on("error", console.error.bind(console, "connection error"));
 db.once("open", function(callback){
   console.log("Connection Succeeded");
 });
+
+app.listen(process.env.PORT || 8081)
+
+
 

@@ -40,12 +40,29 @@ router.post('/contests', (req, res) => {
 // Get all contests
 
 router.get('/contests', (req, res) => {
-  Contest.find({}, ['title', 'author', 'id', 'deadline', 'permlink'], function (error, contests) {
+  Contest.find({}, ['title', 'author', 'id', 'deadline', 'permlink', 'category'], function (error, contests) {
     if (error) { console.error(error); }
     res.send({
       contests: contests
     })
   }).sort({_id:-1})
 })
+
+// Get contests by category
+
+router.get('/contests/:category', (req, res) => {
+
+    let userCategory = req.params.category
+
+    console.log(userCategory)
+
+    Contest.find({ category: userCategory }, ['title', 'author', 'id', 'deadline', 'permlink', 'category'], function (error, contests) {
+      if (error) { console.error(error); }
+      res.send({
+        contests: contests
+      })
+    }).sort({_id:-1})
+  })
+  
 
 module.exports = router;

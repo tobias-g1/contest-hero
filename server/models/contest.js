@@ -10,7 +10,6 @@ var ContestSchema = new Schema({
   category: String,
   permlink: String
 
-
 });
 
 var Contest = mongoose.model("Contest", ContestSchema);
