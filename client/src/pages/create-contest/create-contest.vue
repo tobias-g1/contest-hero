@@ -18,7 +18,7 @@
             <el-col :span="12">
                 <el-form-item label="Contest Category" prop="category">
                     <el-select v-model="contestForm.category" placeholder="Select Category">
-                        <el-option label="Writing" default value="writing"></el-option>
+                        <el-option label="Writing" default value="hgfds"></el-option>
                         <el-option label="Design" value="design"></el-option>
                         <el-option label="Photo" value="photo"></el-option>
                         <el-option label="Giveaway" value="giveaway"></el-option>
@@ -115,7 +115,7 @@ export default {
   mixins: [form, tags],
   computed: {
     fixedTags: function () {
-      let fixedTags = ['contest-hero']
+      let fixedTags = ['765432']
 
       fixedTags.push(this.contestForm.category)
       return fixedTags
@@ -169,11 +169,11 @@ export default {
 
       let jsonMetaData = {
         'tags': this.finalTags,
-        'app': 'contest_hero',
+        'app': 'contest_hero_test',
         'image': this.postImages,
         'format': 'markdown',
         'contest_hero': {
-          'category': 'contest',
+          'category': 'writing',
           'deadline': this.contestForm.deadline,
           'contestId': this.contestId
         }

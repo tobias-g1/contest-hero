@@ -225,7 +225,7 @@ export default {
   },
   computed: {
     postLink: function () {
-      return `/enter-contest/${this.contestId}/${this.post.author}/${this.post.permlink}`
+      return `/enter-contest/${this.contest.contestData.id}/${this.post.author}/${this.post.permlink}`
     },
     postJson: function () {
       return JSON.parse(this.post.data.json_metadata)
