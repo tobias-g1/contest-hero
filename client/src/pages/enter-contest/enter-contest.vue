@@ -1,4 +1,3 @@
-
 <template>
     <el-row :gutter="20">
         <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> Enter contest </h1>
@@ -38,12 +37,11 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import markdownEditor from 'vue-simplemde/src/markdown-editor'
 import form from '@/mixins/form-actions.js'
 import tags from '@/mixins/tags.js'
-import {
-  mapGetters
-} from 'vuex'
+import entriesService from '@/services/entries'
 
 export default {
   name: 'enter-contest',
@@ -110,7 +108,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.createEntryPost()
+          this.addEntry();
         } else {
           console.log('error submit!!')
           return false
@@ -173,6 +171,20 @@ export default {
           (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') : this.$router.push(`/view-entry/${this.$store.state.steemconnect.user.name}/${this.entryPermlink}`)
           this.$store.commit('setLoading', false)
         })
+    },
+    async addEntry () {
+      await entriesService.createEntry({
+        title: this.entryForm.title,
+        author: this.author,
+        permlink: this.entryPermlink,
+        body: this.entryForm.body,
+        parent_contest: {
+          id: this.contestId,
+          permlink: this.contestPermlink,
+          author: this.contestAuthor,
+          category: 'writing'
+        }
+      })
     }
   },
   mounted () {
