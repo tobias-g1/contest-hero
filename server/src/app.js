@@ -2,16 +2,20 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
-var contests = require('../routes/contests');
+const contests = require('../routes/contests');
+const entries = require('../routes/entries');
 
 const app = express()
 
 app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
-app.use(contests);
-
 require('dotenv').config();
+
+// Routes
+app.use(contests);
+app.use(entries);
+
 
 var mongoose = require('mongoose');
 mongoose.connect(`${process.env.DB}/contests`);
