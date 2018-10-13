@@ -16,13 +16,13 @@
                 </el-form-item>
             </el-col>
             <el-col :span="12">
-                <el-form-item label="Contest Type" prop="type">
-                    <el-select v-model="contestForm.type" placeholder="Select Type">
-                        <el-option label="Writing" default value="ch-writing"></el-option>
-                        <el-option label="Design" value="ch-design"></el-option>
-                        <el-option label="Photo" value="ch-photo"></el-option>
-                        <el-option label="Giveaway" value="ch-giveaways"></el-option>
-                        <el-option label="Other" value="ch-other"></el-option>
+                <el-form-item label="Contest Category" prop="category">
+                    <el-select v-model="contestForm.category" placeholder="Select Category">
+                        <el-option label="Writing" default value="writing"></el-option>
+                        <el-option label="Design" value="design"></el-option>
+                        <el-option label="Photo" value="photo"></el-option>
+                        <el-option label="Giveaway" value="giveaway"></el-option>
+                        <el-option label="Other" value="other"></el-option>
                     </el-select>
                 </el-form-item>
             </el-col>
@@ -70,7 +70,7 @@ export default {
       inputValue: '',
       contestForm: {
         title: '',
-        type: '',
+        category: '',
         deadline: '',
         body: '',
         dynamicTags: []
@@ -81,7 +81,7 @@ export default {
           message: 'Please enter a title',
           trigger: 'blur'
         }],
-        type: [{
+        category: [{
           required: true,
           message: 'Please select a contest category',
           trigger: 'change'
@@ -117,7 +117,7 @@ export default {
     fixedTags: function () {
       let fixedTags = ['contest-hero']
 
-      fixedTags.push(this.contestForm.type)
+      fixedTags.push(this.contestForm.category)
       return fixedTags
     },
     finalTags: function () {
@@ -173,7 +173,7 @@ export default {
         'image': this.postImages,
         'format': 'markdown',
         'contest_hero': {
-          'type': 'contest',
+          'category': 'contest',
           'deadline': this.contestForm.deadline,
           'contestId': this.contestId
         }
@@ -228,7 +228,7 @@ export default {
         author: this.$store.state.steemconnect.user.name,
         id: this.contestId,
         deadline: this.contestForm.deadline,
-        category: 'test',
+        category: this.category,
         permlink: this.contestPermlink
       })
       this.$store.commit('setLoading', false)
