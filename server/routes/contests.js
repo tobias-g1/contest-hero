@@ -56,13 +56,25 @@ router.get('/contests', (req, res) => {
 
 // Get contests by category
 
-router.get('/contests/:category', (req, res) => {
+router.get('/contests/category/:category', (req, res) => {
 
     let userCategory = req.params.category
 
-    console.log(userCategory)
-
     Contest.find({ category: userCategory }, ['title', 'author', 'id', 'deadline', 'permlink', 'category', 'image'], function (error, contests) {
+      if (error) { console.error(error); }
+      res.send({
+        contests: contests
+      })
+    }).sort({_id:-1})
+  })
+
+  // Get single contest
+
+  router.get('/contests/permlink/:permlink', (req, res) => {
+
+    let permlink = req.params.category
+
+    Contest.find({ permlink: permlink }, ['title', 'author', 'id', 'deadline', 'permlink', 'category', 'image'], function (error, contests) {
       if (error) { console.error(error); }
       res.send({
         contests: contests

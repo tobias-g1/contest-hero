@@ -9,6 +9,9 @@ export default {
     return api().post('contests', params)
   },
   getContestsByCategory (params) {
-    return api().get(`/contests/${params}`)
+    return api().get(`/contests/category/${params}`)
+  },
+  getContestByPermlink (params) {
+    return api().get(`/contests/permlink/${params}`)
   }
 }
