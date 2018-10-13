@@ -108,7 +108,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.addEntry();
+          this.createEntryPost()
         } else {
           console.log('error submit!!')
           return false
@@ -168,8 +168,11 @@ export default {
       this.$steemconnect.broadcast(
         operations,
         (err) => {
-          (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') : this.$router.push(`/view-entry/${this.$store.state.steemconnect.user.name}/${this.entryPermlink}`)
-          this.$store.commit('setLoading', false)
+          if (err) {
+            alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github')
+          } else {
+            this.addEntry()
+          }
         })
     },
     async addEntry () {
@@ -185,6 +188,8 @@ export default {
           category: 'writing'
         }
       })
+      this.$store.commit('setLoading', false)
+      this.$router.push(`/view-entry/${this.$store.state.steemconnect.user.name}/${this.entryPermlink}`)
     }
   },
   mounted () {
