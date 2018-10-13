@@ -1,4 +1,3 @@
-
 <template>
     <el-row :gutter="20">
         <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> Enter contest </h1>
@@ -38,12 +37,11 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import markdownEditor from 'vue-simplemde/src/markdown-editor'
 import form from '@/mixins/form-actions.js'
 import tags from '@/mixins/tags.js'
-import {
-  mapGetters
-} from 'vuex'
+import entriesService from '@/services/entries'
 
 export default {
   name: 'enter-contest',
@@ -83,7 +81,7 @@ export default {
       return this.entryForm.title.toLowerCase().replace(/[\s#/]/g, '-') + '-' + Math.floor(Math.random() * 9000000000) + 1000000000
     },
     fixedTags: function () {
-      return ['contest-hero', this.contestId]
+      return ['test', this.contestId]
     },
     finalTags: function () {
       return this.fixedTags.concat(this.entryForm.dynamicTags)
@@ -110,7 +108,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.createEntryPost()
+          this.addEntry()
         } else {
           console.log('error submit!!')
           return false
@@ -170,9 +168,27 @@ export default {
       this.$steemconnect.broadcast(
         operations,
         (err) => {
-          (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') : this.$router.push(`/view-entry/${this.$store.state.steemconnect.user.name}/${this.entryPermlink}`)
-          this.$store.commit('setLoading', false)
+          if (err) {
+            alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github')
+          } else {
+            this.addEntry()
+          }
         })
+    },
+    async addEntry () {
+      await entriesService.createEntry({
+        title: this.entryForm.title,
+        author: this.user.name,
+        permlink: this.entryPermlink,
+        body: this.entryForm.body,
+        parent_contest: {
+          id: this.contestId,
+          permlink: this.contestPermlink,
+          author: this.contestAuthor
+        }
+      })
+      this.$store.commit('setLoading', false)
+      this.$router.push(`/view-entry/${this.$store.state.steemconnect.user.name}/${this.entryPermlink}`)
     }
   },
   mounted () {

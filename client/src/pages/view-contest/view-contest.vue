@@ -62,7 +62,7 @@
 
       <!-- Contest Deadline -->
       <h3 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> This contest closes in:</h3>
-      <Countdown :deadline="contestDeadline"></Countdown>
+      <Countdown :deadline="contest.contestData.deadline"></Countdown>
 
       <!-- About Author -->
       <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">About the Author</h3>
@@ -90,6 +90,8 @@ import Countdown from 'vuejs-countdown'
 import postoptions from '@/components/post-options/post-options.vue'
 import entry from '@/components/entered-contest/entered-contest.vue'
 import noentries from '@/components/no-entries/no-entries.vue'
+import contestsService from '@/services/contests'
+import entriesService from '@/services/entries'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -118,6 +120,7 @@ export default {
         comments: []
       },
       contest: {
+        contestData: null,
         entries: [],
         winners: null,
         otherwin: null
@@ -135,21 +138,19 @@ export default {
     }
   },
   methods: {
-    loadContent () {
+    async getContestFromDB () {
       this.$store.commit('setLoading', true)
       this.post.author = this.$route.params.author
       this.post.permlink = this.$route.params.permlink
+      const response = await contestsService.getContestByPermlink(this.post.permlink)
+      this.contest.contestData = response.data.contests[0]
+      const entries = await entriesService.getEntriesById(this.contest.contestData.id)
+      this.contest.entries = entries.data.entries
+    },
+    loadContent () {
       this.loadPost(this.post.author, this.post.permlink)
         .then(discussions => {
           this.post.data = discussions[0]
-          let postJSON = (JSON.parse(this.post.data.json_metadata))
-          this.getEntries(postJSON.contest_hero.contestId)
-          // Redirect if the contest wasn't made on Contest Hero
-          if ('contest_hero' in postJSON) {
-            if (postJSON.contest_hero.type !== 'contest') {
-              this.$router.push('/contests')
-            }
-          }
         })
       this.$store.commit('setLoading', false)
     },
@@ -186,20 +187,6 @@ export default {
         }
       })
     },
-    getEntries (id) {
-      this.getContests(id, 100, 'created').then(discussions => {
-        discussions.forEach(discussion => {
-          let postJSON = JSON.parse(discussion.json_metadata)
-          if ('app' in postJSON) {
-            if (postJSON.app === 'contest_hero') {
-              if (postJSON.contest_hero.type === 'contest_entry') {
-                this.contest.entries.push(discussion)
-              }
-            }
-          }
-        })
-      })
-    },
     submitComment () {
       this.$store.commit('setLoading', true)
 
@@ -231,32 +218,27 @@ export default {
     }
   },
   mounted () {
+    this.getContestFromDB()
     this.loadContent()
     this.getAuthorDetails(this.post.author)
     this.getComments(this.post.author, this.post.permlink)
   },
   computed: {
     postLink: function () {
-      return `/enter-contest/${this.contestId}/${this.post.author}/${this.post.permlink}`
+      return `/enter-contest/${this.contest.contestData.id}/${this.post.author}/${this.post.permlink}`
     },
     postJson: function () {
       return JSON.parse(this.post.data.json_metadata)
-    },
-    contestDeadline: function () {
-      return this.postJson.contest_hero.deadline
     },
     tags: function () {
       return this.postJson.tags
     },
     contestOpen: function () {
-      if (new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= this.contestDeadline) {
+      if (new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= this.contest.contestData.deadline) {
         return false
       } else {
         return true
       }
-    },
-    contestId: function () {
-      return this.postJson.contest_hero.contestId
     },
     editLink: function () {
       return `/edit-contest/${this.post.author}/${this.post.permlink}`

@@ -16,13 +16,13 @@
                 </el-form-item>
             </el-col>
             <el-col :span="12">
-                <el-form-item label="Contest Type" prop="type">
-                    <el-select v-model="contestForm.type" placeholder="Select Type">
-                        <el-option label="Writing" default value="ch-writing"></el-option>
-                        <el-option label="Design" value="ch-design"></el-option>
-                        <el-option label="Photo" value="ch-photo"></el-option>
-                        <el-option label="Giveaway" value="ch-giveaways"></el-option>
-                        <el-option label="Other" value="ch-other"></el-option>
+                <el-form-item label="Contest Category" prop="category">
+                    <el-select v-model="contestForm.category" placeholder="Select Category">
+                        <el-option label="Writing" default value="hgfds"></el-option>
+                        <el-option label="Design" value="design"></el-option>
+                        <el-option label="Photo" value="photo"></el-option>
+                        <el-option label="Giveaway" value="giveaway"></el-option>
+                        <el-option label="Other" value="other"></el-option>
                     </el-select>
                 </el-form-item>
             </el-col>
@@ -59,6 +59,7 @@ import markdownEditor from 'vue-simplemde/src/markdown-editor'
 import form from '@/mixins/form-actions.js'
 import tags from '@/mixins/tags.js'
 import { mapGetters } from 'vuex'
+import contestsService from '@/services/contests'
 
 export default {
   name: 'create-contest',
@@ -69,7 +70,7 @@ export default {
       inputValue: '',
       contestForm: {
         title: '',
-        type: '',
+        category: '',
         deadline: '',
         body: '',
         dynamicTags: []
@@ -80,7 +81,7 @@ export default {
           message: 'Please enter a title',
           trigger: 'blur'
         }],
-        type: [{
+        category: [{
           required: true,
           message: 'Please select a contest category',
           trigger: 'change'
@@ -114,9 +115,9 @@ export default {
   mixins: [form, tags],
   computed: {
     fixedTags: function () {
-      let fixedTags = ['contest-hero']
+      let fixedTags = ['765432']
 
-      fixedTags.push(this.contestForm.type)
+      fixedTags.push(this.contestForm.category)
       return fixedTags
     },
     finalTags: function () {
@@ -166,13 +167,13 @@ export default {
 
       // Create JSON Metadata
 
-      let jsonMetaData = {
+      var jsonMetaData = {
         'tags': this.finalTags,
-        'app': 'contest_hero',
+        'app': 'contest_hero_test',
         'image': this.postImages,
         'format': 'markdown',
         'contest_hero': {
-          'type': 'contest',
+          'category': 'writing',
           'deadline': this.contestForm.deadline,
           'contestId': this.contestId
         }
@@ -212,9 +213,27 @@ export default {
       this.$steemconnect.broadcast(
         operations,
         (err) => {
-          (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') : this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}`)
-          this.$store.commit('setLoading', false)
+          if (err) {
+            alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github')
+            this.$store.commit('setLoading', false)
+          } else {
+            this.createContestCH()
+          }
         })
+    },
+    // Post contest to DB
+    async createContestCH () {
+      await contestsService.createContest({
+        title: this.contestForm.title,
+        author: this.$store.state.steemconnect.user.name,
+        id: this.contestId,
+        deadline: this.contestForm.deadline,
+        category: this.category,
+        permlink: this.contestPermlink,
+        body: this.contestForm.body
+      })
+      this.$store.commit('setLoading', false)
+      this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}`)
     }
   }
 }

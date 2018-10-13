@@ -1,5 +1,5 @@
 <template>
-    <div class="stats-container">
+    <div v-if="post" class="stats-container">
         <i class="material-icons stat-option vote vote-pulse" :class="{ voted: voted }" @click=" (user) ? dialogVisible = true : ''">favorite</i> <span class="icon-label">{{ post.net_votes }}</span>
         <i class="material-icons stat-option">attach_money</i> <span class="icon-label">{{post.pending_payout_value.slice(0, -3) * 1 }}</span>
         <el-dialog title="Select Vote Percentage" :visible.sync="dialogVisible" width="65%">
@@ -28,10 +28,12 @@ export default {
     }
   },
   props: ['post'],
+  computed: {
+    ...mapGetters('steemconnect', ['user'])
+  },
   methods: {
     vote (currentUser, author, permlink, weight) {
       this.$store.commit('setLoading', true)
-
       this.$steemconnect.vote(currentUser, author, permlink, weight, (err) => {
         (err) ? alert(err) : this.voted = true
         this.voteCount = this.post.active_votes.length
@@ -39,16 +41,13 @@ export default {
         this.$store.commit('setLoading', false)
       })
     },
-    checkVote: function () {
+  checkVote () {
       for (let i = 0; i < this.post.active_votes.length; i++) {
-        if (this.post.active_votes[i].voter === this.user.name) {
+        if (this.post.active_votes[i].voter === this.$store.state.steemconnect.user.name) {
           this.voted = true
         }
       }
     }
-  },
-  computed: {
-    ...mapGetters('steemconnect', ['user'])
   },
   mounted () {
     this.checkVote()
