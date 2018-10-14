@@ -16,16 +16,17 @@ require('dotenv').config();
 app.use(contests);
 app.use(entries);
 
+const mongoose = require('mongoose');
 
-var mongoose = require('mongoose');
-mongoose.connect(`${process.env.DATABASE}/contests`);
+mongoose.connect(process.env.DATABASE, {useNewUrlParser: true})
+.then(() => console.log('connecting to database successful'))
+.catch(err => console.error('could not connect to mongo DB', err))
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", function(callback){
   console.log("Connection Succeeded");
 });
 
-app.listen(process.env.PORT || 8081)
-
-
-
+var listener = app.listen(process.env.PORT || 8081, function(){
+  console.log('Listening on port ' + listener.address().port);
+});
