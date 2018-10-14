@@ -41,7 +41,7 @@ import { mapGetters } from 'vuex'
 import markdownEditor from 'vue-simplemde/src/markdown-editor'
 import form from '@/mixins/form-actions.js'
 import tags from '@/mixins/tags.js'
-import entriesService from '@/services/entries'
+import entriesService from '@/services/entries.js'
 
 export default {
   name: 'enter-contest',

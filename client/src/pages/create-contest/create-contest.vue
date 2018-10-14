@@ -59,7 +59,7 @@ import markdownEditor from 'vue-simplemde/src/markdown-editor'
 import form from '@/mixins/form-actions.js'
 import tags from '@/mixins/tags.js'
 import { mapGetters } from 'vuex'
-import contestsService from '@/services/contests'
+import contestsService from '@/services/contests.js'
 
 export default {
   name: 'create-contest',
