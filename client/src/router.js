@@ -8,6 +8,7 @@ import auth from './pages/auth/auth.vue'
 import notfound from './pages/404/404.vue'
 import viewentry from './pages/view-entry/view-entry.vue'
 import editcontest from './pages/edit-contest/edit-contest.vue'
+import selectwinner from './pages/select-winner/select-winner.vue'
 
 Vue.use(Router)
 
@@ -52,6 +53,11 @@ export default new Router({
       path: '/edit-contest/:author/:permlink',
       name: 'edit-contest',
       component: editcontest
+    },
+    {
+      path: '/select-winner/:contestId/:author/:permlink',
+      name: 'select-winner',
+      component: selectwinner
     },
     {
       path: '*',
