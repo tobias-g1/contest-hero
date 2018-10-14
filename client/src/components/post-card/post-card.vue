@@ -53,7 +53,9 @@ export default {
       return `https://steemitimages.com/u/${this.post.author}/avatar`
     },
     imageBackground: function () {
-      return `background-image: url(${this.postJSON.image[0]});`
+      let image;
+      (this.postJSON.image[0] === undefined) ? image = require('@/assets/post-placeholder.png') : image = this.postJSON.image[0]
+      return `background-image: url(${image});`
     },
     ...mapGetters('steemconnect', ['user'])
   }
