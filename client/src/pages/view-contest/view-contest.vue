@@ -90,8 +90,8 @@ import Countdown from 'vuejs-countdown'
 import postoptions from '@/components/post-options/post-options.vue'
 import entry from '@/components/entered-contest/entered-contest.vue'
 import noentries from '@/components/no-entries/no-entries.vue'
-import contestsService from '@/services/contests'
-import entriesService from '@/services/entries'
+import contestsService from '@/services/contests.js'
+import entriesService from '@/services/entries.js'
 import { mapGetters } from 'vuex'
 
 export default {

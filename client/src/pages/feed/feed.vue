@@ -17,7 +17,7 @@ import postcard from '@/components/post-card/post-card.vue'
 import filterpanel from '@/components/filter-panel/filter-panel.vue'
 import noposts from '@/components/no-post/no-post.vue'
 import dsteem from '@/mixins/dsteem.js'
-import contestsService from '@/services/contests'
+import contestsService from '@/services/contests.js'
 
 export default {
   name: 'feed',

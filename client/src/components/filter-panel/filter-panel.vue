@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import contestsServices from '@/services/contests'
+import contestsServices from '@/services/contests.js'
 import dsteem from '@/mixins/dsteem.js'
 
 export default {
