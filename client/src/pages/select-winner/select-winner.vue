@@ -14,7 +14,7 @@
     <el-col :xs="24" :sm="24" :md="10" :lg="10" :xl="10">
       <div class="header-options">
         <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Your Winners</h1>
-        <div> <button class="btn btn-outline" @click="showSelectionDialog = true">Randomise</button><button class="btn btn-fill">Save</button></div>
+        <div> <button class="btn btn-outline" @click="showSelectionDialog = true">Randomise</button><button @click="setWinners()" class="btn btn-fill">Save</button></div>
       </div>
       <selectedwinner @deleteWinner='onDeleteWinner' v-for="(winner, index) in sortedWinners" :key="index" :winner="winner" />
     </el-col>
@@ -88,6 +88,12 @@ export default {
     },
     onDeleteWinner (winner) {
       this.winners.splice(this.winners.findIndex(item => item.entry_details._id === 'winner._id'), 1)
+    },
+    async setWinners () {
+      await contestsService.updateWinners({
+        id: this.contest.data._id,
+        winners: this.winners
+      })
     },
     getRandomWinners (count) {
       this.winners = []

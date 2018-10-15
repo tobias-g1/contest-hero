@@ -15,6 +15,6 @@ export default {
     return api().get(`/contests/permlink/${params}`)
   },
   updateWinners (params) {
-    return api().put('contest/winners' + params.id, params)
+    return api().put('contests/winners/' + params.id, params)
   }
 }
