@@ -3,8 +3,7 @@
     <el-col :xs="24" :sm="24" :md="14" :lg="14" :xl="14">
       <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> How to select your winners</h1>
       <div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices velit vel volutpat auctor. Etiam nulla nulla, convallis a iaculis a, faucibus sit amet tortor. Vivamus risus massa, mollis sit amet ligula nec, Nulla nec pellentesque orci.
-          Vestibulum dignissim leo commodo felis dignissim rhoncus. Phasellus vitae magna a nunc imperdiet commodo at eu turpis.</p>
+        <p>Your can see all of the entries of your contest below, use the options provided on each entry to select the winners or your contest. If you wish to randmise the winners of your contest you can use the button provided above the winners section of this page.</p>
       </div>
       <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Contest Entries</h1>
       <div class="entry-container">
@@ -19,7 +18,7 @@
       <selectedwinner @deleteWinner='onDeleteWinner' v-for="(winner, index) in sortedWinners" :key="index" :winner="winner" />
     </el-col>
 <el-dialog title="Randomise Winners" :visible.sync="showSelectionDialog" width="30%" v-if="showSelectionDialog === true">
-  <span>Randomising your winners will remove your current selections, please select the amount of winners you would like to create below</span>
+  <span>Randomising the winners of this contest will remove any of your current winner selections. You can use the input below to choose how many winners you would like to select.</span>
    <el-input-number style="display: block; margin-top: 15px;" v-model="randomCount" controls-position="right" :min="1" :max="100"></el-input-number>
   <span slot="footer" class="dialog-footer">
     <el-button @click="showSelectionDialog = false">Cancel</el-button>
