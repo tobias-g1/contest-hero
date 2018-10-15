@@ -5,8 +5,8 @@
       <!-- Post Container -->
       <div class="header-row"><h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
 
-      <el-dropdown>
-        <span class="el-dropdown-link" v-if="this.post.author === user">
+      <el-dropdown v-if="user">
+        <span class="el-dropdown-link" v-if="this.contest.contestData.author === user.name">
                <span class="el-dropdown-link more-options">
           <i class="material-icons">more_vert</i>
                </span>
@@ -14,6 +14,9 @@
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
             <router-link :to="editLink">Edit Contest</router-link>
+          </el-dropdown-item>
+             <el-dropdown-item>
+            <router-link :to="selectWinnerLink">Choose Winners</router-link>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -231,6 +234,9 @@ export default {
     },
     editLink: function () {
       return `/edit-contest/${this.post.author}/${this.post.permlink}`
+    },
+    selectWinnerLink: function () {
+      return `/select-winner/${this.contest.contestData.id}/${this.post.author}/${this.post.permlink}`
     },
     sortedWinners: function () {
       return _.orderBy(this.contest.winners, 'place', 'asc')
