@@ -92,10 +92,15 @@ export default {
     },
     async setWinners () {
       this.$store.commit('setLoading', true)
-      await contestsService.updateWinners({
-        id: this.contest.data._id,
-        winners: this.winners
-      })
+      if (this.contest.author !== this.user.name) {
+        alert('Your don\'t have permission to edit this content')
+        this.$router.push('/')
+      } else {
+        await contestsService.updateWinners({
+          id: this.contest.data._id,
+          winners: this.winners
+        })
+      }
       setTimeout(() => this.$store.commit('setLoading', false), 1000)
     },
     getRandomWinners (count) {
