@@ -22,7 +22,7 @@
   <span>Randomising your winners will remove your current selections, please select the amount of winners you would like to create below</span>
    <el-input-number style="display: block; margin-top: 15px;" v-model="randomCount" controls-position="right" :min="1" :max="100"></el-input-number>
   <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">Cancel</el-button>
+    <el-button @click="showSelectionDialog = false">Cancel</el-button>
     <el-button type="primary" @click="showSelectionDialog = false, getRandomWinners(randomCount)">Confirm</el-button>
   </span>
 </el-dialog>
