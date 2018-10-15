@@ -53,12 +53,19 @@ body {
     color: gray;
     cursor: not-allowed;
   }
-  
+
+  .dropdown-option {
+    display: block;
+    width: 100%;
+  }
+
+
   .btn-fill {
     background: #FF1480;
     border: 1px solid #FF1480;
     color: white;
   }
+
   
   .btn-outline {
     color: #FF1480;

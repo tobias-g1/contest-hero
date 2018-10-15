@@ -1,19 +1,19 @@
 <template>
-     <div class="winner-card-container">
+    <div class="winner-card-container">
         <div class="winner-details-wrapper">
-        <div class="winner-image-container">
-            <img class="winner-image" :src="selectedProfileImage" alt="">
-            <img v-if="medal" class="user-medal" :src="medal">
-        </div>
-        <div class="winner-selection-details">
-           <span class="winner-text">{{ winner.entry_details.author }}</span>
-            <span class="title-text">{{ winner.entry_details.title }}</span>
-        </div>
+            <div class="winner-image-container">
+                <img class="winner-image" :src="selectedProfileImage" alt="">
+                <img v-if="medal" class="user-medal" :src="medal">
+            </div>
+            <div class="winner-selection-details">
+                <span class="winner-text">{{ winner.entry_details.author }}</span>
+                <span class="title-text">{{ winner.entry_details.title }}</span>
+            </div>
         </div>
         <el-dropdown trigger="click">
             <span class="el-dropdown-link">
-              <i class="material-icons selection">more_vert</i>
-                    </span>
+                  <i class="material-icons selection">more_vert</i>
+                        </span>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item> <span class="dropdown-option" @click="removeWinner()">Remove</span> </el-dropdown-item>
             </el-dropdown-menu>
@@ -63,7 +63,7 @@ export default {
 </script>
 
 <style>
-   .winner-card-container {
+    .winner-card-container {
         background: white;
         padding: 30px;
         margin-bottom: 15px;
@@ -90,23 +90,23 @@ export default {
     }
 
     .winner-selection-details {
-            display: block;
-    margin: 0 10px;
+        display: block;
+        margin: 0 10px;
     }
 
     .winner-text {
         display: block;
-    font-weight: bold;
-    font-size: 14px;
+        font-weight: bold;
+        font-size: 14px;
     }
 
     .winner-details-wrapper {
-            display: inline-flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: center;
-    padding: 0 !important;
-    flex: 1;
+        display: inline-flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        padding: 0 !important;
+        flex: 1;
     }
 
     .el-dropdown {
@@ -114,9 +114,9 @@ export default {
     }
 
     .user-medal {
-    height: 27.5px;
-    position: relative;
-    right: 17.5px;
-    top: 22.5px;
+        height: 27.5px;
+        position: relative;
+        right: 17.5px;
+        top: 22.5px;
     }
 </style>
