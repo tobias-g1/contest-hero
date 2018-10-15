@@ -16,8 +16,6 @@ router.post('/contests', (req, res) => {
     let category = req.body.category;
     let permlink = req.body.permlink
     let body = req.body.body
-    let json = req.body.json
-    let tags = req.body.tags
 
     var new_contest = new Contest({
       title: title,
@@ -27,10 +25,9 @@ router.post('/contests', (req, res) => {
       category: category,
       permlink: permlink,
       body: body,
-      json: json,
-      tags: tags,
       hidden: false,
-      addedDateTime: new Date().getTime()
+      addedDateTime: new Date().getTime(),
+      winners: []
     })
 
     new_contest.save(function (error) {
@@ -83,5 +80,25 @@ router.get('/contests/category/:category', (req, res) => {
     }).sort({_id:-1})
   })
   
+
+  // Update winners
+
+  router.put('/contests/winners/:id', (req, res) => {
+    var db = req.db;
+    Contest.findById(req.params.id, '_id', function (error, contest) {
+      if (error) { console.error(error); }
+
+      contest.winners = req.body.winners;
+
+      contest.save(function (error) {
+        if (error) {
+          console.log(error)
+        }
+        res.send({
+          success: true
+        })
+      })
+    })
+  })
 
 module.exports = router;
