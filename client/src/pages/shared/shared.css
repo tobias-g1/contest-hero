@@ -76,3 +76,7 @@ body {
   .el-container.is-vertical {
     height: 100vh;
   }
+
+  i.selection {
+    cursor: pointer;
+  }

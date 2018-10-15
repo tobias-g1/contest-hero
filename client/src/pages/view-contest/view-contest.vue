@@ -6,7 +6,7 @@
       <div class="header-row"><h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
 
       <el-dropdown>
-        <span class="el-dropdown-link" v-if="this.post.author === user.name">
+        <span class="el-dropdown-link" v-if="this.post.author === user">
                <span class="el-dropdown-link more-options">
           <i class="material-icons">more_vert</i>
                </span>
