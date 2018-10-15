@@ -3,11 +3,11 @@
         <div class="winner-details-wrapper">
         <div class="winner-image-container">
             <img class="winner-image" :src="selectedProfileImage" alt="">
+            <img v-if="medal" class="user-medal" :src="medal">
         </div>
         <div class="winner-selection-details">
-            <span class="author-text">{{ winner.entry_details.author }}</span>
+           <span class="winner-text">{{ winner.entry_details.author }}</span>
             <span class="title-text">{{ winner.entry_details.title }}</span>
-             <span class="">{{ winner.place }}</span>
         </div>
         </div>
         <el-dropdown trigger="click">
@@ -30,6 +30,26 @@ export default {
   computed: {
     selectedProfileImage: function () {
       return `https://steemitimages.com/u/${this.winner.entry_details.author}/avatar`
+    },
+    medal: function () {
+      let medal
+
+      switch (this.winner.place) {
+        case 1:
+          medal = require('@/assets/medals/1st.png')
+          break
+        case 2:
+          medal = require('@/assets/medals/2nd.png')
+          break
+        case 3:
+          medal = require('@/assets/medals/3rd.png')
+          break
+        case 1000:
+          medal = null
+          break
+      }
+
+      return medal
     }
   },
   methods: {
@@ -77,12 +97,7 @@ export default {
     .winner-text {
         display: block;
     font-weight: bold;
-    font-size: 15px;
-    }
-
-    .winner-text {
-        font-size: 14px;
-    font-weight: lighter;
+    font-size: 14px;
     }
 
     .winner-details-wrapper {
@@ -96,5 +111,12 @@ export default {
 
     .el-dropdown {
         height: fit-content;
+    }
+
+    .user-medal {
+    height: 27.5px;
+    position: relative;
+    right: 17.5px;
+    top: 22.5px;
     }
 </style>
