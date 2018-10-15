@@ -46,9 +46,17 @@ body {
     cursor: pointer;
     font-size: 14px;
   }
+
+  button:disabled {
+    background: whitesmoke !important;
+    border: 1px solid gray;
+    color: gray;
+    cursor: not-allowed;
+  }
   
   .btn-fill {
     background: #FF1480;
+    border: 1px solid #FF1480;
     color: white;
   }
   
