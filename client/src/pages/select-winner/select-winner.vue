@@ -15,6 +15,7 @@
         <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Your Winners</h1>
         <div> <button class="btn btn-outline" @click="showSelectionDialog = true">Randomise</button><button @click="setWinners()" class="btn btn-fill" :disabled="winners.length === 0">Save</button></div>
       </div>
+      <p v-if="winners.length === 0">Your haven't selected any winners yet</p>
       <selectedwinner @deleteWinner='onDeleteWinner' v-for="(winner, index) in sortedWinners" :key="index" :winner="winner" />
     </el-col>
 <el-dialog title="Randomise Winners" :visible.sync="showSelectionDialog" width="30%" v-if="showSelectionDialog === true">
@@ -72,6 +73,7 @@ export default {
     async getContestInfo () {
       const response = await contestsService.getContestByPermlink(this.contest.permlink)
       this.contest.data = response.data.contests[0]
+      this.winners = response.data.contests[0].winners
       const entries = await entriesService.getEntriesById(this.contest.contestId)
       this.contest.entries = entries.data.entries
     },
