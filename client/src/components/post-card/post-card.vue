@@ -1,5 +1,5 @@
 <template>
-  <div class="card" v-if="postJSON">
+  <div class="card" v-if="post.blockchain">
     <span class="card-header" :style="imageBackground">
       <div class="author-image-container">
       <img class="author-image" :src="authorImage" alt="">
@@ -37,7 +37,7 @@ export default {
   },
   computed: {
     postJSON: function () {
-      return (this.post.blockchain.json_metadata) ? JSON.parse(this.post.blockchain.json_metadata) : ''
+      return JSON.parse(this.post.blockchain.json_metadata)
     },
     postLink: function () {
       return `/view-contest/${this.post.author}/${this.post.permlink}`

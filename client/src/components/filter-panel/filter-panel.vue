@@ -33,7 +33,7 @@ export default {
           })
       })
       this.$emit('messageSent', {
-        message: response.data.contests
+        message: messages
       })
     },
     async getContests (category) {
