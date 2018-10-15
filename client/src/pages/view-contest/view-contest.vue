@@ -5,8 +5,8 @@
       <!-- Post Container -->
       <div class="header-row"><h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
 
-      <el-dropdown>
-        <span class="el-dropdown-link" v-if="this.post.author === user.name">
+      <el-dropdown v-if="user">
+        <span class="el-dropdown-link" v-if="this.contest.contestData.author === user.name">
                <span class="el-dropdown-link more-options">
           <i class="material-icons">more_vert</i>
                </span>
@@ -14,6 +14,9 @@
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
             <router-link :to="editLink">Edit Contest</router-link>
+          </el-dropdown-item>
+             <el-dropdown-item>
+            <router-link :to="selectWinnerLink">Choose Winners</router-link>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -30,19 +33,10 @@
       <router-link :to="postLink" v-show="contestOpen"><button class="btn-fill enter-contest">Enter Contest</button></router-link>
 
       <!-- Winners -->
-      <div class="winners-container" v-show="contest.winners">
+      <div class="winners-container" v-if="contest.winners.length !== 0">
         <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Winners</h1>
-        <winners v-for="(winner, index) in contest.winners" :key="index" :winners="winner" />
+       <winners v-for="(winner, index) in sortedWinners" :key="index" :winner="winner"/>
       </div>
-
-      <!-- Other Winners -->
-      <div class="other-winners-container" v-show="contest.otherwinners">
-        <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Other Winners</h1>
-        <div class="other-winners-list-container">
-          <otherwinners v-for="(otherwin, index) in contest.otherwin" :key="index" :otherWinners="otherwin" />
-        </div>
-      </div>
-
       <!-- Post Comments -->
       <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Comments</h1>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" @submit.native.prevent>
@@ -54,7 +48,6 @@
           <el-button @click="resetForm('ruleForm')">Reset</el-button>
         </el-form-item>
       </el-form>
-
       <!-- Comments List -->
       <comment v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
     </el-col>
@@ -82,7 +75,6 @@ import comment from '@/components/contest-comment/contest-comment.vue'
 import aboutauthor from '@/components/about-author/about-author.vue'
 import post from '@/components/post/post.vue'
 import winners from '@/components/winners-panel/winners-panel.vue'
-import otherwinners from '@/components/other-winners/other-winners.vue'
 import markdownEditor from 'vue-simplemde/src/markdown-editor'
 import form from '@/mixins/form-actions.js'
 import dsteem from '@/mixins/dsteem.js'
@@ -104,7 +96,6 @@ export default {
     Countdown,
     post,
     winners,
-    otherwinners,
     postoptions,
     entry,
     noentries
@@ -144,6 +135,7 @@ export default {
       this.post.permlink = this.$route.params.permlink
       const response = await contestsService.getContestByPermlink(this.post.permlink)
       this.contest.contestData = response.data.contests[0]
+      this.contest.winners = response.data.contests[0].winners
       const entries = await entriesService.getEntriesById(this.contest.contestData.id)
       this.contest.entries = entries.data.entries
     },
@@ -242,6 +234,12 @@ export default {
     },
     editLink: function () {
       return `/edit-contest/${this.post.author}/${this.post.permlink}`
+    },
+    selectWinnerLink: function () {
+      return `/select-winner/${this.contest.contestData.id}/${this.post.author}/${this.post.permlink}`
+    },
+    sortedWinners: function () {
+      return _.orderBy(this.contest.winners, 'place', 'asc')
     },
     ...mapGetters('steemconnect', ['user'])
   }

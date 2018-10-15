@@ -46,11 +46,26 @@ body {
     cursor: pointer;
     font-size: 14px;
   }
-  
+
+  button:disabled {
+    background: whitesmoke !important;
+    border: 1px solid gray;
+    color: gray;
+    cursor: not-allowed;
+  }
+
+  .dropdown-option {
+    display: block;
+    width: 100%;
+  }
+
+
   .btn-fill {
     background: #FF1480;
+    border: 1px solid #FF1480;
     color: white;
   }
+
   
   .btn-outline {
     color: #FF1480;
@@ -75,4 +90,8 @@ body {
 
   .el-container.is-vertical {
     height: 100vh;
+  }
+
+  i.selection {
+    cursor: pointer;
   }

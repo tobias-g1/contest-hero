@@ -31,6 +31,9 @@ export default {
   computed: {
     ...mapGetters('steemconnect', ['user'])
   },
+  mounted () {
+    this.checkVote()
+  },
   methods: {
     vote (currentUser, author, permlink, weight) {
       this.$store.commit('setLoading', true)
@@ -41,16 +44,15 @@ export default {
         this.$store.commit('setLoading', false)
       })
     },
-  checkVote () {
-      for (let i = 0; i < this.post.active_votes.length; i++) {
-        if (this.post.active_votes[i].voter === this.$store.state.steemconnect.user.name) {
-          this.voted = true
+    checkVote () {
+      if (this.user) {
+        for (let i = 0; i < this.post.active_votes.length; i++) {
+          if (this.post.active_votes[i].voter === this.$store.state.steemconnect.user.name) {
+            this.voted = true
+          }
         }
       }
     }
-  },
-  mounted () {
-    this.checkVote()
   }
 }
 </script>

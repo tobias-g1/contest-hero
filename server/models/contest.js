@@ -10,11 +10,10 @@ var ContestSchema = new Schema({
   category: String,
   permlink: String,
   body: String, 
-  tags: Array,
-  json: Object,
+  winners: Array,
   hidden: Boolean,
   addedDateTime: Date
-
+  
 });
 
 var Contest = mongoose.model("Contest", ContestSchema);
