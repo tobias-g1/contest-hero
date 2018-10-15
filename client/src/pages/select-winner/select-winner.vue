@@ -14,10 +14,19 @@
     <el-col :xs="24" :sm="24" :md="10" :lg="10" :xl="10">
       <div class="header-options">
         <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Your Winners</h1>
-        <div> <button class="btn btn-outline" @click="getRandomWinners(1)">Randomise</button><button class="btn btn-fill">Save</button></div>
+        <div> <button class="btn btn-outline" @click="showSelectionDialog = true">Randomise</button><button class="btn btn-fill">Save</button></div>
       </div>
       <selectedwinner @deleteWinner='onDeleteWinner' v-for="(winner, index) in sortedWinners" :key="index" :winner="winner" />
     </el-col>
+<el-dialog title="Randomise Winners" :visible.sync="showSelectionDialog" width="30%" v-if="showSelectionDialog === true">
+  <span>Randomising your winners will remove your current selections, please select the amount of winners you would like to create below</span>
+   <el-input-number style="display: block; margin-top: 15px;" v-model="randomCount" controls-position="right" :min="1" :max="100"></el-input-number>
+  <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">Cancel</el-button>
+    <el-button type="primary" @click="showSelectionDialog = false, getRandomWinners(randomCount)">Confirm</el-button>
+  </span>
+</el-dialog>
+
   </el-row>
 </template>
 
@@ -43,7 +52,9 @@ export default {
         data: null,
         entries: null
       },
-      winners: []
+      winners: [],
+      showSelectionDialog: false,
+      randomCount: 0
     }
   },
   computed: {
