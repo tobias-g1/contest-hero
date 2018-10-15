@@ -4,8 +4,17 @@ const cors = require('cors')
 const morgan = require('morgan')
 const contests = require('../routes/contests');
 const entries = require('../routes/entries');
+const helmet = require('helmet')
 
 const app = express()
+
+app.use(helmet())
+app.use(helmet.frameguard({ action: 'sameorigin' }))
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"]
+  }
+}))
 
 app.use(morgan('combined'))
 app.use(bodyParser.json())
