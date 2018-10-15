@@ -91,10 +91,12 @@ export default {
       this.winners.splice(this.winners.findIndex(item => item.entry_details._id === 'winner._id'), 1)
     },
     async setWinners () {
+      this.$store.commit('setLoading', true)
       await contestsService.updateWinners({
         id: this.contest.data._id,
         winners: this.winners
       })
+      setTimeout(() => this.$store.commit('setLoading', false), 1000)
     },
     getRandomWinners (count) {
       this.winners = []
