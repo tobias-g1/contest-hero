@@ -6,6 +6,11 @@ var Schema = mongoose.Schema;
 // Schema
 
 var EntrySchema = new Schema({
+
+  access_token: {
+    type: String,
+    required: true
+  },
   title:  {
     type: String,
     required: true
