@@ -6,18 +6,44 @@ var Schema = mongoose.Schema;
 // Schema
 
 var EntrySchema = new Schema({
-  title: String,
-  author: String,
-  permlink: String,
-  body: String,
-  parent_contest: {
-    id: String,
-    permlink: String,
-    category: String,
-    author: String
+  title:  {
+    type: String,
+    required: true
   },
-  hidden: Boolean,
-  addedDateTime: Date
+  author:  {
+    type: String,
+    required: true
+  },
+  permlink:  {
+    type: String,
+    required: true
+  },
+  body:  {
+    type: String,
+    required: true
+  },
+  parent_contest: {
+    id:  {
+      type: String,
+      required: true
+    },
+    permlink:  {
+      type: String,
+      required: true
+    },
+    category:  {
+      type: String,
+      required: true
+    },
+    author:  {
+      type: String,
+      required: true
+    },
+  },
+  hidden: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 // Define model
