@@ -17,9 +17,13 @@
     "express": "^4.16.4",
     "express-validation": "^1.0.2",
     "helmet": "^3.14.0",
+    "http-status": "^1.2.0",
+    "i": "^0.3.6",
     "joi": "^14.0.0",
     "mongoose": "^5.3.3",
     "morgan": "^1.9.1",
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.4",
+    "npm": "^6.4.1",
+    "steemconnect": "^2.0.1"
   }
 }
