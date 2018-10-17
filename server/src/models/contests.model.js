@@ -1,5 +1,9 @@
+// Definitions
+
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+
+// Schema
 
 var ContestSchema = new Schema({
 
@@ -16,5 +20,11 @@ var ContestSchema = new Schema({
   
 });
 
+// Define model
+
 var Contest = mongoose.model("Contest", ContestSchema);
+
+// Export model
+
 module.exports = Contest;
+
