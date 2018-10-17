@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
 const contests = require('./routes/contests.route.js');
-const entries = require('./routes/entries');
+const entries = require('./routes/entries.route');
 const helmet = require('helmet')
 const app = express()
 
@@ -25,7 +25,7 @@ app.use(cors())
 // Routes
 
 app.use('/contests', contests);
-app.use(entries);
+app.use('/entries', entries);
 
 // Start Listening
 

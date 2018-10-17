@@ -1,5 +1,9 @@
+// Definitions
+
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+
+// Schema
 
 var EntrySchema = new Schema({
   title: String,
@@ -7,14 +11,19 @@ var EntrySchema = new Schema({
   permlink: String,
   body: String,
   parent_contest: {
-      id: String,
-      permlink: String,
-      category: String,
-      author: String
+    id: String,
+    permlink: String,
+    category: String,
+    author: String
   },
   hidden: Boolean,
   addedDateTime: Date
 });
 
+// Define model
+
 var Entry = mongoose.model("Entry", EntrySchema);
+
+// Export model
+
 module.exports = Entry;

@@ -62,7 +62,6 @@ exports.get_contests = function (req,res) {
           })
         }).sort({_id:-1})
       }
-      
     
       // PUT Update winners
 

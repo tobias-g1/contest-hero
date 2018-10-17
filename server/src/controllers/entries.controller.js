@@ -1,10 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var Entry = require("../models/entries");
+const Entry = require("../models/entries.model");
 
-// Create Entry
+// POST Create Entry
 
-router.post('/entries', (req, res) => {
+exports.create_entry = function (req, res) {
    
     var new_entry = new Entry({
         title: req.body.title,
@@ -31,22 +29,18 @@ router.post('/entries', (req, res) => {
         message: 'Success'
       })
     })
-  })
+  }
 
 
 // Get entries by contestId
+exports.get_entries_by_id = function (req, res) {
 
-router.get('/entries/:id', (req, res) => {
-
-    let contestId = req.params.id
-
-    Entry.find({ 'parent_contest.id' : contestId }, ['title', 'author', 'permlink'], function (error, entries) {
+    Entry.find({ 'parent_contest.id' : req.params.id }, ['title', 'author', 'permlink'], function (error, entries) {
       if (error) { console.error(error); }
       res.send({
         entries: entries
       })
     }).sort({_id:-1})
-  })
+  }
   
 
-module.exports = router;
