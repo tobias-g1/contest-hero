@@ -7,24 +7,14 @@ var Contest = require("../models/contest");
 
 router.post('/contests', (req, res) => {
 
-    var db = req.db;
-
-    let title = req.body.title;
-    let author = req.body.author;
-    let id = req.body.id;
-    let deadline = req.body.deadline;
-    let category = req.body.category;
-    let permlink = req.body.permlink
-    let body = req.body.body
-
     var new_contest = new Contest({
-      title: title,
-      author: author,
-      id: id,
-      deadline: deadline, 
-      category: category,
-      permlink: permlink,
-      body: body,
+      title: req.body.title,
+      author: req.body.author,
+      id: req.body.id,
+      deadline: req.body.deadline, 
+      category: req.body.category,
+      permlink: req.body.permlink,
+      body: req.body.body,
       hidden: false,
       addedDateTime: new Date().getTime(),
       winners: []
@@ -84,7 +74,6 @@ router.get('/contests/category/:category', (req, res) => {
   // Update winners
 
   router.put('/contests/winners/:id', (req, res) => {
-    var db = req.db;
     Contest.findById(req.params.id, '_id', function (error, contest) {
       if (error) { console.error(error); }
 

@@ -5,26 +5,16 @@ var Entry = require("../models/entries");
 // Create Entry
 
 router.post('/entries', (req, res) => {
-
-    var db = req.db;
-
-    let title = req.body.title;
-    let author = req.body.author;
-    let body = req.body.body;
-    let permlink = req.body.permlink;
-    let id = req.body.parent_contest.id;
-    let parentPemlink = req.body.parent_contest.permlink;
-    let parentAuthor = req.body.parent_contest.author
    
     var new_entry = new Entry({
-        title: title,
-        author: author,
-        permlink: permlink,
-        body: body,
+        title: req.body.title,
+        author: req.body.author,
+        permlink: req.body.permlink,
+        body: req.body.body,
         parent_contest: {
-            id: id,
-            author: parentAuthor,
-            permlink: parentPemlink
+            id: req.body.parent_contest.title,
+            author: req.body.parent_contest.author,
+            permlink: req.body.parent_contest.permlink
         },
         hidden: false,
         addedDateTime: new Date().getTime()
