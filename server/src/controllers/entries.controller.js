@@ -24,10 +24,7 @@ exports.create_entry = function (req, res) {
       if (error) {
         console.log(error)
       }
-      res.send({
-        success: true,
-        message: 'Success'
-      })
+      res.status(200).send({success: true})
     })
   }
 

@@ -17,9 +17,7 @@ const validateSteemconnect = async (req, res, next) => {
     // Catch the error if any.
   } catch (err) {
     // Send an error message in the response.
-    return next({
-      status: 401
-    });
+    res.status(500).send()
   }
 };
 

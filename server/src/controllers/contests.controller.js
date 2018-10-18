@@ -21,10 +21,7 @@ exports.create_contest = function (req, res) {
       if (error) {
         console.log(error)
       }
-      res.send({
-        success: true,
-        message: 'Success'
-      })
+      res.status(200).send({success: true})
     })
 }
 
@@ -67,7 +64,7 @@ exports.get_contests = function (req,res) {
 
       exports.set_winners = function (req,res) {
         Contest.findById(req.params.id, '_id', function (error, contest) {
-          if (error) { console.error(error); }
+          if (error) { res.status(500).send({ success: false }) }
     
           contest.winners = req.body.winners;
     
@@ -75,9 +72,7 @@ exports.get_contests = function (req,res) {
             if (error) {
               console.log(error)
             }
-            res.send({
-              success: true
-            })
+            res.status(200).send({success: true})
           })
         })
       }

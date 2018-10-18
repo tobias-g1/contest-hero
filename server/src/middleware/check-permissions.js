@@ -7,21 +7,14 @@ const validatePermissions = async (req, res, next) => {
         if (res.locals.username === req.body.author) {
             return next();
         } else {
-            res.send({
-                success: false,
-                message: 'Unauthorised',
-                status: 401
-            })
+            res.status(401).send()
         }
 
         // Catch the error if any.
 
     } catch (err) {
 
-        // Send an error message in the response.
-        return next({
-            status: 401
-        });
+        res.status(500).send()
     }
 };
 
