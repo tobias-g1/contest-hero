@@ -9,14 +9,14 @@
       </el-col>
       <el-col :span="12">
         <el-form-item label="Deadline" required>
-          <el-form-item prop="contestData.deadline">
-            <el-date-picker type="datetime" placeholder="Select Deadline" :picker-options="pickerOptions" v-model="contest.contestData.deadline" default-time="23:59:59" style="width: 100%;" value-format="yyyy/MM/dd HH:mm:ss"></el-date-picker>
+          <el-form-item prop="deadline">
+            <el-date-picker type="datetime" placeholder="Select Deadline" :picker-options="pickerOptions" v-model="contest.deadline" default-time="23:59:59" style="width: 100%;" value-format="yyyy/MM/dd HH:mm:ss"></el-date-picker>
           </el-form-item>
         </el-form-item>
       </el-col>
       <el-col :span="12">
-        <el-form-item label="Contest Catgeory" prop="contestData.category">
-          <el-select v-model="contest.contestData.category" placeholder="Select Type">
+        <el-form-item label="Contest Catgeory" prop="category" required>
+          <el-select v-model="contest.category" placeholder="Select Type">
             <el-option label="Writing" default value="writing"></el-option>
             <el-option label="Design" value="design"></el-option>
             <el-option label="Photo" value="photo"></el-option>
@@ -74,6 +74,8 @@ export default {
         title: '',
         body: '',
         tags: [],
+        deadline: '',
+        category: '',
         dynamicTags: [],
         contestId: '',
         images: null,
@@ -85,7 +87,7 @@ export default {
           message: 'Please enter a title',
           trigger: 'blur'
         }],
-        type: [{
+        category: [{
           required: true,
           message: 'Please select a contest category',
           trigger: 'change'
@@ -154,6 +156,8 @@ export default {
     async getContestFromDB () {
       const response = await contestsService.getContestByPermlink(this.contest.permlink)
       this.contest.contestData = response.data.contests[0]
+      this.contest.deadline = response.data.contests[0].deadline
+      this.contest.category = response.data.contests[0].category
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
@@ -171,8 +175,8 @@ export default {
         id: this.contest.contestData._id,
         title: this.contest.title,
         author: this.$store.state.steemconnect.user.name,
-        deadline: this.contest.contestData.deadline,
-        category: this.contest.contestData.category,
+        deadline: this.contest.deadline,
+        category: this.contest.category,
         body: this.contest.body
       })
 
@@ -196,7 +200,7 @@ export default {
         'format': 'markdown',
         'contest_hero': {
           'type': 'contest',
-          'deadline': this.contest.contestData.deadline,
+          'deadline': this.contest.deadline,
           'contestId': this.contest.contestId
         }
       }
