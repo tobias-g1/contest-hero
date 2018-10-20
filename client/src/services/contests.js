@@ -16,5 +16,8 @@ export default {
   },
   updateWinners (params) {
     return api().put('/contests/set_winners/', params)
+  },
+  editContest (params) {
+    return api().put('/contests/edit_contest/', params)
   }
 }
