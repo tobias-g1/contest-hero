@@ -115,10 +115,7 @@ export default {
   mixins: [form, tags],
   computed: {
     fixedTags: function () {
-      let fixedTags = ['765432']
-
-      fixedTags.push(this.contestForm.category)
-      return fixedTags
+      return ['contest-hero2']
     },
     finalTags: function () {
       return this.fixedTags.concat(this.contestForm.dynamicTags)
