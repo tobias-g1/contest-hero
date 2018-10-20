@@ -11,10 +11,18 @@
             <el-tooltip class="item" effect="dark" content="Add Contest" placement="bottom-start">
         <router-link to="/create-contest"><i class="material-icons">add_circle_outline</i></router-link>
             </el-tooltip>
-              <el-tooltip class="item" effect="dark" content="Log out" placement="bottom-start">
-        <a class="nav-link" href="#" @click.prevent="$store.dispatch('steemconnect/logout')"><i class="material-icons">exit_to_app</i></a>
-              </el-tooltip>
         <img class="user-image" :src="userImage" alt="">
+        <el-dropdown>
+      <span class="el-dropdown-link">
+      <i class="material-icons"> keyboard_arrow_down</i>
+      </span>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item><a class="nav-link" href="https://discord.gg/p8CNwq" target="_blank">Chat on Discord</a></el-dropdown-item>
+        <el-dropdown-item><a class="nav-link" href="#" @click.prevent="$steemconnect.follow(user.name, 'contest-hero')">Follow Contest Hero</a></el-dropdown-item>
+        <el-dropdown-item><a class="nav-link" href="https://github.com/tobias-g1/contest-hero/issues/new" target="_blank">Report an Issue</a></el-dropdown-item>
+        <el-dropdown-item> <a class="nav-link" href="#" @click.prevent="$store.dispatch('steemconnect/logout')">Log out</a></el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
       </div>
       <div class="menu-options" v-else>
          <a class="sign-up" target="_blank" href="https://signup.steemit.com/?ref=contesthero">Sign up</a>
