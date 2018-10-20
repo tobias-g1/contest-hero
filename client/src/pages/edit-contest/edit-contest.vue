@@ -33,13 +33,13 @@
       <el-col :span="12">
         <el-form-item label="Tags">
           <div class="tags-container">
-            <el-tag :key="tags" v-for="tags in contest.tags" v-show="tags"> {{ tags }} </el-tag>
+            <el-tag> {{ contest.tags[0] }} </el-tag>
             <el-tag :key="tag" v-for="tag in contest.dynamicTags" closable :disable-transitions="false" @close="handleClose(tag, contest)">
               {{tag}}
             </el-tag>
             <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm(contest)" @blur="handleInputConfirm(contest)" @submit.native.prevent>
             </el-input>
-            <el-button v-else class="button-new-tag" size="small" @click="showInput" v-show="(contest.tags.length < 5)">+ New Tag</el-button>
+            <el-button v-else class="button-new-tag" size="small" @click="showInput" v-show="(contest.dynamicTags.length < 4)">+ New Tag</el-button>
           </div>
         </el-form-item>
       </el-col>
@@ -125,6 +125,11 @@ export default {
         return []
       }
     },
+    finalTags: function () {
+      let finalTags = this.contest.dynamicTags
+      finalTags.unshift(this.contest.tags[0])
+      return finalTags
+    },
     ...mapGetters('steemconnect', ['user'])
   },
   mounted () {
@@ -141,7 +146,7 @@ export default {
           this.contest.body = discussions[0].body
           this.contest.tags = postJSON.tags
           this.contest.image = postJSON.image
-          this.dynamicTags = postJSON.tags.slice(3, 5)
+          this.contest.dynamicTags = this.contest.tags.slice(1, 4)
           this.contestId = postJSON.contest_hero.contestId
         })
       this.getContestFromDB()
@@ -185,7 +190,7 @@ export default {
       // Create JSON Metadata
 
       let jsonMetaData = {
-        'tags': this.contest.tags.concat(this.contest.dynamicTags),
+        'tags': this.finalTags,
         'app': 'contest_hero',
         'image': this.postImages,
         'format': 'markdown',
