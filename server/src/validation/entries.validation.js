@@ -5,15 +5,14 @@ module.exports = {
     create_entry: {
         body: {
             access_token: Joi.string().required(),
-            title: Joi.array().required(),
-            author: Joi.array().required(),
-            permlink: Joi.array().required(),
-            body: Joi.array().required(),
+            title: Joi.string().required(),
+            author: Joi.string().required(),
+            permlink: Joi.string().required(),
+            body: Joi.string().required(),
             parent_contest: {
-                id: Joi.array().required(),
-                permlink: Joi.array().required(),
-                category: Joi.array().required(),
-                author: Joi.array().required()
+                permlink: Joi.string().required(),
+                author: Joi.string().required(),
+                id: Joi.string().required()
             }
         }
     }

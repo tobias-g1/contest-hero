@@ -224,11 +224,12 @@ export default {
     // Post contest to DB
     async createContestCH () {
       await contestsService.createContest({
+        access_token: localStorage.getItem('access_token'),
         title: this.contestForm.title,
         author: this.$store.state.steemconnect.user.name,
         id: this.contestId,
         deadline: this.contestForm.deadline,
-        category: this.category,
+        category: this.contestForm.category,
         permlink: this.contestPermlink,
         body: this.contestForm.body
       })

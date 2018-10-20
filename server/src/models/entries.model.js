@@ -6,11 +6,6 @@ var Schema = mongoose.Schema;
 // Schema
 
 var EntrySchema = new Schema({
-
-  access_token: {
-    type: String,
-    required: true
-  },
   title:  {
     type: String,
     required: true
@@ -28,15 +23,7 @@ var EntrySchema = new Schema({
     required: true
   },
   parent_contest: {
-    id:  {
-      type: String,
-      required: true
-    },
     permlink:  {
-      type: String,
-      required: true
-    },
-    category:  {
       type: String,
       required: true
     },
@@ -44,11 +31,16 @@ var EntrySchema = new Schema({
       type: String,
       required: true
     },
+    id:  {
+      type: String,
+      required: true
+    }
   },
   hidden: {
     type: Boolean,
     default: false,
-  }
+  },
+  
 });
 
 // Define model

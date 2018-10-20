@@ -6,9 +6,6 @@ var Schema = mongoose.Schema;
 // Schema
 
 var ContestSchema = new Schema({
-  access_token: {
-    type: String
-  },
   title: {
     type: String,
     required: true

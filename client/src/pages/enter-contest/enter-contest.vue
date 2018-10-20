@@ -108,7 +108,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.addEntry()
+          this.createEntryPost()
         } else {
           console.log('error submit!!')
           return false
@@ -177,6 +177,7 @@ export default {
     },
     async addEntry () {
       await entriesService.createEntry({
+        access_token: localStorage.getItem('access_token'),
         title: this.entryForm.title,
         author: this.user.name,
         permlink: this.entryPermlink,

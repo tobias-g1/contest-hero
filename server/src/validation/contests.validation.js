@@ -16,6 +16,9 @@ module.exports = {
   },
   set_winners: {
     body: {
+        access_token: Joi.string().required(),
+        author: Joi.string().required(),
+        id: Joi.string().required(),
         winners: Joi.array().required()
     }
   }

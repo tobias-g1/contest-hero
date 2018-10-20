@@ -97,6 +97,8 @@ export default {
         this.$router.push('/')
       } else {
         await contestsService.updateWinners({
+          access_token: localStorage.getItem('access_token'),
+          author: this.$store.state.steemconnect.user.name,
           id: this.contest.data._id,
           winners: this.winners
         })
