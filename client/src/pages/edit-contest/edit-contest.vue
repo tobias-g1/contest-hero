@@ -17,11 +17,11 @@
       <el-col :span="12">
         <el-form-item label="Contest Catgeory" prop="contestData.category">
           <el-select v-model="contest.contestData.category" placeholder="Select Type">
-            <el-option label="Writing" default value="ch-writing"></el-option>
-            <el-option label="Design" value="ch-design"></el-option>
-            <el-option label="Photo" value="ch-photo"></el-option>
-            <el-option label="Giveaway" value="ch-giveaways"></el-option>
-            <el-option label="Other" value="ch-other"></el-option>
+            <el-option label="Writing" default value="writing"></el-option>
+            <el-option label="Design" value="design"></el-option>
+            <el-option label="Photo" value="photo"></el-option>
+            <el-option label="Giveaway" value="giveaway"></el-option>
+            <el-option label="Other" value="other"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
@@ -153,7 +153,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.editContest();
+          this.editContest()
         } else {
           console.log('error submit!!')
           return false
