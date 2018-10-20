@@ -78,3 +78,24 @@ exports.get_contests = function (req,res) {
           })
         })
       }
+      
+      // PUT Update Full Contest
+
+            exports.edit_contest = function (req,res) {
+              Contest.findById(req.body.id, '_id', function (error, contest) {
+                console.log(req.body.id)
+                if (error) { res.status(500).send({ success: false }) }
+
+                contest.title = req.body.title;
+                contest.deadline = req.body.title;
+                contest.category = req.body.title;
+                contest.body = req.body.title;
+
+                contest.save(function (error) {
+                  if (error) {
+                    console.log(error)
+                  }
+                  res.status(200).send({success: true})
+                })
+              })
+            }
