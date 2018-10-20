@@ -18,7 +18,7 @@ router.post('/create_contest', validate(create_contest), checkSteemConnect, vali
 router.get('/all', contest_controller.get_contests);
 router.get('/:category', contest_controller.get_contests_by_category);
 router.get('/permlink/:permlink', contest_controller.get_contest_by_permlink);
-router.put('/set_winners', validate(set_winners), checkSteemConnect, validatePermissions, checkUser, contest_controller.set_winners);
+router.put('/set_winners/', validate(set_winners), checkSteemConnect, validatePermissions, checkUser, contest_controller.set_winners);
 
 // Export
 

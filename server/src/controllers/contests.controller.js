@@ -63,9 +63,11 @@ exports.get_contests = function (req,res) {
       // PUT Update winners
 
       exports.set_winners = function (req,res) {
-        Contest.findById(req.params.id, '_id', function (error, contest) {
+        Contest.findById(req.body.id, '_id', function (error, contest) {
+          console.log(req.body.id)
           if (error) { res.status(500).send({ success: false }) }
-    
+          
+          
           contest.winners = req.body.winners;
     
           contest.save(function (error) {
