@@ -5,17 +5,17 @@ const Entry = require("../models/entries.model");
 exports.create_entry = function (req, res) {
    
     var new_entry = new Entry({
+        access_token: req.body.access_token,
         title: req.body.title,
         author: req.body.author,
         permlink: req.body.permlink,
         body: req.body.body,
         parent_contest: {
-            id: req.body.parent_contest.title,
+            id: req.body.parent_contest.id,
             author: req.body.parent_contest.author,
             permlink: req.body.parent_contest.permlink
         },
-        hidden: false,
-        addedDateTime: new Date().getTime()
+        hidden: false
     })
 
     console.log(new_entry)
