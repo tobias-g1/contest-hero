@@ -1,56 +1,56 @@
 <template>
-    <el-row :gutter="20">
-        <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> Edit - {{ contest.title }}</h1>
-        <el-form :model="contest" :label-position="labelPosition" :rules="rules" ref="contest" @submit.native.prevent @keydown.enter.native.prevent="submitForm">
-            <el-col :span="24">
-                <el-form-item label="Contest Title" prop="title">
-                    <el-input v-model="contest.title" placeholder="Enter a title"></el-input>
-                </el-form-item>
-            </el-col>
-            <el-col :span="12">
-                <el-form-item label="Deadline" required>
-                    <el-form-item prop="deadline">
-                        <el-date-picker type="datetime" placeholder="Select Deadline" :picker-options="pickerOptions" v-model="contest.deadline" default-time="23:59:59" style="width: 100%;" value-format="yyyy/MM/dd HH:mm:ss"></el-date-picker>
-                    </el-form-item>
-                </el-form-item>
-            </el-col>
-            <el-col :span="12">
-                <el-form-item label="Contest Type" prop="type">
-                    <el-select v-model="contest.type" placeholder="Select Type">
-                        <el-option label="Writing" default value="ch-writing"></el-option>
-                        <el-option label="Design" value="ch-design"></el-option>
-                        <el-option label="Photo" value="ch-photo"></el-option>
-                        <el-option label="Giveaway" value="ch-giveaways"></el-option>
-                        <el-option label="Other" value="ch-other"></el-option>
-                    </el-select>
-                </el-form-item>
-            </el-col>
-            <el-col :span="24">
-                <el-form-item label="Contest Body" prop="body">
-                    <markdownEditor :configs="editorConfig" v-model="contest.body" />
-                </el-form-item>
-            </el-col>
-            <el-col :span="12">
-                <el-form-item label="Tags">
-                    <div class="tags-container">
-                        <el-tag :key="tags" v-for="tags in contest.tags" v-show="tags"> {{ tags }} </el-tag>
-                        <el-tag :key="tag" v-for="tag in contest.dynamicTags" closable :disable-transitions="false" @close="handleClose(tag, contest)">
-                            {{tag}}
-                        </el-tag>
-                        <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm(contest)" @blur="handleInputConfirm(contest)" @submit.native.prevent>
-                        </el-input>
-                        <el-button v-else class="button-new-tag" size="small" @click="showInput" v-show="(contest.tags.length < 5)">+ New Tag</el-button>
-                    </div>
-                </el-form-item>
-            </el-col>
-            <el-col :span="24">
-                <el-form-item>
-                    <button :disabled="!this.$store.state.steemconnect.user" @click="submitForm('contest')" class="btn-fill submit">Edit Contest</button>
-                    <el-button @click="resetForm('contest'), contest.tags = []">Reset</el-button>
-                </el-form-item>
-            </el-col>
-        </el-form>
-    </el-row>
+  <el-row :gutter="20" v-if="contest.contestData">
+    <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> Edit - {{ contest.title }}</h1>
+    <el-form :model="contest" :label-position="labelPosition" :rules="rules" ref="contest" @submit.native.prevent @keydown.enter.native.prevent="submitForm">
+      <el-col :span="24">
+        <el-form-item label="Contest Title" prop="title">
+          <el-input v-model="contest.title" placeholder="Enter a title"></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="12">
+        <el-form-item label="Deadline" required>
+          <el-form-item prop="contestData.deadline">
+            <el-date-picker type="datetime" placeholder="Select Deadline" :picker-options="pickerOptions" v-model="contest.contestData.deadline" default-time="23:59:59" style="width: 100%;" value-format="yyyy/MM/dd HH:mm:ss"></el-date-picker>
+          </el-form-item>
+        </el-form-item>
+      </el-col>
+      <el-col :span="12">
+        <el-form-item label="Contest Catgeory" prop="contestData.category">
+          <el-select v-model="contest.contestData.category" placeholder="Select Type">
+            <el-option label="Writing" default value="ch-writing"></el-option>
+            <el-option label="Design" value="ch-design"></el-option>
+            <el-option label="Photo" value="ch-photo"></el-option>
+            <el-option label="Giveaway" value="ch-giveaways"></el-option>
+            <el-option label="Other" value="ch-other"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
+      <el-col :span="24">
+        <el-form-item label="Contest Body" prop="body">
+          <markdownEditor :configs="editorConfig" v-model="contest.body" />
+        </el-form-item>
+      </el-col>
+      <el-col :span="12">
+        <el-form-item label="Tags">
+          <div class="tags-container">
+            <el-tag :key="tags" v-for="tags in contest.tags" v-show="tags"> {{ tags }} </el-tag>
+            <el-tag :key="tag" v-for="tag in contest.dynamicTags" closable :disable-transitions="false" @close="handleClose(tag, contest)">
+              {{tag}}
+            </el-tag>
+            <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm(contest)" @blur="handleInputConfirm(contest)" @submit.native.prevent>
+            </el-input>
+            <el-button v-else class="button-new-tag" size="small" @click="showInput" v-show="(contest.tags.length < 5)">+ New Tag</el-button>
+          </div>
+        </el-form-item>
+      </el-col>
+      <el-col :span="24">
+        <el-form-item>
+          <button :disabled="!this.$store.state.steemconnect.user" @click="submitForm('contest')" class="btn-fill submit">Edit Contest</button>
+          <el-button @click="resetForm('contest'), contest.tags = []">Reset</el-button>
+        </el-form-item>
+      </el-col>
+    </el-form>
+  </el-row>
 </template>
 
 <script>
@@ -58,6 +58,7 @@ import markdownEditor from 'vue-simplemde/src/markdown-editor'
 import form from '@/mixins/form-actions.js'
 import tags from '@/mixins/tags.js'
 import dsteem from '@/mixins/dsteem.js'
+import contestsService from '@/services/contests.js'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -71,13 +72,12 @@ export default {
         author: '',
         permlink: '',
         title: '',
-        type: '',
-        deadline: '',
         body: '',
         tags: [],
         dynamicTags: [],
         contestId: '',
-        image: ''
+        images: null,
+        contestData: null
       },
       rules: {
         title: [{
@@ -118,7 +118,7 @@ export default {
   mixins: [form, tags, dsteem],
   computed: {
     postImages: function () {
-      let images = this.contestForm.body.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|svg)/g)
+      let images = this.contest.body.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|svg)/g)
       if (images !== null) {
         return images
       } else {
@@ -140,22 +140,39 @@ export default {
           this.contest.title = discussions[0].title
           this.contest.body = discussions[0].body
           this.contest.tags = postJSON.tags
-          this.contest.deadline = postJSON.contest_hero.deadline
-          this.contest.type = postJSON.tags[1]
           this.contest.image = postJSON.image
           this.dynamicTags = postJSON.tags.slice(3, 5)
           this.contestId = postJSON.contest_hero.contestId
         })
+      this.getContestFromDB()
+    },
+    async getContestFromDB () {
+      const response = await contestsService.getContestByPermlink(this.contest.permlink)
+      this.contest.contestData = response.data.contests[0]
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.editContest()
+          this.editContest();
         } else {
           console.log('error submit!!')
           return false
         }
       })
+    },
+    async editContestDB () {
+      await contestsService.editContest({
+        access_token: localStorage.getItem('access_token'),
+        id: this.contest.contestData._id,
+        title: this.contest.title,
+        author: this.$store.state.steemconnect.user.name,
+        deadline: this.contest.contestData.deadline,
+        category: this.contest.contestData.category,
+        body: this.contest.body
+      })
+
+      this.$store.commit('setLoading', false)
+      this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contest.permlink}`)
     },
     editContest () {
       this.$store.commit('setLoading', true)
@@ -174,7 +191,7 @@ export default {
         'format': 'markdown',
         'contest_hero': {
           'type': 'contest',
-          'deadline': this.contest.deadline,
+          'deadline': this.contest.contestData.deadline,
           'contestId': this.contest.contestId
         }
       }
@@ -194,12 +211,12 @@ export default {
       ]
 
       // Send post via SteemConnect
+
       if (this.$store.state.steemconnect.user.name === this.contest.author) {
         this.$steemconnect.broadcast(
           operations,
           (err) => {
-            (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') : this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contest.permlink}`)
-            this.$store.commit('setLoading', false)
+            (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') : this.editContestDB()
           })
       } else {
         alert('You don\'t have permission to edit this contest')
@@ -208,11 +225,12 @@ export default {
     }
   }
 }
-
 </script>
 
-<style src="@/pages/edit-contest/edit-contest.css"></style>
+<style src="@/pages/edit-contest/edit-contest.css">
+
+</style>
 
 <style>
-    @import '~simplemde/dist/simplemde.min.css';
+  @import '~simplemde/dist/simplemde.min.css';
 </style>

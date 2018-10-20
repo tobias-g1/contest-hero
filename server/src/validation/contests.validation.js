@@ -17,6 +17,7 @@ module.exports = {
   edit_contest: {
     body: {
         access_token: Joi.string().required(),
+        id: Joi.string().required(),
         title: Joi.string().required(),
         author: Joi.string().required(),
         deadline: Joi.string().required(),

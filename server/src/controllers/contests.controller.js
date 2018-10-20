@@ -82,14 +82,15 @@ exports.get_contests = function (req,res) {
       // PUT Update Full Contest
 
             exports.edit_contest = function (req,res) {
+              console.log(req.body)
               Contest.findById(req.body.id, '_id', function (error, contest) {
                 console.log(req.body.id)
                 if (error) { res.status(500).send({ success: false }) }
 
                 contest.title = req.body.title;
-                contest.deadline = req.body.title;
-                contest.category = req.body.title;
-                contest.body = req.body.title;
+                contest.deadline = req.body.deadline;
+                contest.category = req.body.category;
+                contest.body = req.body.body;
 
                 contest.save(function (error) {
                   if (error) {
