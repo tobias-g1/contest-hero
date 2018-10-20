@@ -1,32 +1,44 @@
+// Imports
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
-const contests = require('../routes/contests');
-const entries = require('../routes/entries');
-
+const contests = require('./routes/contests.route.js');
+const entries = require('./routes/entries.route');
+const helmet = require('helmet')
 const app = express()
 
+// Require env
+
+require('dotenv').config();
+
+// initialize middleware
+
+app.use(helmet())
+app.use(helmet.frameguard({ action: 'sameorigin' }))
+app.use(helmet.contentSecurityPolicy({ directives: { defaultSrc: ["'self'"] } }))
 app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
-require('dotenv').config();
 
 // Routes
-app.use(contests);
-app.use(entries);
 
-const mongoose = require('mongoose');
+app.use('/contests', contests);
+app.use('/entries', entries);
 
-mongoose.connect(process.env.DATABASE, {useNewUrlParser: true})
-.then(() => console.log('connecting to database successful'))
-.catch(err => console.error('could not connect to mongo DB', err))
-var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error"));
-db.once("open", function(callback){
-  console.log("Connection Succeeded");
-});
+// Start Listening
 
 var listener = app.listen(process.env.PORT || 8081, function(){
   console.log('Listening on port ' + listener.address().port);
 });
+
+
+// Initialise MongoDB
+
+require('./utils/db');
+
+
+
+
+
