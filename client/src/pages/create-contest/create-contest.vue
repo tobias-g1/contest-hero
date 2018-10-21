@@ -122,7 +122,7 @@ export default {
       return this.fixedTags.concat(this.contestForm.dynamicTags)
     },
     contestPermlink: function () {
-      return this.contestForm.title.toLowerCase().replace(/[\s#/]/g, '-') + '-'
+      return this.contestForm.title.toLowerCase().replace(/[\s#_/]/g, '-')
     },
     postImages: function () {
       let images = this.contestForm.body.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|svg)/g)
