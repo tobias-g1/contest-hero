@@ -160,13 +160,9 @@ export default {
 
       var jsonMetaData = {
         'tags': this.finalTags,
-        'app': 'contest_hero_test',
+        'app': 'contest_hero',
         'image': this.postImages,
-        'format': 'markdown',
-        'contest_hero': {
-          'category': 'writing',
-          'deadline': this.contestForm.deadline
-        }
+        'format': 'markdown'
       }
 
       const operations = [
