@@ -22,3 +22,6 @@
     font-weight: normal !important;
 }
   
+.el-dropdown-link .material-icons {
+  cursor: pointer;
+}
