@@ -75,6 +75,7 @@ export default {
         body: '',
         dynamicTags: []
       },
+      contestId: '',
       rules: {
         title: [{
           required: true,
@@ -121,14 +122,7 @@ export default {
       return this.fixedTags.concat(this.contestForm.dynamicTags)
     },
     contestPermlink: function () {
-      return this.contestForm.title.toLowerCase().replace(/[\s#/]/g, '-') + '-' + this.contestId
-    },
-    contestId: function () {
-      return 'ch-xxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16 | 0
-        var v = c === 'x' ? r : (r & 0x3 | 0x8)
-        return v.toString(16)
-      })
+      return this.contestForm.title.toLowerCase().replace(/[\s#/]/g, '-') + '-'
     },
     postImages: function () {
       let images = this.contestForm.body.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|svg)/g)
@@ -147,7 +141,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.createContest()
+          this.createContestCH()
         } else {
           console.log('error submit!!')
           return false
@@ -171,8 +165,7 @@ export default {
         'format': 'markdown',
         'contest_hero': {
           'category': 'writing',
-          'deadline': this.contestForm.deadline,
-          'contestId': this.contestId
+          'deadline': this.contestForm.deadline
         }
       }
 
@@ -224,11 +217,9 @@ export default {
         access_token: localStorage.getItem('access_token'),
         title: this.contestForm.title,
         author: this.$store.state.steemconnect.user.name,
-        id: this.contestId,
         deadline: this.contestForm.deadline,
         category: this.contestForm.category,
-        permlink: this.contestPermlink,
-        body: this.contestForm.body
+        permlink: this.contestPermlink
       })
       this.$store.commit('setLoading', false)
       this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}`)

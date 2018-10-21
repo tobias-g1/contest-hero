@@ -15,8 +15,7 @@
             <el-col :span="24">
                 <el-form-item label="Tags">
                     <div class="tags-container">
-                        <el-tag>Contest-Hero</el-tag>
-                        <el-tag> {{ contestId }} </el-tag>
+                        <el-tag>{{ fixedTags[0] }}</el-tag>
                         <el-tag :key="tag" v-for="tag in entryForm.dynamicTags" closable :disable-transitions="false" @close="handleClose(tag, entryForm)">
                             {{tag}}
                         </el-tag>
@@ -81,7 +80,7 @@ export default {
       return this.entryForm.title.toLowerCase().replace(/[\s#/]/g, '-') + '-' + Math.floor(Math.random() * 9000000000) + 1000000000
     },
     fixedTags: function () {
-      return ['test', this.contestId]
+      return ['contest-hero']
     },
     finalTags: function () {
       return this.fixedTags.concat(this.entryForm.dynamicTags)
