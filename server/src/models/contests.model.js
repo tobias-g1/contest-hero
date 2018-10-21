@@ -14,10 +14,6 @@ var ContestSchema = new Schema({
     type: String,
     required: true
   },
-  id: {
-    type: String,
-    required: true
-  },
   deadline: {
     type: String,
     required: true
