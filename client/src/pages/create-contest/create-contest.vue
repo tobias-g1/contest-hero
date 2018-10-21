@@ -141,7 +141,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.createContestCH()
+          this.createContest()
         } else {
           console.log('error submit!!')
           return false
@@ -217,6 +217,7 @@ export default {
         access_token: localStorage.getItem('access_token'),
         title: this.contestForm.title,
         author: this.$store.state.steemconnect.user.name,
+        body: this.adjustBody,
         deadline: this.contestForm.deadline,
         category: this.contestForm.category,
         permlink: this.contestPermlink
