@@ -236,7 +236,7 @@ export default {
       return `/edit-contest/${this.post.author}/${this.post.permlink}`
     },
     selectWinnerLink: function () {
-      return `/select-winner/${this.contest.contestData.id}/${this.post.author}/${this.post.permlink}`
+      return `/select-winner/${this.contest.contestData._id}/${this.post.author}/${this.post.permlink}`
     },
     sortedWinners: function () {
       return _.orderBy(this.contest.winners, 'place', 'asc')
