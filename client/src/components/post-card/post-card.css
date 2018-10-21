@@ -1,0 +1,213 @@
+.post-stats {
+    display: inline-flex;
+    padding: 3px;
+  }
+  
+  .stats-item {
+    display: inline-flex;
+    font-size: 14px;
+  }
+  
+  .stats-item span {
+    padding: 2px 6px;
+  }
+  
+  .stats-item i {
+    font-size: 19px;
+    padding: 1px;
+    cursor: pointer;
+  }
+  
+  .contest-details {
+    font-size: 11px;
+    text-align: right;
+    font-weight: normal;
+    margin-left: 20px;
+  }
+  
+
+  .contest {
+    height: fit-content;
+    font-size: 13px;
+    font-weight: 400; 
+    margin-right: 10px;
+  }
+
+  .el-tag--small {
+    margin: 0;
+  }
+  
+  .contest_open {
+    color:  #3B773B !important;
+    background: #DFF0D7 !important;
+    border-color: #D6EAC5 !important;
+  }
+  
+  .contest_closed {
+    color: #c70047 !important;
+    background: #F2DEDE !important;
+     border-color: #ECCCD1 !important;
+  }
+  
+  .cards {
+    display: -webkit-flex;
+    display: inline-flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  .card {
+    position: relative;
+    background: #fefff9;
+    color: #363636;
+    text-decoration: none;
+    -moz-box-shadow: 0 0 10px 2px #f1f1f1;
+    -webkit-box-shadow: 0 0 10px 2px #f1f1f1;
+    box-shadow: 0 0 10px 2px #f1f1f1;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 10px;
+    margin: 10px;
+  }
+
+  @media (max-width: 700px) {
+    .card {
+      width: 100%;
+    }
+  }
+  
+  @media (min-width: 700px) {
+    .card {
+      width: 310px;
+    }
+  }
+  
+  .card span {
+    display: inline-flex;
+  }
+  
+ 
+  
+  .card .card-header {
+    position: relative;
+    height: 215px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    -moz-border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .card .card-header:hover,
+  .card .card-header:focus {
+    background-color: rgba(255, 255, 255, 0);
+  }
+  
+  .card .card-title {
+    background: #FF1480;
+    color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+    text-transform: uppercase;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.7' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+
+  }
+
+  .card .card-summary {
+       display: -webkit-box;
+       display: -ms-flexbox;
+       display: flex;
+       -webkit-box-orient: horizontal;
+       -webkit-box-direction: normal;
+       -ms-flex-direction: row;
+       flex-direction: row;
+       -webkit-box-pack: justify;
+       -ms-flex-pack: justify;
+       justify-content: space-between;
+       padding: 10px;
+       align-items: center;
+  }
+  
+  .card .card-title h3 {
+    font-size: 14px;
+    padding: 5px 10px;
+    margin: 0;
+    color: white;
+    text-align: center;
+    text-transform: capitalize;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-height: 20px;
+  }
+  
+  .card .card-title a {
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    margin: 5px;
+  }
+  
+  .card .card-title a:hover {
+    text-decoration: underline;
+  }
+  
+  .card:hover,
+  .card:focus {
+    background: white;
+    box-shadow: 0 0 10px 2px #f1f1f1;
+  }
+  
+  .card:hover .card-title,
+  .card:focus .card-title {
+    background: #FF1480 0.5;
+  }
+  
+  body {
+    background: #f0f0f0;
+    font-size: 17px;
+    line-height: 1.4;
+    font-family: 'Jaldi', sans-serif;
+  }
+  
+  * {
+    -moz-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -moz-transform;
+    -o-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -o-transform;
+    -webkit-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -webkit-transform;
+    transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, transform;
+    -moz-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -moz-transition-timing-function: linear;
+    -o-transition-timing-function: linear;
+    -webkit-transition-timing-function: linear;
+    transition-timing-function: linear;
+  }
+
+  .author-image-container {
+    background: white;
+    border-radius: 50px;
+    height: 40px;
+    width: 40px;
+    max-width: 40px;
+    margin: 10px 10px 10px auto;
+  }
+
+  .author-image {
+    height: inherit;
+  }

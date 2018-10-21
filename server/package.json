@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/nodemon/bin/nodemon.js src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "express-validation": "^1.0.2",
+    "helmet": "^3.14.0",
+    "http-status": "^1.2.0",
+    "i": "^0.3.6",
+    "joi": "^14.0.0",
+    "mongoose": "^5.3.3",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.4",
+    "npm": "^6.4.1",
+    "steemconnect": "^2.0.1"
+  }
+}

@@ -1,0 +1,97 @@
+body {
+    background: #FAFAFA;
+    margin: 0;
+    font-family: sans-serif;
+    height: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  h1.header {
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin: 20px 0;
+    font-family: helvetica;
+    letter-spacing: 3px;
+  }
+  
+  h2.header {
+    font-weight: bold;
+    font-size: 15px;
+    text-transform: uppercase;
+    margin: 20px 0;
+    font-family: helvetica;
+    letter-spacing: 3px;
+  }
+  
+  h3.header {
+    margin: 20px 0;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: helvetica;
+  }
+  
+  a {
+    word-wrap: break-word;
+  }
+  
+  button {
+    padding: 10px;
+    border: 0;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  button:disabled {
+    background: whitesmoke !important;
+    border: 1px solid gray;
+    color: gray;
+    cursor: not-allowed;
+  }
+
+  .dropdown-option {
+    display: block;
+    width: 100%;
+  }
+
+
+  .btn-fill {
+    background: #FF1480;
+    border: 1px solid #FF1480;
+    color: white;
+  }
+
+  
+  .btn-outline {
+    color: #FF1480;
+    border: 1px solid #FF1480;
+    background: 0;
+  }
+
+  .submit {
+    margin-right: 10px;
+  }
+
+    
+  .small-circle {
+    height: 15px;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
+
+  body>.el-container {
+    margin: 0;
+  }
+
+  .el-container.is-vertical {
+    height: 100vh;
+  }
+
+  i.selection {
+    cursor: pointer;
+  }

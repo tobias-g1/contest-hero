@@ -1,0 +1,19 @@
+.no-post-container {
+    padding: 20px;
+    margin: 15px auto;
+    display: flex;
+    border-radius: 5px;
+    width: fit-content;
+    max-width: 400px;
+    text-align: center;
+}
+
+.no-post-container .btn-outline {
+    display: block;
+    text-decoration: none !important;
+    margin: 15px auto;
+}
+
+.no-post-container a {
+    text-decoration: none;
+}

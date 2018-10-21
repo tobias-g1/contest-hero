@@ -1,0 +1,69 @@
+<template>
+  <el-row :gutter="20">
+    <el-col :span="24">
+      <filterpanel @messageSent='onMessageSent' @click.native="$store.commit('setLoading', true)" />
+    </el-col>
+    <el-col :span="24">
+      <div v-if="messages[0]" class="card-container">
+        <postcard v-if="messages" v-for="(messages, index) in messages" :key="index" :post="messages" />
+      </div>
+      <noposts v-else />
+    </el-col>
+  </el-row>
+</template>
+
+<script>
+import postcard from '@/components/post-card/post-card.vue'
+import filterpanel from '@/components/filter-panel/filter-panel.vue'
+import noposts from '@/components/no-post/no-post.vue'
+import dsteem from '@/mixins/dsteem.js'
+import contestsService from '@/services/contests.js'
+
+export default {
+  name: 'feed',
+  mixins: [dsteem],
+  components: {
+    postcard,
+    filterpanel,
+    noposts
+  },
+  data () {
+    return {
+      messages: []
+    }
+  },
+  mounted () {
+    this.$store.commit('setLoading', true)
+    this.getPosts()
+  },
+  methods: {
+    onMessageSent: function (message) {
+      if (message.length === 0) {
+        this.messages = []
+      } else {
+        this.messages = message.message
+      }
+    },
+    async getPosts () {
+      const response = await contestsService.getContests()
+      this.message = []
+      response.data.contests.forEach((contest, index) => {
+        this.loadPost(contest.author, contest.permlink)
+          .then(discussions => {
+            contest.blockchain = discussions[0]
+            this.messages.push(contest)
+          })
+      })
+    }
+  },
+  watch: {
+    messages () {
+      this.$store.commit('setLoading', false)
+    }
+  }
+}
+</script>
+
+<style scoped src='@/pages/feed/feed.css'>
+
+</style>

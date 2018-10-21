@@ -1,0 +1,42 @@
+*{
+    transition: all 0.6s;
+}
+
+#main{
+    display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: 0;
+}
+
+.not-found-container{
+    margin-bottom: 15px;
+    font-weight: lighter;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.not-found-container h1{
+	  font-size: 30px;
+	  display: inline-block;
+	  padding-right: 12px;
+      animation: type .5s alternate infinite;
+      font-weight: lighter;
+}
+
+.not-found-container span {
+    width: 50%;
+    margin-bottom: 15px;
+    font-weight: lighter;
+    display: flex;
+}
+
+@keyframes type{
+	  from{box-shadow: inset -3px 0px 0px #888;}
+	  to{box-shadow: inset -3px 0px 0px transparent;}
+}

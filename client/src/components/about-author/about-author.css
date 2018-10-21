@@ -1,0 +1,30 @@
+.author-container {
+    display: inline-flex;
+}
+
+.author-name {
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+}
+
+.author-bio {
+    font-size: 15px;
+    display: flex;
+    font-weight: lighter;
+    font-family: sans-serif;
+    margin-top: 5px;
+}
+
+.author-details {
+    margin: 0 15px;
+}
+
+.author-container img {
+    height: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    border: 2px solid white;
+    border-radius: 50px;
+    box-shadow: 0 0 10px 2px #f1f1f1;
+}
