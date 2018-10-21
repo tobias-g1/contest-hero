@@ -21,7 +21,7 @@ exports.create_contest = function (req, res) {
       if (error) {
         console.log(error)
       }
-      res.status(200).send({success: true})
+      res.status(200).send({success: true, id: new_contest._id})
     })
 }
 

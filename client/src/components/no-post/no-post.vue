@@ -1,6 +1,6 @@
 <template>
     <div class="no-post-container">
-  <span>There is nothing to show here, why not try one of the other categories</span>
+  <span>There's no contests to show in this category yet, be the first to create a contest here <router-link   to="create-contest"><button class="btn btn-outline">Create Contest</button></router-link></span>
         </div>
 </template>
 

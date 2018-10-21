@@ -149,7 +149,6 @@ export default {
           this.contest.tags = postJSON.tags
           this.contest.image = postJSON.image
           this.contest.dynamicTags = this.contest.tags.slice(1, 4)
-          this.contestId = postJSON.contest_hero.contestId
         })
       this.getContestFromDB()
     },

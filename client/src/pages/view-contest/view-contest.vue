@@ -136,7 +136,7 @@ export default {
       const response = await contestsService.getContestByPermlink(this.post.permlink)
       this.contest.contestData = response.data.contests[0]
       this.contest.winners = response.data.contests[0].winners
-      const entries = await entriesService.getEntriesById(this.contest.contestData.id)
+      const entries = await entriesService.getEntriesById(this.contest.contestData._id)
       this.contest.entries = entries.data.entries
     },
     loadContent () {
@@ -217,7 +217,7 @@ export default {
   },
   computed: {
     postLink: function () {
-      return `/enter-contest/${this.contest.contestData.id}/${this.post.author}/${this.post.permlink}`
+      return `/enter-contest/${this.contest.contestData._id}/${this.post.author}/${this.post.permlink}`
     },
     postJson: function () {
       return JSON.parse(this.post.data.json_metadata)
@@ -236,7 +236,7 @@ export default {
       return `/edit-contest/${this.post.author}/${this.post.permlink}`
     },
     selectWinnerLink: function () {
-      return `/select-winner/${this.contest.contestData.id}/${this.post.author}/${this.post.permlink}`
+      return `/select-winner/${this.contest.contestData._id}/${this.post.author}/${this.post.permlink}`
     },
     sortedWinners: function () {
       return _.orderBy(this.contest.winners, 'place', 'asc')
