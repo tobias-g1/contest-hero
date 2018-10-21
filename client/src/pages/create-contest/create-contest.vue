@@ -122,7 +122,7 @@ export default {
       return this.fixedTags.concat(this.contestForm.dynamicTags)
     },
     contestPermlink: function () {
-      return this.contestForm.title.toLowerCase().replace(/[\s#/]/g, '-') + '-'
+      return this.contestForm.title.toLowerCase().replace(/[\s#_/]/g, '-') + '-' + Math.random().toString(36).replace(/[^a-z]+/g, '')
     },
     postImages: function () {
       let images = this.contestForm.body.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|svg)/g)
@@ -141,7 +141,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.createContestCH()
+          this.createContest()
         } else {
           console.log('error submit!!')
           return false
@@ -160,13 +160,9 @@ export default {
 
       var jsonMetaData = {
         'tags': this.finalTags,
-        'app': 'contest_hero_test',
+        'app': 'contest_hero',
         'image': this.postImages,
-        'format': 'markdown',
-        'contest_hero': {
-          'category': 'writing',
-          'deadline': this.contestForm.deadline
-        }
+        'format': 'markdown'
       }
 
       const operations = [
@@ -217,6 +213,7 @@ export default {
         access_token: localStorage.getItem('access_token'),
         title: this.contestForm.title,
         author: this.$store.state.steemconnect.user.name,
+        body: this.adjustBody,
         deadline: this.contestForm.deadline,
         category: this.contestForm.category,
         permlink: this.contestPermlink
