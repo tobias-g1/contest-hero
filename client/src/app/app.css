@@ -17,4 +17,8 @@
   .contest-hero-post-footer{
     display: none;
   }
+
+  .CodeMirror-scroll {
+    font-weight: normal !important;
+}
   

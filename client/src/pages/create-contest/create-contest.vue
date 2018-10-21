@@ -116,7 +116,7 @@ export default {
   mixins: [form, tags],
   computed: {
     fixedTags: function () {
-      return ['contest-hero2']
+      return ['contest-hero']
     },
     finalTags: function () {
       return this.fixedTags.concat(this.contestForm.dynamicTags)
