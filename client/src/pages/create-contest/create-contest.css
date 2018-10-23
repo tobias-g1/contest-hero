@@ -5,6 +5,10 @@
     font-size: 13px;
 }
 
+label {
+    vertical-align: middle;
+}
+
 .el-tag {
     margin-right: 10px;
     margin-bottom: 10px;
