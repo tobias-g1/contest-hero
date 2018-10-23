@@ -131,7 +131,6 @@ export default {
 
       let parentAuthor
       let parentPermlink
-      let entryMethod
 
       switch (this.contestData.entry_method) {
         case 'post':
