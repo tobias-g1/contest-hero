@@ -3,13 +3,15 @@
     <el-row :gutter="20">
         <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> Create a contest </h1>
         <el-form :model="contestForm" :label-position="labelPosition" :rules="rules" ref="contestForm" @submit.native.prevent @keydown.enter.native.prevent="submitForm">
-            <el-col :span="12">
-                <el-form-item label="Contest Title" prop="title">
+            <el-col :span="12"> 
+                <el-form-item prop="title">
+                  <span slot="label">Title<tooltip :text="'Use the title to help draw users to your contest'" /></span>
                     <el-input v-model="contestForm.title" placeholder="Enter a title"></el-input>
                 </el-form-item>
             </el-col>
                     <el-col :span="12">
-                <el-form-item label="Contest Category" prop="category">
+                <el-form-item  prop="category">
+                   <span slot="label">Category<tooltip :text="'Each contest is sorted into a category to make it easy to find'" /></span>
                     <el-select v-model="contestForm.category" placeholder="Select Category">
                         <el-option label="Writing" default value="writing"></el-option>
                         <el-option label="Design" value="design"></el-option>
@@ -20,14 +22,16 @@
                 </el-form-item>
             </el-col>
             <el-col :span="12">
-                <el-form-item label="Deadline" required>
+                <el-form-item required>
+                   <span slot="label">Deadline<tooltip :text="'Use this to configure when your contest will end, when the deadline reaches the end no more entries can be made.'" /></span>
                     <el-form-item prop="deadline">
                         <el-date-picker type="datetime" placeholder="Select Deadline" :picker-options="pickerOptions" v-model="contestForm.deadline" default-time="23:59:59" style="width: 100%;" value-format="yyyy/MM/dd HH:mm:ss"></el-date-picker>
                     </el-form-item>
                 </el-form-item>
             </el-col>
             <el-col :span="12">
-                <el-form-item label="Entry Method" prop="entry_method">
+                <el-form-item prop="entry_method">
+                   <span slot="label">Entry Type<tooltip :text="'This will configure whether a user entry is via a comment or post. Only comments made via Contest Hero will be added to your entries.'" /></span>
                     <el-select v-model="contestForm.entry_method" placeholder="Select Entry Method">
                         <el-option label="Post" default value="post"></el-option>
                         <el-option label="Comment" value="comment"></el-option>
@@ -35,12 +39,14 @@
                 </el-form-item>
             </el-col>
             <el-col :span="24">
-                <el-form-item label="Contest Body" prop="body">
+                <el-form-item prop="body">
+                   <span slot="label">Body<tooltip :text="'Don\'t forget to mention the prize and any additional steps to enter'" /></span>
                     <markdownEditor :configs="editorConfig" v-model="contestForm.body" />
                 </el-form-item>
             </el-col>
             <el-col :span="12">
-                <el-form-item label="Tags">
+                <el-form-item>
+                   <span slot="label">Tags<tooltip :text="'Choose up to 4 tags that will help your contest stand out'" /></span>
                     <div class="tags-container">
                         <el-tag :key="tags" v-for="tags in fixedTags" v-show="tags"> {{ tags }} </el-tag>
                         <el-tag :key="tag" v-for="tag in contestForm.dynamicTags" closable :disable-transitions="false" @close="handleClose(tag, contestForm)">
@@ -68,6 +74,7 @@ import form from '@/mixins/form-actions.js'
 import tags from '@/mixins/tags.js'
 import { mapGetters } from 'vuex'
 import contestsService from '@/services/contests.js'
+import tooltip from '@/components/tooltip/tooltip.vue'
 
 export default {
   name: 'create-contest',
@@ -125,7 +132,8 @@ export default {
     }
   },
   components: {
-    markdownEditor
+    markdownEditor,
+    tooltip
   },
   mixins: [form, tags],
   computed: {
