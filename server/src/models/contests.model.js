@@ -1,5 +1,6 @@
 // Definitions
 
+var timestamps = require('mongoose-timestamp');
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
@@ -39,6 +40,8 @@ var ContestSchema = new Schema({
     default: false,
   }
 });
+
+ContestSchema.plugin(timestamps); // automatically adds createdAt and updatedAt timestamps
 
 // Define model
 
