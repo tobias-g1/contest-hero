@@ -40,5 +40,17 @@ exports.get_entries_by_id = function (req, res) {
       })
     }).sort({_id:-1})
   }
+
+  // Get Entry by Permlink 
+
+  exports.get_entries_by_permlink = function (req, res) {
+
+    Entry.find({ 'permlink' : req.params.permlink }, ['title', 'author', 'permlink', 'entry_method'], function (error, entries) {
+      if (error) { console.error(error); }
+      res.send({
+        entries: entries
+      })
+    }).sort({_id:-1})
+  }
   
 

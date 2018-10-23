@@ -6,5 +6,8 @@ export default {
   },
   getEntriesById (params) {
     return api().get(`/entries/get_entries/${params}`)
+  },
+  getEntriesByPermlink (params) {
+    return api().get(`/entries/get_entries/permlink/${params}`)
   }
 }
