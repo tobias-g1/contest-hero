@@ -2,7 +2,7 @@
     <el-row v-if="post.data" :gutter="20">
         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <!-- Post Container -->
-            <h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
+            <h1 class="header" v-if="entry_method === 'post'"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
             <div class="post-container">
                 <post :postbody="post.data.body"></post>
                 <div class="post-bar">
@@ -24,7 +24,6 @@
                     </el-form-item>
                 </el-form>
                 <comment v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
-
         </el-col>
     </el-row>
 </template>
@@ -36,6 +35,7 @@ import form from '@/mixins/form-actions.js'
 import markdownEditor from 'vue-simplemde/src/markdown-editor'
 import comment from '@/components/contest-comment/contest-comment.vue'
 import postoptions from '@/components/post-options/post-options.vue'
+import entriesService from '@/services/entries.js'
 
 export default {
   name: 'view-entry',
@@ -48,6 +48,7 @@ export default {
   },
   data () {
     return {
+      entry_method: '',
       post: {
         author: null,
         data: null,
@@ -66,16 +67,36 @@ export default {
       }
     }
   },
+  mounted () {
+    this.loadContent()
+  },
   methods: {
-    loadContent () {
+    async loadContent () {
       this.$store.commit('setLoading', true)
       this.post.author = this.$route.params.author
       this.post.permlink = this.$route.params.permlink
+      const entries = await entriesService.getEntriesByPermlink(this.post.permlink)
+      this.entry_method = entries.data.entries[0].entry_method
+      if (this.entry_method === 'post') {
+        this.getPostBlockchain()
+        
+      } else {
+         this.getSingleCommentBlockchain()
+      }
+this.getComments(this.post.author, this.post.permlink)
+      this.$store.commit('setLoading', false)
+    },
+    getPostBlockchain () {
       this.loadPost(this.post.author, this.post.permlink)
         .then(discussions => {
           this.post.data = discussions[0]
         })
-      this.$store.commit('setLoading', false)
+    },
+    getSingleCommentBlockchain () {
+        this.getSingleComment(this.post.author, this.post.permlink)
+         .then(discussions => {
+          this.post.data = discussions[0]
+        })
     },
     getComments (author, permlink) {
       this.getPostComments(author, permlink)
@@ -130,10 +151,6 @@ export default {
           this.ruleForm.commentbody = ''
         })
     }
-  },
-  mounted () {
-    this.loadContent()
-    this.getComments(this.post.author, this.post.permlink)
   },
   computed: {
     postJson: function () {
