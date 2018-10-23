@@ -24,6 +24,8 @@
         width: 50px;
 margin-left: 20px;
 border: 2px solid white;
+height: 50px;
+border-radius: 50px;
 }
 
 .position-text {
