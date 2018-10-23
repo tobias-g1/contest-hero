@@ -45,6 +45,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
+    margin-right: 10px;
   }
 
   button:disabled {
@@ -95,3 +96,31 @@ body {
   i.selection {
     cursor: pointer;
   }
+
+  pre {
+    font-family: "Courier 10 Pitch", Courier, monospace;
+    font-size: 95%;
+    line-height: 140%;
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}       
+
+code {
+    font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+    font-size: 95%;
+    line-height: 140%;
+    white-space: pre;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    background: #f7f7f7;
+}
+
+#app code {
+    display: block;
+    padding: 0.5em 1em;
+    border: 1px solid #bebab0;
+}

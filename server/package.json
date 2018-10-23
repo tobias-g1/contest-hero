@@ -21,6 +21,7 @@
     "i": "^0.3.6",
     "joi": "^14.0.0",
     "mongoose": "^5.3.3",
+    "mongoose-timestamp": "^0.6.0",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.4",
     "npm": "^6.4.1",

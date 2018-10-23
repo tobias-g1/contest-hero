@@ -43,7 +43,7 @@ export default {
       return `/view-contest/${this.post.author}/${this.post.permlink}`
     },
     status: function () {
-      if (new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= this.post.deadline) {
+      if (new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= this.post.deadline.slice(0, 10)) {
         return 'Complete'
       } else {
         return 'Live'

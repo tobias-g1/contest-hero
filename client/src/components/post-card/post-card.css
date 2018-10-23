@@ -200,7 +200,6 @@
   }
 
   .author-image-container {
-    background: white;
     border-radius: 50px;
     height: 40px;
     width: 40px;
@@ -210,4 +209,8 @@
 
   .author-image {
     height: inherit;
-  }
+    width: inherit;
+    border-radius: inherit;
+    border: 2px solid white;
+}
+  

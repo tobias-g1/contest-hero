@@ -2,7 +2,7 @@
     <div v-if="post" class="stats-container">
         <i class="material-icons stat-option vote vote-pulse" :class="{ voted: voted }" @click=" (user) ? dialogVisible = true : ''">favorite</i> <span class="icon-label">{{ post.net_votes }}</span>
         <i class="material-icons stat-option">attach_money</i> <span class="icon-label">{{post.pending_payout_value.slice(0, -3) * 1 }}</span>
-        <el-dialog title="Select Vote Percentage" :visible.sync="dialogVisible" width="65%">
+        <el-dialog title="Select Vote Percentage" :visible.sync="dialogVisible" width="65%" v-if="dialogVisible === true">
             <div class="slider">
                 <el-slider v-model="votePercentage" show-input>
                 </el-slider>
