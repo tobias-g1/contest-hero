@@ -92,6 +92,7 @@ exports.get_contests = function (req,res) {
                 contest.deadline = req.body.deadline;
                 contest.category = req.body.category;
                 contest.body = req.body.body;
+                contest.entry_method = req.body.entry_method;
 
                 contest.save(function (error) {
                   if (error) {
