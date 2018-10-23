@@ -30,7 +30,7 @@
           <postoptions :post="post.data" />
         </div>
       </div>
-      <router-link :to="postLink" v-show="contestOpen"><button :disabled="(new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= contest.contestData.deadline.slice(0, 10))" class="btn-fill enter-contest">Enter Contest</button></router-link>
+      <router-link :to="postLink" v-show="contestOpen"><button :disabled="(new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= contest.contestData.deadline.slice(0, 10))" class="btn-fill enter-contest">Enter contest with a {{ contest.contestData.entry_method }} </button></router-link>
 
       <!-- Winners -->
       <div class="winners-container" v-if="contest.winners.length !== 0">

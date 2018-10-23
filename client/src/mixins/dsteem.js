@@ -24,6 +24,14 @@ var dsteem = {
     },
     getPostComments: function (author, permlink) {
       return client.database.call('get_content_replies', [author, permlink])
+    },
+    getSingleComment: function (author, permlink) {
+      return client.database.getDiscussions('comments', {
+        tag: author,
+        start: permlink,
+        start_author: author,
+        limit: 1
+      })
     }
   }
 }

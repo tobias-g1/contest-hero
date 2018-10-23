@@ -9,6 +9,7 @@ exports.create_entry = function (req, res) {
         title: req.body.title,
         author: req.body.author,
         permlink: req.body.permlink,
+        entry_method: req.body.entry_method,
         body: req.body.body,
         parent_contest: {
             id: req.body.parent_contest.id,
@@ -33,6 +34,18 @@ exports.create_entry = function (req, res) {
 exports.get_entries_by_id = function (req, res) {
 
     Entry.find({ 'parent_contest.id' : req.params.id }, ['title', 'author', 'permlink'], function (error, entries) {
+      if (error) { console.error(error); }
+      res.send({
+        entries: entries
+      })
+    }).sort({_id:-1})
+  }
+
+  // Get Entry by Permlink 
+
+  exports.get_entries_by_permlink = function (req, res) {
+
+    Entry.find({ 'permlink' : req.params.permlink }, ['title', 'author', 'permlink', 'entry_method'], function (error, entries) {
       if (error) { console.error(error); }
       res.send({
         entries: entries

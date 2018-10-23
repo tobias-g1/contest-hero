@@ -19,6 +19,10 @@ var EntrySchema = new Schema({
     type: String,
     required: true
   },
+  entry_method: {
+    type: String,
+    required: true
+  },
   body:  {
     type: String,
     required: true

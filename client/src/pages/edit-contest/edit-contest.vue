@@ -2,11 +2,22 @@
   <el-row :gutter="20" v-if="contest.contestData">
     <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> Edit - {{ contest.title }}</h1>
     <el-form :model="contest" :label-position="labelPosition" :rules="rules" ref="contest" @submit.native.prevent @keydown.enter.native.prevent="submitForm">
-      <el-col :span="24">
+      <el-col :span="12">
         <el-form-item label="Contest Title" prop="title">
           <el-input v-model="contest.title" placeholder="Enter a title"></el-input>
         </el-form-item>
       </el-col>
+                        <el-col :span="12">
+                <el-form-item label="Contest Category" prop="category">
+                    <el-select v-model="contest.contestData.category" placeholder="Select Category">
+                        <el-option label="Writing" default value="writing"></el-option>
+                        <el-option label="Design" value="design"></el-option>
+                        <el-option label="Photo" value="photo"></el-option>
+                        <el-option label="Giveaway" value="giveaway"></el-option>
+                        <el-option label="Other" value="other"></el-option>
+                    </el-select>
+                </el-form-item>
+            </el-col>
       <el-col :span="12">
         <el-form-item label="Deadline" required>
           <el-form-item prop="deadline">
@@ -14,17 +25,15 @@
           </el-form-item>
         </el-form-item>
       </el-col>
-      <el-col :span="12">
-        <el-form-item label="Contest Catgeory" prop="category" required>
-          <el-select v-model="contest.category" placeholder="Select Type">
-            <el-option label="Writing" default value="writing"></el-option>
-            <el-option label="Design" value="design"></el-option>
-            <el-option label="Photo" value="photo"></el-option>
-            <el-option label="Giveaway" value="giveaway"></el-option>
-            <el-option label="Other" value="other"></el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
+                  <el-col :span="12">
+                <el-form-item label="Entry Method" prop="entry_method">
+                    <el-select v-model="contest.entry_method" placeholder="Select Entry Method">
+                        <el-option label="Post" default value="post"></el-option>
+                        <el-option label="Comment" value="comment"></el-option>
+                    </el-select>
+                </el-form-item>
+            </el-col>
+
       <el-col :span="24">
         <el-form-item label="Contest Body" prop="body">
           <markdownEditor :configs="editorConfig" v-model="contest.body" />
@@ -76,6 +85,7 @@ export default {
         tags: [],
         deadline: '',
         category: '',
+        entry_method: '',
         dynamicTags: [],
         contestId: '',
         images: null,
@@ -95,6 +105,11 @@ export default {
         deadline: [{
           required: true,
           message: 'Please select a deadline',
+          trigger: 'change'
+        }],
+        entry_method: [{
+          required: true,
+          message: 'Please select an entry method',
           trigger: 'change'
         }],
         body: [{
@@ -157,6 +172,7 @@ export default {
       this.contest.contestData = response.data.contests[0]
       this.contest.deadline = response.data.contests[0].deadline
       this.contest.category = response.data.contests[0].category
+      this.contest.entry_method = response.data.contests[0].entry_method
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
@@ -176,7 +192,8 @@ export default {
         author: this.$store.state.steemconnect.user.name,
         deadline: this.contest.deadline,
         category: this.contest.category,
-        body: this.contest.body
+        body: this.contest.body,
+        entry_method: this.contest.entry_method
       })
 
       this.$store.commit('setLoading', false)
