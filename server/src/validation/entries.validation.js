@@ -8,6 +8,7 @@ module.exports = {
             title: Joi.string().required(),
             author: Joi.string().required(),
             permlink: Joi.string().required(),
+            entry_method: Joi.string().required(),
             body: Joi.string().required(),
             parent_contest: {
                 permlink: Joi.string().required(),

@@ -9,6 +9,7 @@ exports.create_entry = function (req, res) {
         title: req.body.title,
         author: req.body.author,
         permlink: req.body.permlink,
+        entry_method: req.body.entry_method,
         body: req.body.body,
         parent_contest: {
             id: req.body.parent_contest.id,
