@@ -59,7 +59,6 @@ export default {
     }
 
     .entry-image-container {
-        background: white;
         border-radius: 50px;
         height: 45px;
         width: 45px;
@@ -70,7 +69,10 @@ export default {
     }
 
     .entry-image {
-        height: inherit;
+          height: inherit;
+    width: inherit;
+    border-radius: inherit;
+    border: 2px solid white;
     }
 
     .entry-selection-details {
