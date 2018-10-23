@@ -7,11 +7,16 @@ var Schema = mongoose.Schema;
 // Schema
 
 var ContestSchema = new Schema({
+
   title: {
     type: String,
     required: true
   },
   author: {
+    type: String,
+    required: true
+  },
+  entry_method: {
     type: String,
     required: true
   },
