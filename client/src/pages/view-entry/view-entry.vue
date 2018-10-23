@@ -79,11 +79,10 @@ export default {
       this.entry_method = entries.data.entries[0].entry_method
       if (this.entry_method === 'post') {
         this.getPostBlockchain()
-        
       } else {
-         this.getSingleCommentBlockchain()
+        this.getSingleCommentBlockchain()
       }
-this.getComments(this.post.author, this.post.permlink)
+      this.getComments(this.post.author, this.post.permlink)
       this.$store.commit('setLoading', false)
     },
     getPostBlockchain () {
@@ -93,8 +92,8 @@ this.getComments(this.post.author, this.post.permlink)
         })
     },
     getSingleCommentBlockchain () {
-        this.getSingleComment(this.post.author, this.post.permlink)
-         .then(discussions => {
+      this.getSingleComment(this.post.author, this.post.permlink)
+        .then(discussions => {
           this.post.data = discussions[0]
         })
     },
