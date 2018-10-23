@@ -30,10 +30,10 @@
       </div>
     </el-header>
     <aboutbanner v-show="!user" />
-    <el-main>
+
       <ElementLoading :active="$store.state.isLoading" spinner="spinner" color="#FF1480" :is-full-screen="true" />
       <router-view/>
-    </el-main>
+
   </el-container>
 </template>
 

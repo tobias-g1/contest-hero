@@ -1,5 +1,6 @@
 
 <template>
+ <el-main>
     <el-row :gutter="20">
         <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> Create a contest </h1>
         <el-form :model="contestForm" :label-position="labelPosition" :rules="rules" ref="contestForm" @submit.native.prevent @keydown.enter.native.prevent="submitForm">
@@ -66,6 +67,7 @@
             </el-col>
         </el-form>
     </el-row>
+ </el-main>
 </template>
 
 <script>

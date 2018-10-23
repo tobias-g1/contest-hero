@@ -1,4 +1,5 @@
 <template>
+ <el-main>
   <el-row :gutter="20">
     <el-col :xs="24" :sm="24" :md="14" :lg="14" :xl="14">
       <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> How to select your winners</h1>
@@ -28,6 +29,7 @@
 </el-dialog>
 
   </el-row>
+ </el-main>
 </template>
 
 <script>

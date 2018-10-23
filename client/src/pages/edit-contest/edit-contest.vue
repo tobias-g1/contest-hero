@@ -1,4 +1,5 @@
 <template>
+ <el-main>
   <el-row :gutter="20" v-if="contest.contestData">
     <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> Edit - {{ contest.title }}</h1>
     <el-form :model="contest" :label-position="labelPosition" :rules="rules" ref="contest" @submit.native.prevent @keydown.enter.native.prevent="submitForm">
@@ -66,6 +67,7 @@
       </el-col>
     </el-form>
   </el-row>
+ </el-main>
 </template>
 
 <script>
