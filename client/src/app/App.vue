@@ -17,7 +17,7 @@
       <i class="material-icons"> keyboard_arrow_down</i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item><a class="nav-link" href="https://discord.gg/p8CNwq" target="_blank">Chat on Discord</a></el-dropdown-item>
+        <el-dropdown-item><a class="nav-link" href="https://discord.gg/ZscukvW" target="_blank">Chat on Discord</a></el-dropdown-item>
         <el-dropdown-item><a class="nav-link" href="#" @click.prevent="$steemconnect.follow(user.name, 'contest-hero')">Follow Contest Hero</a></el-dropdown-item>
         <el-dropdown-item><a class="nav-link" href="https://github.com/tobias-g1/contest-hero/issues/new" target="_blank">Report an Issue</a></el-dropdown-item>
         <el-dropdown-item> <a class="nav-link" href="#" @click.prevent="$store.dispatch('steemconnect/logout')">Log out</a></el-dropdown-item>
