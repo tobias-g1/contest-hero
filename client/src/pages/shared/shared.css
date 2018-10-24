@@ -49,7 +49,7 @@ body {
   }
 
   button:disabled {
-    background: whitesmoke !important;
+    background: 0 !important;
     border: 1px solid gray;
     color: gray;
     cursor: not-allowed;
