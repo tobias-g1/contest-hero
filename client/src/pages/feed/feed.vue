@@ -1,8 +1,13 @@
 <template>
+ <el-main>
+<div class="feed-wrapper">
   <el-row :gutter="20">
     <el-col :span="24">
-      <filterpanel @messageSent='onMessageSent' @click.native="$store.commit('setLoading', true)" />
+      <filterpanel @messageSent='onMessageSent' />
     </el-col>
+  </el-row>
+ <el-main>
+  <el-row :gutter="20">
     <el-col :span="24">
       <div v-if="messages[0]" class="card-container">
         <postcard v-if="messages" v-for="(messages, index) in messages" :key="index" :post="messages" />
@@ -10,6 +15,9 @@
       <noposts v-else />
     </el-col>
   </el-row>
+ </el-main>
+ </div>
+ </el-main>
 </template>
 
 <script>

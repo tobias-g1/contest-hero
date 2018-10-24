@@ -5,7 +5,7 @@ module.exports = {
     create_entry: {
         body: {
             access_token: Joi.string().required(),
-            title: Joi.string().required(),
+            title: Joi.string().allow('').optional(),
             author: Joi.string().required(),
             permlink: Joi.string().required(),
             entry_method: Joi.string().required(),

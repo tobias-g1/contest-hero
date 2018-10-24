@@ -1,4 +1,5 @@
 <template>
+ <el-main>
   <el-row v-if="post.data" :gutter="20">
     <el-col :xs="24" :sm="24" :md="15" :lg="16" :xl="16">
 
@@ -68,6 +69,7 @@
 
     </el-col>
   </el-row>
+ </el-main>
 </template>
 
 <script>
