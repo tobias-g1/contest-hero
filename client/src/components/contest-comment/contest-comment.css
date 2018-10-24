@@ -39,8 +39,8 @@
 .comment-image {
     border: 2px solid white;
     border-radius: 50px;
-    height: 45px;
-    min-width: 45px;
-    max-width: 45px;
+    height: 40px;
+    min-width: 40px;
+    max-width: 40px;
     box-shadow: 0 0 10px 2px #f1f1f1;
 }
