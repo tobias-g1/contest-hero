@@ -3,7 +3,7 @@
 <div class="feed-wrapper">
   <el-row :gutter="20">
     <el-col :span="24">
-      <filterpanel @messageSent='onMessageSent' @click.native="$store.commit('setLoading', true)" />
+      <filterpanel @messageSent='onMessageSent' />
     </el-col>
   </el-row>
  <el-main>
