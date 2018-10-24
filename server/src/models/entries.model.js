@@ -8,8 +8,7 @@ var Schema = mongoose.Schema;
 
 var EntrySchema = new Schema({
   title:  {
-    type: String,
-    required: true
+    type: String
   },
   author:  {
     type: String,
