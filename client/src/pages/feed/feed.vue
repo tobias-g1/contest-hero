@@ -40,7 +40,6 @@ export default {
   },
   mounted () {
     this.$store.commit('setLoading', true)
-    this.getPosts()
   },
   methods: {
     onMessageSent: function (message) {
