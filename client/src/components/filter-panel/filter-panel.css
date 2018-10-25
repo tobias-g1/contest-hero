@@ -1,5 +1,4 @@
 .filter-options {
-  text-align: center;
   padding-top: 5px;
 }
 
@@ -21,4 +20,16 @@
   border-bottom: 2px solid #FF1480;
   font-weight: bold;
   font-size: 17px;
+}
+
+.feed-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.feed-bar .el-select {
+  width: auto;
+  min-width: 100px;
 }
