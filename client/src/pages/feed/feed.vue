@@ -4,7 +4,6 @@
   <el-row :gutter="20">
     <el-col :span="24">
       <filterpanel @messageSent='onMessageSent'/>
-    
     </el-col>
   </el-row>
   <el-row :gutter="20">
