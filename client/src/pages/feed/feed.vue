@@ -7,7 +7,6 @@
     
     </el-col>
   </el-row>
- <el-main>
   <el-row :gutter="20">
     <el-col :span="24">
       <div v-if="messages[0]" class="card-container">
@@ -16,8 +15,7 @@
       <noposts v-else />
     </el-col>
   </el-row>
- </el-main>
- </div>
+</div>
  </el-main>
 </template>
 
