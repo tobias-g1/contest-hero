@@ -1,18 +1,18 @@
 <template>
-<div class="feed-bar">
-  <div class="filter-options">
-    <span class="option" v-bind:class="[ activecategory === 'all' ? 'active' : '' ]" @click="getContests(), activecategory='all'">All Contests</span>
-    <span class="option" v-bind:class="[ activecategory === 'writing' ? 'active' : '' ]" @click="getFilteredContests('writing'), activecategory='writing'">Writing Contests</span>
-    <span class="option" v-bind:class="[ activecategory === 'design' ? 'active' : '' ]" @click="getFilteredContests('design'), activecategory='design'">Design Contests</span>
-    <span class="option" v-bind:class="[ activecategory === 'photo' ? 'active' : '' ]" @click="getFilteredContests('photo'), activecategory='photo'">Photo Contests</span>
-    <span class="option" v-bind:class="[ activecategory === 'giveway' ? 'active' : '' ]" @click="getFilteredContests('giveaway'), activecategory='giveway'">Giveaways</span>
-    <span class="option" v-bind:class="[ activecategory === 'other' ? 'active' : '' ]" @click="getFilteredContests('other'), activecategory='other'">Other</span>
-  </div>
+  <div class="feed-bar">
+    <div class="filter-options">
+      <span class="option" v-bind:class="[ activecategory === 'all' ? 'active' : '' ]" @click="getContests(), activecategory='all'">All Contests</span>
+      <span class="option" v-bind:class="[ activecategory === 'writing' ? 'active' : '' ]" @click="getFilteredContests('writing'), activecategory='writing'">Writing Contests</span>
+      <span class="option" v-bind:class="[ activecategory === 'design' ? 'active' : '' ]" @click="getFilteredContests('design'), activecategory='design'">Design Contests</span>
+      <span class="option" v-bind:class="[ activecategory === 'photo' ? 'active' : '' ]" @click="getFilteredContests('photo'), activecategory='photo'">Photo Contests</span>
+      <span class="option" v-bind:class="[ activecategory === 'giveway' ? 'active' : '' ]" @click="getFilteredContests('giveaway'), activecategory='giveway'">Giveaways</span>
+      <span class="option" v-bind:class="[ activecategory === 'other' ? 'active' : '' ]" @click="getFilteredContests('other'), activecategory='other'">Other</span>
+    </div>
     <el-select v-model="sortOrder" placeholder="Select Category">
-                        <el-option label="Newest" default value="newest"></el-option>
-                        <el-option label="Oldest" value="oldest"></el-option>
-                    </el-select>
-                    </div>
+      <el-option label="Newest" default value="newest"></el-option>
+      <el-option label="Oldest" value="oldest"></el-option>
+    </el-select>
+  </div>
 </template>
 
 <script>
