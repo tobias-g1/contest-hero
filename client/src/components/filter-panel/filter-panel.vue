@@ -60,7 +60,8 @@ export default {
           })
       })
       this.$emit('messageSent', {
-        message: messages
+        message: messages,
+        sortedOrder: this.sortOrder
       })
     }
   },

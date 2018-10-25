@@ -9,7 +9,7 @@
   <el-row :gutter="20">
     <el-col :span="24">
       <div v-if="messages[0]" class="card-container">
-        <postcard v-if="messages" v-for="(messages, index) in messages" :key="index" :post="messages"/>
+        <postcard v-if="messages" v-for="(messages, index) in this.sortedFeed" :key="index" :post="messages"/>
       </div>
       <noposts v-else />
     </el-col>
@@ -34,11 +34,17 @@ export default {
   },
   data () {
     return {
-      messages: []
+      messages: [],
+      sortMethod: 'asc'
     }
   },
   mounted () {
     this.$store.commit('setLoading', true)
+  },
+  computed: {
+    sortedFeed: function () {
+      return _.orderBy(this.messages, '_id', this.sortMethod)
+    }
   },
   methods: {
     onMessageSent: function (message) {
@@ -46,6 +52,11 @@ export default {
         this.messages = []
       } else {
         this.messages = message.message
+        if (message.sortedOrder === 'newest') {
+          this.sortMethod = 'asc'
+        } else if (message.sortedOrder === 'oldest') {
+          this.sortMethod = 'desc'
+        }
       }
     }
   },
