@@ -10,7 +10,7 @@
   </div>
     <el-select v-model="sortOrder" placeholder="Select Category">
                         <el-option label="Newest" default value="newest"></el-option>
-                        <el-option label="Older" value="oldest"></el-option>
+                        <el-option label="Oldest" value="oldest"></el-option>
                     </el-select>
                     </div>
 </template>
