@@ -9,7 +9,7 @@ export default {
     return api().post('/contests/create_contest', params)
   },
   getContestsByCategory (params) {
-    return api().get(`/contests/${params.category}/${params.sortOrder}`)
+    return api().get(`/contests/category/${params.category}/${params.sortOrder}`)
   },
   getContestByPermlink (params) {
     return api().get(`/contests/permlink/${params}`)

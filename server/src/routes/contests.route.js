@@ -19,7 +19,7 @@ router.put('/set_winners/', validate(set_winners), checkSteemConnect, validatePe
 router.put('/edit_contest/', validate(edit_contest), checkSteemConnect, validatePermissions, checkUser, contest_controller.edit_contest);
 
 router.get('/all/:sortby', contest_controller.get_contests);
-router.get('/:category/:sortby', contest_controller.get_contests_by_category);
+router.get('/category/:category/:sortby', contest_controller.get_contests_by_category);
 router.get('/permlink/:permlink', contest_controller.get_contest_by_permlink);
 
 // Export
