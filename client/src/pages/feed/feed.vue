@@ -1,22 +1,20 @@
 <template>
- <el-main>
+ <el-main >
 <div class="feed-wrapper">
   <el-row :gutter="20">
     <el-col :span="24">
-      <filterpanel @messageSent='onMessageSent' />
+      <filterpanel @messageSent='onMessageSent'/>
     </el-col>
   </el-row>
- <el-main>
   <el-row :gutter="20">
     <el-col :span="24">
       <div v-if="messages[0]" class="card-container">
-        <postcard v-if="messages" v-for="(messages, index) in messages" :key="index" :post="messages" />
+        <postcard v-if="messages" v-for="(messages, index) in this.sortedFeed" :key="index" :post="messages"/>
       </div>
       <noposts v-else />
     </el-col>
   </el-row>
- </el-main>
- </div>
+</div>
  </el-main>
 </template>
 
@@ -25,7 +23,6 @@ import postcard from '@/components/post-card/post-card.vue'
 import filterpanel from '@/components/filter-panel/filter-panel.vue'
 import noposts from '@/components/no-post/no-post.vue'
 import dsteem from '@/mixins/dsteem.js'
-import contestsService from '@/services/contests.js'
 
 export default {
   name: 'feed',
@@ -37,12 +34,17 @@ export default {
   },
   data () {
     return {
-      messages: []
+      messages: [],
+      sortMethod: 'asc'
     }
   },
   mounted () {
     this.$store.commit('setLoading', true)
-    this.getPosts()
+  },
+  computed: {
+    sortedFeed: function () {
+      return _.orderBy(this.messages, '_id', this.sortMethod)
+    }
   },
   methods: {
     onMessageSent: function (message) {
@@ -50,18 +52,12 @@ export default {
         this.messages = []
       } else {
         this.messages = message.message
+        if (message.sortedOrder === 'newest') {
+          this.sortMethod = 'asc'
+        } else if (message.sortedOrder === 'oldest') {
+          this.sortMethod = 'desc'
+        }
       }
-    },
-    async getPosts () {
-      const response = await contestsService.getContests()
-      this.message = []
-      response.data.contests.forEach((contest, index) => {
-        this.loadPost(contest.author, contest.permlink)
-          .then(discussions => {
-            contest.blockchain = discussions[0]
-            this.messages.push(contest)
-          })
-      })
     }
   },
   watch: {
