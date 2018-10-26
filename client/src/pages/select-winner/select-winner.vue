@@ -94,16 +94,17 @@ export default {
     },
     async setWinners () {
       this.$store.commit('setLoading', true)
-      if (this.contest.author !== this.user.name) {
-        alert('Your don\'t have permission to edit this content')
-        this.$router.push('/')
-      } else {
+      try {
         await contestsService.updateWinners({
           access_token: localStorage.getItem('access_token'),
           author: this.$store.state.steemconnect.user.name,
           id: this.contest.data._id,
           winners: this.winners
         })
+        this.$notify({ title: 'Success', message: 'Your winners have been saved', type: 'success' })
+      } catch (err) {
+        console.log(err)
+        this.$notify({ title: 'Error', message: 'Something went wrong', type: 'error' })
       }
       setTimeout(() => this.$store.commit('setLoading', false), 1000)
     },
