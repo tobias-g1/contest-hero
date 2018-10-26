@@ -73,7 +73,6 @@ export default {
         display: flex;
         margin-top: 15px;
     }
-
     .winner-image-container {
         border-radius: 50px;
         height: 45px;
@@ -115,10 +114,16 @@ export default {
         height: fit-content;
     }
 
+    .dropdown-option {
+        padding: 0 20px;
+    }
+
     .user-medal {
         height: 27.5px;
         position: relative;
         right: 17.5px;
         top: 22.5px;
     }
+
+    
 </style>

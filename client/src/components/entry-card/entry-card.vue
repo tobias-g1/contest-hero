@@ -15,9 +15,9 @@
                     </span>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item> <span class="dropdown-option" @click="setPlace(1)">Set as 1st Place</span> </el-dropdown-item>
-                <el-dropdown-item> <span @click="setPlace(2)">Set as 2nd Place</span></el-dropdown-item>
-                <el-dropdown-item> <span @click="setPlace(3)">Set as 3rd Place</span></el-dropdown-item>
-                <el-dropdown-item> <span @click="setPlace(1000)">Set as winner</span></el-dropdown-item>
+                <el-dropdown-item> <span class="dropdown-option" @click="setPlace(2)">Set as 2nd Place</span></el-dropdown-item>
+                <el-dropdown-item> <span class="dropdown-option" @click="setPlace(3)">Set as 3rd Place</span></el-dropdown-item>
+                <el-dropdown-item> <span class="dropdown-option" @click="setPlace(1000)">Set as winner</span></el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
     </div>
