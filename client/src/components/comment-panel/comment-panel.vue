@@ -11,7 +11,7 @@
                 <el-button @click="resetForm('ruleForm')">Reset</el-button>
             </el-form-item>
         </el-form>
-        <comment v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
+        <comment v-for="(comment, index) in sortedComments" :key="index" :comment="comment" />
     </div>
 </template>
 
@@ -67,7 +67,6 @@ export default {
           })
         })
     },
-
     // Form Logic
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
@@ -116,8 +115,10 @@ export default {
     },
     tags: function () {
       return this.postJson.tags
+    },
+    sortedComments: function () {
+      return _.orderBy(this.post.comments, 'created', 'desc')
     }
-
   }
 }
 </script>
