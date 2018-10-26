@@ -1,0 +1,7 @@
+.comment-panel .CodeMirror {
+    min-height: 175px !important;
+}
+
+.comment-panel .CodeMirror-scroll {
+    min-height: 175px !important;;
+}
