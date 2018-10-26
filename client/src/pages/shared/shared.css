@@ -80,6 +80,10 @@ body {
     padding: 0 20px;
   }
 
+  .el-tooltip__popper.is-dark {
+    max-width: 80%;
+  }
+
 
   .btn-fill {
     background: #FF1480;
