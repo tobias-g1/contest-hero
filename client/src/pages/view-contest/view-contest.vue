@@ -39,18 +39,7 @@
        <winners v-for="(winner, index) in sortedWinners" :key="index" :winner="winner"/>
       </div>
       <!-- Post Comments -->
-      <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Comments</h1>
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" @submit.native.prevent>
-        <el-form-item prop="commentbody">
-          <markdownEditor v-model="ruleForm.commentbody" />
-        </el-form-item>
-        <el-form-item>
-          <button :disabled="!this.$store.state.steemconnect.user" @click="submitForm('ruleForm')" class="btn-fill">Create Comment</button>
-          <el-button @click="resetForm('ruleForm')">Reset</el-button>
-        </el-form-item>
-      </el-form>
-      <!-- Comments List -->
-      <comment v-for="(comments, index) in post.comments" :key="index" :comment="comments" />
+    <commentpanel :post="post" />
     </el-col>
     <el-col :xs="24" :sm="24" :md="9" :lg="8" :xl="8">
 
@@ -73,12 +62,10 @@
 </template>
 
 <script>
-import comment from '@/components/contest-comment/contest-comment.vue'
+
 import aboutauthor from '@/components/about-author/about-author.vue'
 import post from '@/components/post/post.vue'
 import winners from '@/components/winners-panel/winners-panel.vue'
-import markdownEditor from 'vue-simplemde/src/markdown-editor'
-import form from '@/mixins/form-actions.js'
 import dsteem from '@/mixins/dsteem.js'
 import Countdown from 'vuejs-countdown'
 import postoptions from '@/components/post-options/post-options.vue'
@@ -86,21 +73,21 @@ import entry from '@/components/entered-contest/entered-contest.vue'
 import noentries from '@/components/no-entries/no-entries.vue'
 import contestsService from '@/services/contests.js'
 import entriesService from '@/services/entries.js'
+import commentpanel from '@/components/comment-panel/comment-panel.vue'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'view-contest',
-  mixins: [form, dsteem],
+  mixins: [dsteem],
   components: {
-    comment,
-    markdownEditor,
     aboutauthor,
     Countdown,
     post,
     winners,
     postoptions,
     entry,
-    noentries
+    noentries,
+    commentpanel
   },
   data () {
     return {
@@ -117,16 +104,6 @@ export default {
         entries: [],
         winners: null,
         otherwin: null
-      },
-      ruleForm: {
-        commentBody: ''
-      },
-      rules: {
-        commentbody: [{
-          required: true,
-          message: 'Please enter a comment',
-          trigger: 'blur'
-        }]
       }
     }
   },
@@ -157,65 +134,12 @@ export default {
             ('about' in userJson.profile) ? this.post.authorBio = userJson.profile.about : this.post.authorBio = 'This user has not added a bio'
           }
         })
-    },
-    getComments (author, permlink) {
-      this.getPostComments(author, permlink)
-        .then(postComments => {
-          postComments.forEach(comment => {
-            this.getAccount(comment.author)
-              .then(commentAuthorDetails => {
-                commentAuthorDetails[0].json_metadata = JSON.parse(commentAuthorDetails[0].json_metadata)
-                comment.authorDetails = commentAuthorDetails[0]
-                this.post.comments.push(comment)
-              })
-          })
-        })
-    },
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.submitComment()
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
-    },
-    submitComment () {
-      this.$store.commit('setLoading', true)
-
-      // Create JSON Metadata
-      let jsonMetaData = {
-        'app': 'contest-hero',
-        'format': 'markdown',
-        'contest-hero': {
-          'type': 'contest_comment'
-        },
-        'tags': [this.tags[0]]
-      }
-
-      // Send comment via SteemConnect
-
-      this.$steemconnect.comment(
-        this.post.author,
-        this.post.permlink,
-        this.$store.state.steemconnect.user.name,
-        this.post.permlink + Math.floor(Math.random() * 9000000000) + 1000000000,
-        '',
-        this.ruleForm.commentbody,
-        jsonMetaData,
-        (err) => {
-          (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') : this.getComments(this.post.author, this.post.permlink)
-          this.$store.commit('setLoading', false)
-          this.ruleForm.commentbody = ''
-        })
     }
   },
   mounted () {
     this.getContestFromDB()
     this.loadContent()
     this.getAuthorDetails(this.post.author)
-    this.getComments(this.post.author, this.post.permlink)
   },
   computed: {
     postLink: function () {
