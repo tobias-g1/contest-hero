@@ -196,21 +196,27 @@ export default {
         })
     },
     async addEntry () {
-      await entriesService.createEntry({
-        access_token: localStorage.getItem('access_token'),
-        title: this.entryForm.title,
-        author: this.user.name,
-        permlink: this.entryPermlink,
-        body: this.entryForm.body,
-        entry_method: this.contestData.entry_method,
-        parent_contest: {
-          id: this.contestId,
-          permlink: this.contestPermlink,
-          author: this.contestAuthor
-        }
-      })
+      try {
+        await entriesService.createEntry({
+          access_token: localStorage.getItem('access_token'),
+          title: this.entryForm.title,
+          author: this.user.name,
+          permlink: this.entryPermlink,
+          body: this.entryForm.body,
+          entry_method: this.contestData.entry_method,
+          parent_contest: {
+            id: this.contestId,
+            permlink: this.contestPermlink,
+            author: this.contestAuthor
+          }
+        })
+        this.$notify({ title: 'Success', message: 'You have successfully entered this contest', type: 'success' })
+        this.$router.push(`/view-entry/${this.$store.state.steemconnect.user.name}/${this.entryPermlink}`)
+      } catch (err) {
+        console.log(err)
+        this.$notify({ title: 'Error', message: 'Something went wrong', type: 'error' })
+      }
       this.$store.commit('setLoading', false)
-      this.$router.push(`/view-entry/${this.$store.state.steemconnect.user.name}/${this.entryPermlink}`)
     }
   },
   mounted () {
