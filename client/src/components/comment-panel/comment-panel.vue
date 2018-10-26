@@ -103,8 +103,9 @@ export default {
         this.ruleForm.commentbody,
         jsonMetaData,
         (err) => {
-          (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') : this.getComments(this.post.author, this.post.permlink)
+          (err) ? this.$notify({ title: 'Error', message: 'Something went wrong, your comment could not be submitted', type: 'success' }) : this.getComments(this.post.author, this.post.permlink)
           this.$store.commit('setLoading', false)
+          this.$notify({ title: 'Success', message: 'Your comment was successful', type: 'success' })
           this.ruleForm.commentbody = ''
         })
     }

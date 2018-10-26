@@ -38,10 +38,11 @@ export default {
     vote (currentUser, author, permlink, weight) {
       this.$store.commit('setLoading', true)
       this.$steemconnect.vote(currentUser, author, permlink, weight, (err) => {
-        (err) ? alert(err) : this.voted = true
+        (err) ? this.$notify({ title: 'Error', message: 'Sorry, there was an error with your vote.', type: 'error' }) : this.voted = true
         this.voteCount = this.post.active_votes.length
         this.voteCount++
         this.$store.commit('setLoading', false)
+        this.$notify({ title: 'Success', message: 'Your vote has been cast successfully', type: 'success' })
       })
     },
     checkVote () {
