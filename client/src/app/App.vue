@@ -2,7 +2,7 @@
   <el-container id="app">
     <el-header>
       <router-link to="/">
-        <div class="logo-container"><span class="text-logo"><strong>Contest</strong> Hero</span></div>
+        <div class="logo-container"><span class="text-logo"><strong>Contest</strong> Hero</span><span class="status-tag">Beta</span></div>
       </router-link>
       <div class="menu-options" v-if="user">
           <el-tooltip class="item" effect="dark" content="Feed" placement="bottom-start">
