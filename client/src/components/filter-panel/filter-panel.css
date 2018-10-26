@@ -33,3 +33,15 @@
   width: auto;
   min-width: 100px;
 }
+
+@media (max-width: 450px) {
+  .feed-bar {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .feed-bar .el-select {
+    margin-top: 10px;
+  }
+}
