@@ -1,68 +1,62 @@
 <template>
- <el-main>
-  <el-row v-if="post.data" :gutter="20">
-    <el-col :xs="24" :sm="24" :md="15" :lg="16" :xl="16">
+  <el-main>
+    <el-row v-if="post.data" :gutter="20">
+      <el-col :xs="24" :sm="24" :md="15" :lg="16" :xl="16">
 
-      <!-- Post Container -->
-      <div class="header-row"><h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
-
-      <el-dropdown v-if="user">
-        <span class="el-dropdown-link" v-if="this.contest.contestData.author === user.name">
-               <span class="el-dropdown-link more-options">
-          <i class="material-icons">more_vert</i>
-               </span>
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <router-link :to="editLink">Edit Contest</router-link>
-          </el-dropdown-item>
-             <el-dropdown-item>
-            <router-link :to="selectWinnerLink">Choose Winners</router-link>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-      </div>
-      <div class="post-container">
-        <post :postbody="post.data.body"></post>
-        <div class="post-bar">
-          <div class="tags">
-            <el-tag v-for="(tag, index) in tags" :key="index">{{ tag }}</el-tag>
-          </div>
-          <postoptions :post="post.data" />
+        <!-- Post Container -->
+        <div class="header-row">
+          <h1 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
+          <el-dropdown v-if="user">
+            <span class="el-dropdown-link" v-if="this.contest.contestData.author === user.name">
+                 <span class="el-dropdown-link more-options">
+            <i class="material-icons">more_vert</i>
+                 </span>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>
+                <router-link :to="editLink">Edit Contest</router-link>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <router-link :to="selectWinnerLink">Choose Winners</router-link>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
-      </div>
-      <router-link :to="postLink" v-show="contestOpen"><button :disabled="(new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= contest.contestData.deadline.slice(0, 10))" class="btn-fill enter-contest">Enter contest with a {{ contest.contestData.entry_method }} </button></router-link>
-
-      <!-- Winners -->
-      <div class="winners-container" v-if="contest.winners.length !== 0">
-        <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Winners</h1>
-       <winners v-for="(winner, index) in sortedWinners" :key="index" :winner="winner"/>
-      </div>
-      <!-- Post Comments -->
-    <commentpanel :post="post" />
-    </el-col>
-    <el-col :xs="24" :sm="24" :md="9" :lg="8" :xl="8">
-
-      <!-- Contest Deadline -->
-      <h3 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> This contest closes in:</h3>
-      <Countdown :deadline="contest.contestData.deadline"></Countdown>
-
-      <!-- About Author -->
-      <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">About the Author</h3>
-      <aboutauthor :authorBio="post.authorBio" :authorImage="post.authorImage" :authorName="post.author"></aboutauthor>
-
-      <!-- Contest Entries -->
-      <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
-      <noentries v-if="contest.entries.length === 0" />
-      <entry v-else v-for="(entry, index) in contest.entries" :key="index" :comment="entry" />
-
-    </el-col>
-  </el-row>
- </el-main>
+        <div class="post-container">
+          <post :postbody="post.data.body"></post>
+          <div class="post-bar">
+            <div class="tags">
+              <el-tag v-for="(tag, index) in tags" :key="index">{{ tag }}</el-tag>
+            </div>
+            <postoptions :post="post.data" />
+          </div>
+        </div>
+        <router-link :to="postLink" v-show="contestOpen"><button :disabled="(new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= contest.contestData.deadline.slice(0, 10))" class="btn-fill enter-contest">Enter contest with a {{ contest.contestData.entry_method }} </button></router-link>
+        <!-- Winners -->
+        <div class="winners-container" v-if="contest.winners.length !== 0">
+          <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Winners</h1>
+          <winners v-for="(winner, index) in sortedWinners" :key="index" :winner="winner" />
+        </div>
+        <!-- Post Comments -->
+        <commentpanel :post="post" />
+      </el-col>
+      <el-col :xs="24" :sm="24" :md="9" :lg="8" :xl="8">
+        <!-- Contest Deadline -->
+        <h3 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> This contest closes in:</h3>
+        <Countdown :deadline="contest.contestData.deadline"></Countdown>
+        <!-- About Author -->
+        <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">About the Author</h3>
+        <aboutauthor :authorBio="post.authorBio" :authorImage="post.authorImage" :authorName="post.author"></aboutauthor>
+        <!-- Contest Entries -->
+        <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
+        <noentries v-if="contest.entries.length === 0" />
+        <entry v-else v-for="(entry, index) in contest.entries" :key="index" :comment="entry" />
+      </el-col>
+    </el-row>
+  </el-main>
 </template>
 
 <script>
-
 import aboutauthor from '@/components/about-author/about-author.vue'
 import post from '@/components/post/post.vue'
 import winners from '@/components/winners-panel/winners-panel.vue'
@@ -113,10 +107,16 @@ export default {
       this.post.author = this.$route.params.author
       this.post.permlink = this.$route.params.permlink
       const response = await contestsService.getContestByPermlink(this.post.permlink)
-      this.contest.contestData = response.data.contests[0]
-      this.contest.winners = response.data.contests[0].winners
-      const entries = await entriesService.getEntriesById(this.contest.contestData._id)
-      this.contest.entries = entries.data.entries
+      console.log(response)
+      if (response.data.contests.length === 0) {
+        this.$notify({ title: 'Error', message: 'Unable to find post', type: 'error' })
+        this.$router.push('/')
+      } else {
+        this.contest.contestData = response.data.contests[0]
+        this.contest.winners = response.data.contests[0].winners
+        const entries = await entriesService.getEntriesById(this.contest.contestData._id)
+        this.contest.entries = entries.data.entries
+      }
     },
     loadContent () {
       this.loadPost(this.post.author, this.post.permlink)
