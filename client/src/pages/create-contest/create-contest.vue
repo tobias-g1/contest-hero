@@ -4,7 +4,7 @@
     <el-row :gutter="20">
         <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> Create a contest </h1>
         <el-form :model="contestForm" :label-position="labelPosition" :rules="rules" ref="contestForm" @submit.native.prevent @keydown.enter.native.prevent="submitForm">
-            <el-col :span="12"> 
+            <el-col :span="12">
                 <el-form-item prop="title">
                   <span slot="label">Title<tooltip :text="'Use the title to help draw users to your contest'" /></span>
                     <el-input v-model="contestForm.title" placeholder="Enter a title"></el-input>
@@ -224,7 +224,8 @@ export default {
         operations,
         (err) => {
           if (err) {
-            alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github')
+            console.log(err)
+            this.$notify({ title: 'Error', message: 'Something went wrong', type: 'error' })
             this.$store.commit('setLoading', false)
           } else {
             this.createContestCH()
@@ -233,18 +234,24 @@ export default {
     },
     // Post contest to DB
     async createContestCH () {
-      await contestsService.createContest({
-        access_token: localStorage.getItem('access_token'),
-        title: this.contestForm.title,
-        author: this.$store.state.steemconnect.user.name,
-        body: this.adjustBody,
-        deadline: this.contestForm.deadline,
-        entry_method: this.contestForm.entry_method,
-        category: this.contestForm.category,
-        permlink: this.contestPermlink
-      })
+      try {
+        await contestsService.createContest({
+          access_token: localStorage.getItem('access_token'),
+          title: this.contestForm.title,
+          author: this.$store.state.steemconnect.user.name,
+          body: this.adjustBody,
+          deadline: this.contestForm.deadline,
+          entry_method: this.contestForm.entry_method,
+          category: this.contestForm.category,
+          permlink: this.contestPermlink
+        })
+        this.$notify({ title: 'Success', message: 'Your contest has been created', type: 'success' })
+        this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}`)
+      } catch (err) {
+        console.log(err)
+        this.$notify({ title: 'Error', message: 'Something went wrong', type: 'error' })
+      }
       this.$store.commit('setLoading', false)
-      this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}`)
     }
   }
 }
