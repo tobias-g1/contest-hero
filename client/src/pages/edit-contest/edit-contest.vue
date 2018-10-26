@@ -194,19 +194,24 @@ export default {
       })
     },
     async editContestDB () {
-      await contestsService.editContest({
-        access_token: localStorage.getItem('access_token'),
-        id: this.contest.contestData._id,
-        title: this.contest.title,
-        author: this.$store.state.steemconnect.user.name,
-        deadline: this.contest.deadline,
-        category: this.contest.category,
-        body: this.contest.body,
-        entry_method: this.contest.entry_method
-      })
-
+      try {
+        await contestsService.editContest({
+          access_token: localStorage.getItem('access_token'),
+          id: this.contest.contestData._id,
+          title: this.contest.title,
+          author: this.$store.state.steemconnect.user.name,
+          deadline: this.contest.deadline,
+          category: this.contest.category,
+          body: this.contest.body,
+          entry_method: this.contest.entry_method
+        })
+        this.$notify({ title: 'Success', message: 'Your contest has been editted', type: 'success' })
+        this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contest.permlink}`)
+      } catch (err) {
+        console.log(err)
+        this.$notify({ title: 'Error', message: 'Something went wrong', type: 'error' })
+      }
       this.$store.commit('setLoading', false)
-      this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contest.permlink}`)
     },
     editContest () {
       this.$store.commit('setLoading', true)
@@ -250,17 +255,16 @@ export default {
         this.$steemconnect.broadcast(
           operations,
           (err) => {
-            (err) ? alert('Sorry an error has occured, please try again later or alternatively please report this issue via Github') : this.editContestDB()
+            (err) ? this.$notify({ title: 'Error', message: 'Something went wrong', type: 'error' }) : this.editContestDB()
           })
       } else {
-        alert('You don\'t have permission to edit this contest')
+        this.$notify({ title: 'Error', message: 'Something went wrong', type: 'error' })
         this.$router.push('/contests')
       }
     }
   }
 }
 </script>
-
 <style src="@/pages/edit-contest/edit-contest.css">
 
 </style>
