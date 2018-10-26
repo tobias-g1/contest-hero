@@ -1,33 +1,29 @@
 .header-options {
     justify-content: space-between;
-   display: flex;
-   flex-direction: row;
-   align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .header-options h1 {
- display: inline-flex;
+    display: inline-flex;
 }
 
 
 .options-container {
- display: flex;
- flex-direction: row-reverse;
+    display: flex;
+    flex-direction: row-reverse;
 }
 
+.entry-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
 
-.header-options div .btn {
-    margin-left: 15px;
-    }
-
-    .entry-container {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-    }
-    p {
-        font-size: 15px;
-        font-family: sans-serif;
-        font-weight: lighter;
-        line-height: 25px;
-    }
+p {
+    font-size: 15px;
+    font-family: sans-serif;
+    font-weight: lighter;
+    line-height: 25px;
+}
