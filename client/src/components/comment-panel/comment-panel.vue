@@ -55,6 +55,7 @@ export default {
   methods: {
     // Get comments from the blockchain
     getComments (author, permlink) {
+      this.post.comments = []
       this.getPostComments(author, permlink)
         .then(postComments => {
           postComments.forEach(comment => {
