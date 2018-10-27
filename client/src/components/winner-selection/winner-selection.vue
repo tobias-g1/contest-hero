@@ -73,7 +73,6 @@ export default {
         display: flex;
         margin-top: 15px;
     }
-
     .winner-image-container {
         border-radius: 50px;
         height: 45px;
@@ -85,10 +84,11 @@ export default {
     }
 
     .winner-image {
-            height: inherit;
-    width: inherit;
+    height: 40px;
+    width: 40px;
     border-radius: inherit;
     border: 2px solid white;
+    min-width: 40px;
     }
 
     .winner-selection-details {
@@ -115,10 +115,16 @@ export default {
         height: fit-content;
     }
 
+    .dropdown-option {
+        padding: 0 20px;
+    }
+
     .user-medal {
         height: 27.5px;
         position: relative;
         right: 17.5px;
         top: 22.5px;
     }
+
+    
 </style>

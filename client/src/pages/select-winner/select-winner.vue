@@ -4,7 +4,7 @@
     <el-col :xs="24" :sm="24" :md="14" :lg="14" :xl="14">
       <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt=""> How to select your winners</h1>
       <div>
-        <p>Your can see all of the entries of your contest below, use the options provided on each entry to select the winners or your contest. If you wish to randmise the winners of your contest you can use the button provided above the winners section of this page.</p>
+        <p>Your can see all of the entries to your contest below, use the options provided on each entry to select the winners of your contest. If you wish to randmise the winners of your contest you can use the button provided above selected winners area.</p>
       </div>
       <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Contest Entries</h1>
       <div class="entry-container">

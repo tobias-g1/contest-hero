@@ -15,9 +15,9 @@
                     </span>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item> <span class="dropdown-option" @click="setPlace(1)">Set as 1st Place</span> </el-dropdown-item>
-                <el-dropdown-item> <span @click="setPlace(2)">Set as 2nd Place</span></el-dropdown-item>
-                <el-dropdown-item> <span @click="setPlace(3)">Set as 3rd Place</span></el-dropdown-item>
-                <el-dropdown-item> <span @click="setPlace(1000)">Set as winner</span></el-dropdown-item>
+                <el-dropdown-item> <span class="dropdown-option" @click="setPlace(2)">Set as 2nd Place</span></el-dropdown-item>
+                <el-dropdown-item> <span class="dropdown-option" @click="setPlace(3)">Set as 3rd Place</span></el-dropdown-item>
+                <el-dropdown-item> <span class="dropdown-option" @click="setPlace(1000)">Set as winner</span></el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
     </div>
@@ -60,19 +60,20 @@ export default {
 
     .entry-image-container {
         border-radius: 50px;
-        height: 45px;
-        width: 45px;
-        max-width: 45px;
+        height: 40px;
+        width: 40px;
+        max-width: 40px;
         box-shadow: 0 0 10px 2px #f1f1f1;
         display: inline-flex;
         vertical-align: middle;
     }
 
     .entry-image {
-          height: inherit;
-    width: inherit;
+        height: 40px;
+    width: 40px;
     border-radius: inherit;
     border: 2px solid white;
+    min-width: 40px;
     }
 
     .entry-selection-details {

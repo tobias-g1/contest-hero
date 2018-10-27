@@ -6,6 +6,7 @@
     width: fit-content;
     max-width: 400px;
     text-align: center;
+    font-weight: lighter;
 }
 
 .no-post-container .btn-outline {

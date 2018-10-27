@@ -53,9 +53,9 @@ export default {
       } else {
         this.messages = message.message
         if (message.sortedOrder === 'newest') {
-          this.sortMethod = 'asc'
-        } else if (message.sortedOrder === 'oldest') {
           this.sortMethod = 'desc'
+        } else if (message.sortedOrder === 'oldest') {
+          this.sortMethod = 'asc'
         }
       }
     }

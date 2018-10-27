@@ -60,6 +60,30 @@ body {
     width: 100%;
   }
 
+  .el-dropdown-menu__item {
+    padding: 0 !important;
+  }
+
+  .el-dropdown-menu__item a {
+    display: block;
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .el-select-dropdown__item {
+    padding: 0 !important;
+  }
+
+  .el-select-dropdown__item span {
+    display: block;
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .el-tooltip__popper.is-dark {
+    max-width: 80%;
+  }
+
 
   .btn-fill {
     background: #FF1480;

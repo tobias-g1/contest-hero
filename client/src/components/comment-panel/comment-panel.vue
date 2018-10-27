@@ -55,6 +55,7 @@ export default {
   methods: {
     // Get comments from the blockchain
     getComments (author, permlink) {
+      this.post.comments = []
       this.getPostComments(author, permlink)
         .then(postComments => {
           postComments.forEach(comment => {
@@ -62,7 +63,11 @@ export default {
               .then(commentAuthorDetails => {
                 commentAuthorDetails[0].json_metadata = JSON.parse(commentAuthorDetails[0].json_metadata)
                 comment.authorDetails = commentAuthorDetails[0]
-                this.post.comments.push(comment)
+                this.getActiveVotes(comment.author, comment.permlink)
+                  .then(activeVotes => {
+                    comment.active_votes = activeVotes
+                    this.post.comments.push(comment)
+                  })
               })
           })
         })
