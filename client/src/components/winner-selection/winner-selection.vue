@@ -84,10 +84,11 @@ export default {
     }
 
     .winner-image {
-            height: inherit;
-    width: inherit;
+    height: 40px;
+    width: 40px;
     border-radius: inherit;
     border: 2px solid white;
+    min-width: 40px;
     }
 
     .winner-selection-details {
