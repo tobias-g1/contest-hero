@@ -62,7 +62,11 @@ export default {
               .then(commentAuthorDetails => {
                 commentAuthorDetails[0].json_metadata = JSON.parse(commentAuthorDetails[0].json_metadata)
                 comment.authorDetails = commentAuthorDetails[0]
-                this.post.comments.push(comment)
+                this.getActiveVotes(comment.author, comment.permlink)
+                  .then(activeVotes => {
+                    comment.active_votes = activeVotes
+                    this.post.comments.push(comment)
+                  })
               })
           })
         })
