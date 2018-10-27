@@ -1,17 +1,21 @@
 // Definitions
 
-var timestamps = require('mongoose-timestamp');
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 // Schema
 
 var ContestSchema = new Schema({
+
   title: {
     type: String,
     required: true
   },
   author: {
+    type: String,
+    required: true
+  },
+  entry_method: {
     type: String,
     required: true
   },
@@ -39,9 +43,9 @@ var ContestSchema = new Schema({
     type: Boolean,
     default: false,
   }
-});
+},{timestamps: true} 
 
-ContestSchema.plugin(timestamps); // automatically adds createdAt and updatedAt timestamps
+);
 
 // Define model
 

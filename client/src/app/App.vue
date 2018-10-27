@@ -2,7 +2,7 @@
   <el-container id="app">
     <el-header>
       <router-link to="/">
-        <div class="logo-container"><span class="text-logo"><strong>Contest</strong> Hero</span></div>
+        <div class="logo-container"><span class="text-logo"><strong>Contest</strong> Hero</span><span class="status-tag">Beta</span></div>
       </router-link>
       <div class="menu-options" v-if="user">
           <el-tooltip class="item" effect="dark" content="Feed" placement="bottom-start">
@@ -17,7 +17,8 @@
       <i class="material-icons"> keyboard_arrow_down</i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item><a class="nav-link" href="https://discord.gg/p8CNwq" target="_blank">Chat on Discord</a></el-dropdown-item>
+        <el-dropdown-item><router-link to="/help" >Frequently Asked Questions</router-link></el-dropdown-item>
+        <el-dropdown-item><a class="nav-link" href="https://discord.gg/ZscukvW" target="_blank">Chat on Discord</a></el-dropdown-item>
         <el-dropdown-item><a class="nav-link" href="#" @click.prevent="$steemconnect.follow(user.name, 'contest-hero')">Follow Contest Hero</a></el-dropdown-item>
         <el-dropdown-item><a class="nav-link" href="https://github.com/tobias-g1/contest-hero/issues/new" target="_blank">Report an Issue</a></el-dropdown-item>
         <el-dropdown-item> <a class="nav-link" href="#" @click.prevent="$store.dispatch('steemconnect/logout')">Log out</a></el-dropdown-item>
@@ -30,10 +31,10 @@
       </div>
     </el-header>
     <aboutbanner v-show="!user" />
-    <el-main>
+
       <ElementLoading :active="$store.state.isLoading" spinner="spinner" color="#FF1480" :is-full-screen="true" />
       <router-view/>
-    </el-main>
+
   </el-container>
 </template>
 

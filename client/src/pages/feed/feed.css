@@ -1,12 +1,12 @@
 .card-container {
-    margin: 0 auto;
+      margin: 0 auto;
       display: -webkit-flex;
       display: inline-flex;
       -webkit-justify-content: center;
-      justify-content: center;
+      justify-content: left;
       -webkit-flex-wrap: wrap;
       flex-wrap: wrap;
-      padding: 10px;
+      padding-top: 20px;
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box;

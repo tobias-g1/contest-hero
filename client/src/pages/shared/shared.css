@@ -49,7 +49,7 @@ body {
   }
 
   button:disabled {
-    background: whitesmoke !important;
+    background: 0 !important;
     border: 1px solid gray;
     color: gray;
     cursor: not-allowed;
@@ -58,6 +58,30 @@ body {
   .dropdown-option {
     display: block;
     width: 100%;
+  }
+
+  .el-dropdown-menu__item {
+    padding: 0 !important;
+  }
+
+  .el-dropdown-menu__item a {
+    display: block;
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .el-select-dropdown__item {
+    padding: 0 !important;
+  }
+
+  .el-select-dropdown__item span {
+    display: block;
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .el-tooltip__popper.is-dark {
+    max-width: 80%;
   }
 
 
