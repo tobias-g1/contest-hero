@@ -1,0 +1,16 @@
+.el-collapse-item__header {
+    font-weight: 400 !important;
+    padding-left: 20px !important;
+    font-size: 15px !important;
+    }
+    
+    .el-collapse-item__content {
+      padding-left: 20px !important;
+      font-size: 14px !important;
+      font-weight: lighter !important;
+    }
+    
+    p {
+      font-weight: lighter !important;
+    }
+    

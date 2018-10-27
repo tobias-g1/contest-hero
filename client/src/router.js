@@ -9,6 +9,7 @@ import notfound from './pages/404/404.vue'
 import viewentry from './pages/view-entry/view-entry.vue'
 import editcontest from './pages/edit-contest/edit-contest.vue'
 import selectwinner from './pages/select-winner/select-winner.vue'
+import help from './pages/help/help.vue'
 
 Vue.use(Router)
 
@@ -58,6 +59,11 @@ export default new Router({
       path: '/select-winner/:contestId/:author/:permlink',
       name: 'select-winner',
       component: selectwinner
+    },
+    {
+      path: '/help',
+      name: 'help',
+      component: help
     },
     {
       path: '*',
