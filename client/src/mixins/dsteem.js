@@ -31,7 +31,7 @@ var dsteem = {
     getSingleComment: function (author, permlink) {
       return client.database.getDiscussions('comments', {
         tag: author,
-        start: permlink,
+        start_permlink: permlink,
         start_author: author,
         limit: 1
       })

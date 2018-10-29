@@ -1,18 +1,18 @@
 <template>
     <div>
-        <VueMarkdown :source="adjustedPost"></VueMarkdown>
+      <div vih> <div v-html="adjustedPost"></div> </div>
     </div>
 </template>
 
 <script>
-import VueMarkdown from 'vue-markdown'
+
+import marked from 'marked'
 
 export default {
   name: 'post',
   props: {
     postbody: String
   },
-  components: { VueMarkdown },
   computed: {
     adjustedPost: function () {
       let body = this.postbody
@@ -21,10 +21,19 @@ export default {
 
       body = body.replace(/<p class="ch-footer">.*<\/p>/gm, '')
 
-      // Remove html from post prior to rendering, this was implemented to prevent issues seen previously when trying to render the post
-
-      return body.replace(/<(?:.|\n)*?>/gm, '')
+      marked.setOptions({
+        renderer: new marked.Renderer(),
+        gfm: true,
+        tables: true,
+        breaks: true,
+        pedantic: true,
+        sanitize: false,
+        smartLists: true,
+        smartypants: true
+      })
+      return marked(body)
     }
   }
 }
+
 </script>
