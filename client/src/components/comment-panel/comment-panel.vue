@@ -103,7 +103,7 @@ export default {
         this.post.author,
         this.post.permlink,
         this.$store.state.steemconnect.user.name,
-        this.post.permlink + Math.floor(Math.random() * 9000000000) + 1000000000,
+        this.post.permlink + Math.floor(Math.random() * 30004340),
         '',
         this.ruleForm.commentbody,
         jsonMetaData,
