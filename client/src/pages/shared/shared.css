@@ -148,3 +148,15 @@ code {
     padding: 0.5em 1em;
     border: 1px solid #bebab0;
 }
+
+/* Prevent issues with editor preview in half screen preview mode */
+
+.editor-preview-side img {
+  max-width: 100%;
+}
+
+/* Prevent issues with editor preview full screen preview mode */
+
+.editor-preview img {
+  max-width: 50%;
+}
