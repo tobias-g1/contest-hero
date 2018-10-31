@@ -47,6 +47,9 @@
         <!-- About Author -->
         <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">About the Author</h3>
         <aboutauthor :authorBio="post.authorBio" :authorImage="post.authorImage" :authorName="post.author"></aboutauthor>
+        <!-- Contest Prize -->
+        <h3 v-if="contest.contestData.prize" class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Prize</h3>
+        <prize v-if="contest.contestData.prize" :prize="contest.contestData.prize" />
         <!-- Contest Entries -->
         <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
         <noentries v-if="contest.entries.length === 0" />
@@ -60,6 +63,7 @@
 import aboutauthor from '@/components/about-author/about-author.vue'
 import post from '@/components/post/post.vue'
 import winners from '@/components/winners-panel/winners-panel.vue'
+import prize from '@/components/prize/prize.vue'
 import dsteem from '@/mixins/dsteem.js'
 import Countdown from 'vuejs-countdown'
 import postoptions from '@/components/post-options/post-options.vue'
@@ -81,7 +85,8 @@ export default {
     postoptions,
     entry,
     noentries,
-    commentpanel
+    commentpanel,
+    prize
   },
   data () {
     return {
