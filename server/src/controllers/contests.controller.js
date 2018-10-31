@@ -51,10 +51,10 @@ exports.get_contests = function (req, res) {
      }
       break;
   }
+  
+  let query =  (req.params.prize === 'any') ? {} : {"prize.type": req.params.prize}
 
-  console.log(sortmethod)
-
-  Contest.find({}, function (error, contests) {
+  Contest.find(query, function (error, contests) {
     if (error) {
       console.error(error);
     }
@@ -83,9 +83,9 @@ exports.get_contests_by_category = function (req, res) {
       break;
   }
 
-  Contest.find({
-    category: req.params.category
-  }, function (error, contests) {
+  let query =  (req.params.prize === 'any') ? {} : {"category": req.params.category, "prize.type": req.params.prize}
+
+  Contest.find(query, function (error, contests) {
     if (error) {
       console.error(error);
     }
