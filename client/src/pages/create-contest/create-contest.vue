@@ -286,7 +286,11 @@ export default {
           deadline: this.contestForm.deadline,
           entry_method: this.contestForm.entry_method,
           category: this.contestForm.category,
-          permlink: this.contestPermlink
+          permlink: this.contestPermlink,
+          prize: {
+            type: this.contestForm.prizeType,
+            value: this.contestForm.prizeValue
+          }
         })
         this.$notify({ title: 'Success', message: 'Your contest has been created', type: 'success' })
         this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}`)
