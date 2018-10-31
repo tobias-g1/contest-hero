@@ -3,13 +3,13 @@ import api from '@/services/api.js'
 export default {
 
   getContests (params) {
-    return api().get(`/contests/all/${params}`)
+    return api().get(`/contests/all/${params.sortOrder}/${params.prize}`)
   },
   createContest (params) {
     return api().post('/contests/create_contest', params)
   },
   getContestsByCategory (params) {
-    return api().get(`/contests/category/${params.category}/${params.sortOrder}`)
+    return api().get(`/contests/category/${params.category}/${params.sortOrder}/${params.prize}`)
   },
   getContestByPermlink (params) {
     return api().get(`/contests/permlink/${params}`)
