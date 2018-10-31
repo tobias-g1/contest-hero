@@ -15,7 +15,11 @@ exports.create_contest = function (req, res) {
     body: req.body.body,
     hidden: false,
     addedDateTime: new Date().getTime(),
-    winners: []
+    winners: [],
+    prize: {
+      type: req.body.prize.type,
+      value: req.body.prize.value
+    }
   })
 
   new_contest.save(function (error) {
@@ -151,6 +155,8 @@ exports.edit_contest = function (req, res) {
     contest.category = req.body.category;
     contest.body = req.body.body;
     contest.entry_method = req.body.entry_method;
+    contest.prize.type = req.body.prize.type;
+    contest.prize.value = req.body.prize.value;
 
     contest.save(function (error) {
       if (error) {
