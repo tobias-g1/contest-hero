@@ -12,6 +12,14 @@
       <el-option label="Newest" default value="newest"></el-option>
       <el-option label="Oldest" value="oldest"></el-option>
     </el-select>
+    <el-select v-model="prizeFilter" placeholder="Select Prize">
+      <el-option label="Any" default value="any"></el-option>
+      <el-option label="STEEM" default value="STEEM"></el-option>
+      <el-option label="SBD" default value="SBD"></el-option>
+      <el-option label="Steem Monsters" default value="Steem Monsters"></el-option>
+      <el-option label="Other" default value="Other"></el-option>
+      <el-option label="None" default value="None"></el-option>
+    </el-select>
   </div>
 </template>
 
@@ -24,7 +32,8 @@ export default {
   data () {
     return {
       activecategory: 'all',
-      sortOrder: 'newest'
+      sortOrder: 'newest',
+      prizeFilter: 'any'
     }
   },
   mixins: [dsteem],
@@ -35,7 +44,8 @@ export default {
     async getFilteredContests (category) {
       const response = await contestsServices.getContestsByCategory({
         category: category,
-        sortOrder: this.sortOrder
+        sortOrder: this.sortOrder,
+        prize: this.prizeFilter
       })
       let messages = []
       response.data.contests.forEach((contest, index) => {
@@ -50,7 +60,10 @@ export default {
       })
     },
     async getContests (category) {
-      const response = await contestsServices.getContests(this.sortOrder)
+      const response = await contestsServices.getContests({
+        sortOrder: this.sortOrder,
+        prize: this.prizeFilter
+      })
       let messages = []
       response.data.contests.forEach((contest, index) => {
         this.loadPost(contest.author, contest.permlink)
@@ -65,8 +78,13 @@ export default {
       })
     }
   },
+  computed: {
+    filterOptions: function () {
+      return `${this.sortOrder}||${this.prizeFilter}`
+    }
+  },
   watch: {
-    sortOrder () {
+    filterOptions () {
       (this.activecategory === 'all') ? this.getContests() : this.getFilteredContests(this.activecategory)
     }
   }
