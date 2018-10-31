@@ -22,7 +22,7 @@
                     </el-select>
                 </el-form-item>
             </el-col>
-            <el-col :span="6">
+              <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
                 <el-form-item required>
                    <span slot="label">Deadline<tooltip :text="'Use this to configure when your contest will end, when the deadline reaches the end, no more entries can be made.'" /></span>
                     <el-form-item prop="deadline">
@@ -30,7 +30,7 @@
                     </el-form-item>
                 </el-form-item>
             </el-col>
-                        <el-col :span="6">
+                        <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
                 <el-form-item prop="entry_method">
                    <span slot="label">Entry Type<tooltip :text="'Select how contestants will enter your contest. Comment\'s are perfect for giveways. Only comments made via Contest Hero will be shown in your entries.'" /></span>
                     <el-select v-model="contestForm.entry_method" placeholder="Select Entry Method">
@@ -39,7 +39,7 @@
                     </el-select>
                 </el-form-item>
             </el-col>
-                <el-col :span="6">
+                <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
                 <el-form-item required>
                    <span slot="label">Prize Type<tooltip :text="'Use this to configure when your contest will end, when the deadline reaches the end, no more entries can be made.'" /></span>
                     <el-form-item prop="prizeType">
@@ -53,7 +53,7 @@
                     </el-form-item>
                 </el-form-item>
             </el-col>
-                    <el-col :span="6">
+                   <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
               <el-form-item :required="contestForm.prizeType !== 'None'" prop="prizeValue">
                   <span slot="label">Prize Value<tooltip :text="'Use the title to help your contest stand out from the crowd'" /></span>
                     <el-input :disabled="contestForm.prizeType === 'None'" :type="(contestForm.prizeType === 'SBD' || contestForm.prizeType === 'STEEM') ? 'number' : 'text'" v-model="contestForm.prizeValue" placeholder="Enter a prize value"></el-input>
