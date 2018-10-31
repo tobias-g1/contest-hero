@@ -41,7 +41,7 @@
             </el-col>
                 <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
                 <el-form-item required>
-                   <span slot="label">Prize Type<tooltip :text="'Use this to configure when your contest will end, when the deadline reaches the end, no more entries can be made.'" /></span>
+                   <span slot="label">Prize Type<tooltip :text="'Select the prize type of your contest, the prize type is used to filter contests on the contest feed.'" /></span>
                     <el-form-item prop="prizeType">
                         <el-select v-model="contestForm.prizeType" placeholder="Select Category">
                         <el-option label="STEEM" default value="STEEM"></el-option>
@@ -55,7 +55,7 @@
             </el-col>
                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
               <el-form-item :required="contestForm.prizeType !== 'None'" prop="prizeValue">
-                  <span slot="label">Prize Value<tooltip :text="'Use the title to help your contest stand out from the crowd'" /></span>
+                  <span slot="label">Prize Value<tooltip :text="'Use the prize value to indicate what your winner will receive. If you\'re offering a Steem Monsters card, simply write the card name. If you plan to reward multiple winners, you can enter the total prize pool here.'" /></span>
                     <el-input :disabled="contestForm.prizeType === 'None'" :type="(contestForm.prizeType === 'SBD' || contestForm.prizeType === 'STEEM') ? 'number' : 'text'" v-model="contestForm.prizeValue" placeholder="Enter a prize value"></el-input>
                 </el-form-item>
             </el-col>
