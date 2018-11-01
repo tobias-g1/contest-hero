@@ -34,6 +34,19 @@
   min-width: 100px;
 }
 
+.feed-option {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.feed-option label {
+  display: inline-flex;
+  font-weight: lighter;
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
 @media (max-width: 450px) {
   .feed-bar {
     flex-direction: column;
