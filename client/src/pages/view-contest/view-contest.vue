@@ -31,7 +31,7 @@
             <postoptions :post="post.data" />
           </div>
         </div>
-        <router-link :to="postLink"><button :disabled="contestOpen === false" class="btn-fill enter-contest">Enter contest with a {{ contest.contestData.entry_method }} </button></router-link>
+        <router-link :to="postLink"><button :disabled="contestOpen === false" class="btn-fill enter-contest">Enter contest with a {{ contest.contestData.entry_method || 'Post' }} </button></router-link>
         <!-- Winners -->
         <div class="winners-container" v-if="contest.winners.length !== 0">
           <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Winners</h1>
