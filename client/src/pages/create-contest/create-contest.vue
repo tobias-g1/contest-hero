@@ -190,7 +190,7 @@ export default {
       }
     },
     adjustBody: function () {
-      return this.contestForm.body + `<p class="ch-footer">*This contest was created on [contesthero.io](https://www.contesthero.io), you can view and enter this contest by clicking [here](https://www.contesthero.io/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink})* </p>`
+      return this.contestForm.body + `<div><sub>This contest was created on <a  href="https://contesthero.io">Contest Hero</a> you can view and enter this contest by clicking <a target="blank_" href="https://www.contesthero.io/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink})">here</a></sub></div>`
     },
     prizeType: function () {
       return this.contestForm.prizeType

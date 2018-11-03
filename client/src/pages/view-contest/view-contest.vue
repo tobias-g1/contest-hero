@@ -31,7 +31,7 @@
             <postoptions :post="post.data" />
           </div>
         </div>
-        <router-link :to="postLink" v-show="contestOpen"><button :disabled="(new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= contest.contestData.deadline.slice(0, 10))" class="btn-fill enter-contest">Enter contest with a {{ contest.contestData.entry_method }} </button></router-link>
+        <router-link :to="postLink"><button :disabled="contestOpen === false" class="btn-fill enter-contest">Enter contest with a {{ contest.contestData.entry_method || 'Post' }} </button></router-link>
         <!-- Winners -->
         <div class="winners-container" v-if="contest.winners.length !== 0">
           <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Winners</h1>
@@ -157,10 +157,10 @@ export default {
       return this.postJson.tags
     },
     contestOpen: function () {
-      if (new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= this.contest.contestData.deadline) {
-        return false
-      } else {
+      if (new Date().toLocaleString('en-ZA').replace(',', '') < this.contest.contestData.deadline) {
         return true
+      } else {
+        return false
       }
     },
     editLink: function () {
