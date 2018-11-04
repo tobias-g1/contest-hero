@@ -10,11 +10,11 @@
     </div>
     <div class="options-wrapper">
     <el-select class="feed-dropdown" v-model="sortOrder" placeholder="Select Category">
-      <el-option label="Newest" default value="newest"></el-option>
-      <el-option label="Oldest" value="oldest"></el-option>
+      <el-option label="Newest Contests" default value="newest"></el-option>
+      <el-option label="Oldest Contests" value="oldest"></el-option>
     </el-select>
     <el-select class="feed-dropdown" v-model="prizeFilter" placeholder="Select Prize">
-      <el-option label="Any" default value="any"></el-option>
+      <el-option label="Any Prize" default value="any"></el-option>
       <el-option label="STEEM" default value="STEEM"></el-option>
       <el-option label="SBD" default value="SBD"></el-option>
       <el-option label="Steem Monsters" default value="Steem Monsters"></el-option>
