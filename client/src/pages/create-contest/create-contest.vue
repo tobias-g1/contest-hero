@@ -1,4 +1,3 @@
-
 <template>
  <el-main>
     <el-row :gutter="20">
@@ -114,8 +113,7 @@ export default {
         dynamicTags: [],
         prize_type: '',
         prize_value: ''
-      },
-      contestId: ''
+      }
     }
   },
   components: {
