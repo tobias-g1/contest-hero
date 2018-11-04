@@ -49,7 +49,7 @@ var contest = {
         }]
       },
       editorConfig: {
-        spellChecker: true,
+        spellChecker: false,
         placeholder: 'Remember to add a description of your contest, any prizes you plan to offer and any additional information a reader should know about entering your contest. A user will automatically be able to enter your contest through the "Enter Contest" button shown on your contest page.'
       }
     }
