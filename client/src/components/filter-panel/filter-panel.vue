@@ -8,18 +8,20 @@
       <span class="option" v-bind:class="[ activecategory === 'giveway' ? 'active' : '' ]" @click="getFilteredContests('giveaway'), activecategory='giveway'">Giveaways</span>
       <span class="option" v-bind:class="[ activecategory === 'other' ? 'active' : '' ]" @click="getFilteredContests('other'), activecategory='other'">Other</span>
     </div>
-    <el-select v-model="sortOrder" placeholder="Select Category">
-      <el-option label="Newest" default value="newest"></el-option>
-      <el-option label="Oldest" value="oldest"></el-option>
+    <div class="options-wrapper">
+    <el-select class="feed-dropdown" v-model="sortOrder" placeholder="Select Category">
+      <el-option label="Newest Contests" default value="newest"></el-option>
+      <el-option label="Oldest Contests" value="oldest"></el-option>
     </el-select>
-    <el-select v-model="prizeFilter" placeholder="Select Prize">
-      <el-option label="Any" default value="any"></el-option>
+    <el-select class="feed-dropdown" v-model="prizeFilter" placeholder="Select Prize">
+      <el-option label="Any Prize" default value="any"></el-option>
       <el-option label="STEEM" default value="STEEM"></el-option>
       <el-option label="SBD" default value="SBD"></el-option>
       <el-option label="Steem Monsters" default value="Steem Monsters"></el-option>
       <el-option label="Other" default value="Other"></el-option>
       <el-option label="None" default value="None"></el-option>
     </el-select>
+    </div>
   </div>
 </template>
 
