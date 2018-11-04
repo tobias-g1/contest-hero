@@ -42,6 +42,16 @@ var ContestSchema = new Schema({
   hidden: {
     type: Boolean,
     default: false,
+  },
+  prize: {
+    type: {
+      type: String,
+      required: true
+    },
+    value: {
+      type: String,
+      required: true
+    }
   }
 },{timestamps: true} 
 

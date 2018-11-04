@@ -1,4 +1,3 @@
-
 <template>
  <el-main>
     <el-row :gutter="20">
@@ -40,10 +39,9 @@
                 </el-form-item>
             </el-col>
                 <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
-                <el-form-item required>
+                <el-form-item prop="prize_type" required>
                    <span slot="label">Prize Type<tooltip :text="'Select the prize type of your contest, the prize type is used to filter contests on the contest feed.'" /></span>
-                    <el-form-item prop="prizeType">
-                        <el-select v-model="contestForm.prizeType" placeholder="Select Category">
+                        <el-select v-model="contestForm.prize_type" placeholder="Select Category">
                         <el-option label="STEEM" default value="STEEM"></el-option>
                         <el-option label="SBD" value="SBD"></el-option>
                         <el-option label="Steem Monsters" value="Steem Monsters"></el-option>
@@ -54,9 +52,9 @@
                 </el-form-item>
             </el-col>
                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
-              <el-form-item :required="contestForm.prizeType !== 'None'" prop="prizeValue">
+              <el-form-item :required="contestForm.prize_type !== 'None'" prop="prize_value">
                   <span slot="label">Prize Value<tooltip :text="'Use the prize value to indicate what your winner will receive. If you\'re offering a Steem Monsters card, simply write the card name. If you plan to reward multiple winners, you can enter the total prize pool here.'" /></span>
-                    <el-input :disabled="contestForm.prizeType === 'None'" :type="(contestForm.prizeType === 'SBD' || contestForm.prizeType === 'STEEM') ? 'number' : 'text'" v-model="contestForm.prizeValue" placeholder="Enter a prize value"></el-input>
+                    <el-input :disabled="contestForm.prize_type === 'None'" :type="(contestForm.prize_type === 'SBD' || contestForm.prize_type === 'STEEM') ? 'number' : 'text'" v-model="contestForm.prize_value" placeholder="Enter a prize value"></el-input>
                 </el-form-item>
             </el-col>
 
@@ -95,7 +93,7 @@
 import markdownEditor from 'vue-simplemde/src/markdown-editor'
 import form from '@/mixins/form-actions.js'
 import tags from '@/mixins/tags.js'
-import { mapGetters } from 'vuex'
+import contest from '@/mixins/contest.js'
 import contestsService from '@/services/contests.js'
 import tooltip from '@/components/tooltip/tooltip.vue'
 
@@ -103,7 +101,6 @@ export default {
   name: 'create-contest',
   data () {
     return {
-      labelPosition: 'top',
       inputVisible: false,
       inputValue: '',
       contestForm: {
@@ -113,56 +110,8 @@ export default {
         body: '',
         entry_method: '',
         dynamicTags: [],
-        prizeType: '',
-        prizeValue: ''
-      },
-      contestId: '',
-      rules: {
-        title: [{
-          required: true,
-          message: 'Please enter a title',
-          trigger: 'blur'
-        }],
-        category: [{
-          required: true,
-          message: 'Please select a contest category',
-          trigger: 'change'
-        }],
-        entry_method: [{
-          required: true,
-          message: 'Please select an entry method',
-          trigger: 'change'
-        }],
-        deadline: [{
-          required: true,
-          message: 'Please select a deadline',
-          trigger: 'change'
-        }],
-        body: [{
-          required: true,
-          message: 'Please enter the body of your contest',
-          trigger: 'blur'
-        },
-        {
-          min: 150,
-          message: 'Your contest body should be at least 150 characters',
-          trigger: 'blur'
-        }
-        ],
-        prizeType: [{
-          required: true,
-          message: 'Please select a prize type',
-          trigger: 'blur'
-        }],
-        prizeValue: [{
-          message: 'Please select a prize value',
-          trigger: 'blur',
-          required: true
-        }]
-      },
-      editorConfig: {
-        spellChecker: true,
-        placeholder: 'Remember to add a description of your contest, any prizes you plan to offer and any additional information a reader should know about entering your contest. A user will automatically be able to enter your contest through the "Enter Contest" button shown on your contest page.'
+        prize_type: '',
+        prize_value: ''
       }
     }
   },
@@ -170,38 +119,13 @@ export default {
     markdownEditor,
     tooltip
   },
-  mixins: [form, tags],
+  mixins: [form, tags, contest],
   computed: {
-    fixedTags: function () {
-      return ['contest-hero']
-    },
-    finalTags: function () {
-      return this.fixedTags.concat(this.contestForm.dynamicTags)
-    },
     contestPermlink: function () {
       return this.contestForm.title.toLowerCase().replace(/[\W]/g, '-') + '-' + Math.random().toString(36).replace(/[^a-z]+/g, '')
     },
-    postImages: function () {
-      let images = this.contestForm.body.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|svg)/g)
-      if (images !== null) {
-        return images
-      } else {
-        return []
-      }
-    },
     adjustBody: function () {
       return this.contestForm.body + `<div><sub>This contest was created on <a  href="https://contesthero.io">Contest Hero</a> you can view and enter this contest by clicking <a target="blank_" href="https://www.contesthero.io/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink})">here</a></sub></div>`
-    },
-    prizeType: function () {
-      return this.contestForm.prizeType
-    },
-    ...mapGetters('steemconnect', ['user'])
-  },
-  watch: {
-    prizeType () {
-      if (this.contestForm.prizeType === 'None') {
-        this.contestForm.prizeValue = ''
-      }
     }
   },
   methods: {
@@ -288,8 +212,8 @@ export default {
           category: this.contestForm.category,
           permlink: this.contestPermlink,
           prize: {
-            type: this.contestForm.prizeType,
-            value: this.contestForm.prizeValue
+            type: this.contestForm.prize_type,
+            value: this.contestForm.prize_value
           }
         })
         this.$notify({ title: 'Success', message: 'Your contest has been created', type: 'success' })
