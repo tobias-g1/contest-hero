@@ -4,10 +4,11 @@
       <div class="author-image-container">
       <img class="author-image" :src="authorImage" alt="">
       </div>
-      <span class="card-title">
+  
+    </span>
+        <span class="card-title">
           <router-link :to="postLink"><h3>{{ post.title }} </h3></router-link>
           </span>
-    </span>
     <span class="card-summary">
       <postoptions :type="'preview'" :post="post.blockchain"/>
       <div>
