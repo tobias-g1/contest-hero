@@ -39,9 +39,8 @@
                 </el-form-item>
             </el-col>
                 <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
-                <el-form-item required>
+                <el-form-item prop="prize_type" required>
                    <span slot="label">Prize Type<tooltip :text="'Select the prize type of your contest, the prize type is used to filter contests on the contest feed.'" /></span>
-                    <el-form-item prop="prize_type">
                         <el-select v-model="contestForm.prize_type" placeholder="Select Category">
                         <el-option label="STEEM" default value="STEEM"></el-option>
                         <el-option label="SBD" value="SBD"></el-option>
