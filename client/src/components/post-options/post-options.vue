@@ -5,7 +5,7 @@
   <div v-if="post.active_votes" class="stats-container">
     <i class="material-icons stat-option vote vote-pulse" :class="{ voted: voted }" @click=" (user) ? dialogVisible = true : ''">favorite</i> <span class="icon-label">{{ post.net_votes }}</span>
     <i class="material-icons stat-option">attach_money</i> <span class="icon-label">{{post.pending_payout_value.slice(0, 3) }}</span>
-    <i class="material-icons stat-option reblog vote-pulse">repeat</i>
+    <i v-if="type === 'full'" class="material-icons stat-option reblog vote-pulse">repeat</i>
 
     <!-- Voting Dialog -->
 
@@ -47,7 +47,10 @@ export default {
       voteCount: this.post.active_votes.length
     }
   },
-  props: ['post'],
+  props: {
+    post: Object,
+    type: String
+  },
   computed: {
     ...mapGetters('steemconnect', ['user']),
     voted: function () {

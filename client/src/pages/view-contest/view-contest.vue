@@ -28,7 +28,7 @@
             <div class="tags">
               <el-tag v-for="(tag, index) in tags" :key="index">{{ tag }}</el-tag>
             </div>
-            <postoptions :post="post.data" />
+            <postoptions :type="'full'" :post="post.data" />
           </div>
         </div>
         <router-link :to="postLink"><button :disabled="contestOpen === false" class="btn-fill enter-contest">Enter contest with a {{ contest.contestData.entry_method || 'Post' }} </button></router-link>
