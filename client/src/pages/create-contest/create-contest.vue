@@ -42,8 +42,8 @@
                 <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
                 <el-form-item required>
                    <span slot="label">Prize Type<tooltip :text="'Select the prize type of your contest, the prize type is used to filter contests on the contest feed.'" /></span>
-                    <el-form-item prop="prizeType">
-                        <el-select v-model="contestForm.prizeType" placeholder="Select Category">
+                    <el-form-item prop="prize_type">
+                        <el-select v-model="contestForm.prize_type" placeholder="Select Category">
                         <el-option label="STEEM" default value="STEEM"></el-option>
                         <el-option label="SBD" value="SBD"></el-option>
                         <el-option label="Steem Monsters" value="Steem Monsters"></el-option>
@@ -54,9 +54,9 @@
                 </el-form-item>
             </el-col>
                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
-              <el-form-item :required="contestForm.prizeType !== 'None'" prop="prizeValue">
+              <el-form-item :required="contestForm.prize_type !== 'None'" prop="prize_value">
                   <span slot="label">Prize Value<tooltip :text="'Use the prize value to indicate what your winner will receive. If you\'re offering a Steem Monsters card, simply write the card name. If you plan to reward multiple winners, you can enter the total prize pool here.'" /></span>
-                    <el-input :disabled="contestForm.prizeType === 'None'" :type="(contestForm.prizeType === 'SBD' || contestForm.prizeType === 'STEEM') ? 'number' : 'text'" v-model="contestForm.prizeValue" placeholder="Enter a prize value"></el-input>
+                    <el-input :disabled="contestForm.prize_type === 'None'" :type="(contestForm.prize_type === 'SBD' || contestForm.prize_type === 'STEEM') ? 'number' : 'text'" v-model="contestForm.prize_value" placeholder="Enter a prize value"></el-input>
                 </el-form-item>
             </el-col>
 
@@ -112,8 +112,8 @@ export default {
         body: '',
         entry_method: '',
         dynamicTags: [],
-        prizeType: '',
-        prizeValue: ''
+        prize_type: '',
+        prize_value: ''
       },
       contestId: ''
     }
@@ -215,8 +215,8 @@ export default {
           category: this.contestForm.category,
           permlink: this.contestPermlink,
           prize: {
-            type: this.contestForm.prizeType,
-            value: this.contestForm.prizeValue
+            type: this.contestForm.prize_type,
+            value: this.contestForm.prize_value
           }
         })
         this.$notify({ title: 'Success', message: 'Your contest has been created', type: 'success' })

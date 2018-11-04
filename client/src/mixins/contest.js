@@ -37,12 +37,12 @@ var contest = {
           trigger: 'blur'
         }
         ],
-        prizeType: [{
+        prize_type: [{
           required: true,
           message: 'Please select a prize type',
           trigger: 'blur'
         }],
-        prizeValue: [{
+        prize_value: [{
           message: 'Please select a prize value',
           trigger: 'blur',
           required: true
@@ -71,14 +71,14 @@ var contest = {
       return this.fixedTags.concat(this.contestForm.dynamicTags)
     },
     prizeType: function () {
-      return this.contestForm.prizeType
+      return this.contestForm.prize_type
     },
     ...mapGetters('steemconnect', ['user'])
   },
   watch: {
     prizeType () {
-      if (this.contestForm.prizeType === 'None') {
-        this.contestForm.prizeValue = ''
+      if (this.contestForm.prize_type === 'None') {
+        this.contestForm.prize_value = ''
       }
     }
   },
