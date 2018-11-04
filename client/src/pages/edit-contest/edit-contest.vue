@@ -50,7 +50,6 @@
                         <el-option label="None" value="None"></el-option>
                     </el-select>
                     </el-form-item>
-                </el-form-item>
             </el-col>
                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
               <el-form-item :required="contestForm.prize_type !== 'None'" prop="prize_value">

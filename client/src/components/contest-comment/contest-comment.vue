@@ -4,7 +4,7 @@
     <div class="comment-details">
       <span class="comment-author">{{ comment.author }}</span>
       <VueMarkdown class="comment-body" :source="comment.body"></VueMarkdown>
-      <postoptions :post="comment" />
+      <postoptions :type="'comment'" :post="comment" />
     </div>
   </div>
 </template>

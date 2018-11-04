@@ -9,7 +9,7 @@
           </span>
     </span>
     <span class="card-summary">
-      <postoptions :post="post.blockchain"/>
+      <postoptions :type="'full'" :post="post.blockchain"/>
       <div>
 <span class="contest">{{ post.category }}</span>
  <el-tag v-bind:class="status === 'Live' ? 'contest_open' : 'contest_closed'" size="small">{{ status }}</el-tag>

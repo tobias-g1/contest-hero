@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div vih> <div v-html="adjustedPost"></div> </div>
+      <div> <div v-html="adjustedPost"></div> </div>
     </div>
 </template>
 
