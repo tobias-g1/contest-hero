@@ -13,11 +13,7 @@ export default {
   },
   computed: {
     adjustedPost: function () {
-      let body = this.postbody
-
-      // Remove contest hero contest footer link from post when viewing on contest hero
-
-      body = body.replace(/<p class="ch-footer">.*<\/p>/gm, '')
+      // Markdown parser settings
 
       marked.setOptions({
         renderer: new marked.Renderer(),
@@ -29,7 +25,7 @@ export default {
         smartLists: true,
         smartypants: true
       })
-      return marked(body)
+      return marked(this.postbody)
     }
   }
 }
