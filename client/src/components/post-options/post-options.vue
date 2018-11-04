@@ -4,7 +4,7 @@
 
   <div v-if="post.active_votes" class="stats-container">
     <i class="material-icons stat-option vote vote-pulse" :class="{ voted: voted }" @click=" (user) ? dialogVisible = true : ''">favorite</i> <span class="icon-label">{{ post.active_votes.length }}</span>
-    <i class="material-icons stat-option">attach_money</i> <span class="icon-label">{{post.pending_payout_value.slice(0, 4) }}</span>
+    <i class="material-icons stat-option">attach_money</i> <span class="icon-label">{{ payout.toString().slice(0, 4) }}</span>
     <i v-if="type !== 'comment'" @click="resteemVisible = true" class="material-icons stat-option reblog vote-pulse">repeat</i>
     <p class="time-since" v-if="type === 'full' || type === 'comment'">{{ post.created | moment("from", "now", true) }} ago</p>
 
@@ -35,9 +35,8 @@
 </template>
 
 <script>
-import {
-  mapGetters
-} from 'vuex'
+import { mapGetters } from 'vuex'
+import moment from 'moment'
 export default {
   name: 'post-options',
   data () {
@@ -63,6 +62,16 @@ export default {
           }
         })
         return voted
+      }
+    },
+    payout: function () {
+      let postCreationDate = moment(this.post.created)._d
+      let currentDate = moment()._d
+      let timesince = moment(currentDate).diff(postCreationDate, 'minutes')
+      if (timesince > 10080) {
+        return parseFloat(this.post.curator_payout_value) + parseFloat(this.post.total_payout_value)
+      } else {
+        return this.post.pending_payout_value
       }
     }
   },
