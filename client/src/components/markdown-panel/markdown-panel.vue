@@ -1,7 +1,5 @@
 <template>
-    <div>
-      <div> <div v-html="adjustedPost"></div> </div>
-    </div>
+      <div v-html="adjustedPost"/>
 </template>
 
 <script>

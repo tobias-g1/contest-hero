@@ -23,7 +23,7 @@
           </el-dropdown>
         </div>
         <div class="post-container">
-          <post :postbody="post.data.body"></post>
+          <markdownpanel :postbody="post.data.body" />
           <div class="post-bar">
             <div class="tags">
               <el-tag v-for="(tag, index) in tags" :key="index">{{ tag }}</el-tag>
@@ -61,7 +61,7 @@
 
 <script>
 import aboutauthor from '@/components/about-author/about-author.vue'
-import post from '@/components/post/post.vue'
+import markdownpanel from '@/components/markdown-panel/markdown-panel.vue'
 import winners from '@/components/winners-panel/winners-panel.vue'
 import prize from '@/components/prize/prize.vue'
 import dsteem from '@/mixins/dsteem.js'
@@ -80,7 +80,7 @@ export default {
   components: {
     aboutauthor,
     Countdown,
-    post,
+    markdownpanel,
     winners,
     postoptions,
     entry,
