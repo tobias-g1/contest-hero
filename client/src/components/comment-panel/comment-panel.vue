@@ -17,7 +17,6 @@
 
 <script>
 import dsteem from '@/mixins/dsteem.js'
-import post from '@/components/post/post.vue'
 import form from '@/mixins/form-actions.js'
 import markdownEditor from 'vue-simplemde/src/markdown-editor'
 import comment from '@/components/contest-comment/contest-comment.vue'
@@ -28,7 +27,6 @@ export default {
   mixins: [dsteem, form],
   components: {
     markdownEditor,
-    post,
     comment,
     postoptions
   },

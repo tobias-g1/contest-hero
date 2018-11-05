@@ -1,6 +1,7 @@
 .stats-container {
     display: flex;
-    align-items: center;
+	align-items: center;
+	font-size: 15px;
 }
 .stat-option {
     font-size: 18px;
@@ -16,7 +17,8 @@
 .post-bar {
     display: inline-flex;
     justify-content: space-between;
-    width: 100%;
+	width: 100%;
+	align-items: center;
 }
 .slider {
     padding: 0.5rem;
@@ -75,4 +77,10 @@
 
 .time-since {
 	margin-left: auto;
+}
+
+@media (max-width: 650px) {
+	.time-since {
+		display: none;
+	}
 }

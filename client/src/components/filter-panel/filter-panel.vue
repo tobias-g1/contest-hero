@@ -2,9 +2,9 @@
   <div class="feed-bar">
     <div class="filter-options">
       <span class="option" v-bind:class="[ activecategory === 'all' ? 'active' : '' ]" @click="getContests(), activecategory='all'">All Contests</span>
-      <span class="option" v-bind:class="[ activecategory === 'writing' ? 'active' : '' ]" @click="getFilteredContests('writing'), activecategory='writing'">Writing Contests</span>
-      <span class="option" v-bind:class="[ activecategory === 'design' ? 'active' : '' ]" @click="getFilteredContests('design'), activecategory='design'">Design Contests</span>
-      <span class="option" v-bind:class="[ activecategory === 'photo' ? 'active' : '' ]" @click="getFilteredContests('photo'), activecategory='photo'">Photo Contests</span>
+      <span class="option" v-bind:class="[ activecategory === 'writing' ? 'active' : '' ]" @click="getFilteredContests('writing'), activecategory='writing'">Writing</span>
+      <span class="option" v-bind:class="[ activecategory === 'design' ? 'active' : '' ]" @click="getFilteredContests('design'), activecategory='design'">Design</span>
+      <span class="option" v-bind:class="[ activecategory === 'photo' ? 'active' : '' ]" @click="getFilteredContests('photo'), activecategory='photo'">Photo</span>
       <span class="option" v-bind:class="[ activecategory === 'giveway' ? 'active' : '' ]" @click="getFilteredContests('giveaway'), activecategory='giveway'">Giveaways</span>
       <span class="option" v-bind:class="[ activecategory === 'other' ? 'active' : '' ]" @click="getFilteredContests('other'), activecategory='other'">Other</span>
     </div>
