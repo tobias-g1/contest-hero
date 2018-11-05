@@ -5,7 +5,7 @@
   <div v-if="post.active_votes" class="stats-container">
     <i class="material-icons stat-option vote vote-pulse" :class="{ voted: voted }" @click=" (user) ? dialogVisible = true : ''">favorite</i> <span class="icon-label">{{ post.active_votes.length }}</span>
     <i class="material-icons stat-option">attach_money</i> <span class="icon-label">{{ payout.toString().slice(0, 4) }}</span>
-    <i v-if="type !== 'comment'" @click="resteemVisible = true" class="material-icons stat-option reblog vote-pulse">repeat</i>
+    <i v-if="type !== 'comment'" @click="(user) ? resteemVisible = true : ''" class="material-icons stat-option reblog vote-pulse">repeat</i>
     <p class="time-since" v-if="type === 'full' || type === 'comment'">{{ post.created | moment("from", "now", true) }} ago</p>
 
     <!-- Voting Dialog -->
