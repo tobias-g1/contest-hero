@@ -1,0 +1,13 @@
+.prize-value {
+    display: block;
+    font-size: 22px;
+    font-weight: bold;
+    color: #333333;
+    text-transform: uppercase;
+}
+
+.prize-type {
+    color: #FF1480;
+    font-size: 16px;
+    font-weight: 400;
+}

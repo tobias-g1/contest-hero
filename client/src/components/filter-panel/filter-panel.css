@@ -32,6 +32,17 @@
 .feed-bar .el-select {
   width: auto;
   min-width: 100px;
+  margin-left: 10px;
+}
+
+.options-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.feed-dropdown .el-input__inner {
+background: transparent;
 }
 
 @media (max-width: 450px) {
@@ -41,7 +52,13 @@
     text-align: center;
   }
 
-  .feed-bar .el-select {
+  .feed-bar .el-select { 
+    margin-bottom: 10px;
+  }
+
+  .options-wrapper {
     margin-top: 10px;
+    flex-direction: column;
   }
 }
+

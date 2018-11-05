@@ -1,4 +1,3 @@
-
 <template>
  <el-main>
     <el-row :gutter="20">
@@ -22,7 +21,7 @@
                     </el-select>
                 </el-form-item>
             </el-col>
-            <el-col :span="12">
+              <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
                 <el-form-item required>
                    <span slot="label">Deadline<tooltip :text="'Use this to configure when your contest will end, when the deadline reaches the end, no more entries can be made.'" /></span>
                     <el-form-item prop="deadline">
@@ -30,7 +29,7 @@
                     </el-form-item>
                 </el-form-item>
             </el-col>
-            <el-col :span="12">
+                        <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
                 <el-form-item prop="entry_method">
                    <span slot="label">Entry Type<tooltip :text="'Select how contestants will enter your contest. Comment\'s are perfect for giveways. Only comments made via Contest Hero will be shown in your entries.'" /></span>
                     <el-select v-model="contestForm.entry_method" placeholder="Select Entry Method">
@@ -39,6 +38,25 @@
                     </el-select>
                 </el-form-item>
             </el-col>
+                <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
+                <el-form-item prop="prize_type" required>
+                   <span slot="label">Prize Type<tooltip :text="'Select the prize type of your contest, the prize type is used to filter contests on the contest feed.'" /></span>
+                        <el-select v-model="contestForm.prize_type" placeholder="Select Category">
+                        <el-option label="STEEM" default value="STEEM"></el-option>
+                        <el-option label="SBD" value="SBD"></el-option>
+                        <el-option label="Steem Monsters" value="Steem Monsters"></el-option>
+                        <el-option label="Other" value="Other"></el-option>
+                        <el-option label="None" value="None"></el-option>
+                    </el-select>
+                    </el-form-item>
+            </el-col>
+                   <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
+              <el-form-item :required="contestForm.prize_type !== 'None'" prop="prize_value">
+                  <span slot="label">Prize Value<tooltip :text="'Use the prize value to indicate what your winner will receive. If you\'re offering a Steem Monsters card, simply write the card name. If you plan to reward multiple winners, you can enter the total prize pool here.'" /></span>
+                    <el-input :disabled="contestForm.prize_type === 'None'" :type="(contestForm.prize_type === 'SBD' || contestForm.prize_type === 'STEEM') ? 'number' : 'text'" v-model="contestForm.prize_value" placeholder="Enter a prize value"></el-input>
+                </el-form-item>
+            </el-col>
+
             <el-col :span="24">
                 <el-form-item prop="body">
                    <span slot="label">Body<tooltip :text="'Don\'t forget to mention the prize and any additional steps to enter.'" /></span>
@@ -74,7 +92,7 @@
 import markdownEditor from 'vue-simplemde/src/markdown-editor'
 import form from '@/mixins/form-actions.js'
 import tags from '@/mixins/tags.js'
-import { mapGetters } from 'vuex'
+import contest from '@/mixins/contest.js'
 import contestsService from '@/services/contests.js'
 import tooltip from '@/components/tooltip/tooltip.vue'
 
@@ -82,7 +100,6 @@ export default {
   name: 'create-contest',
   data () {
     return {
-      labelPosition: 'top',
       inputVisible: false,
       inputValue: '',
       contestForm: {
@@ -91,45 +108,9 @@ export default {
         deadline: '',
         body: '',
         entry_method: '',
-        dynamicTags: []
-      },
-      contestId: '',
-      rules: {
-        title: [{
-          required: true,
-          message: 'Please enter a title',
-          trigger: 'blur'
-        }],
-        category: [{
-          required: true,
-          message: 'Please select a contest category',
-          trigger: 'change'
-        }],
-        entry_method: [{
-          required: true,
-          message: 'Please select an entry method',
-          trigger: 'change'
-        }],
-        deadline: [{
-          required: true,
-          message: 'Please select a deadline',
-          trigger: 'change'
-        }],
-        body: [{
-          required: true,
-          message: 'Please enter the body of your contest',
-          trigger: 'blur'
-        },
-        {
-          min: 150,
-          message: 'Your contest body should be at least 150 characters',
-          trigger: 'blur'
-        }
-        ]
-      },
-      editorConfig: {
-        spellChecker: true,
-        placeholder: 'Remember to add a description of your contest, any prizes you plan to offer and any additional information a reader should know about entering your contest. A user will automatically be able to enter your contest through the "Enter Contest" button shown on your contest page.'
+        dynamicTags: [],
+        prize_type: '',
+        prize_value: ''
       }
     }
   },
@@ -137,29 +118,14 @@ export default {
     markdownEditor,
     tooltip
   },
-  mixins: [form, tags],
+  mixins: [form, tags, contest],
   computed: {
-    fixedTags: function () {
-      return ['contest-hero']
-    },
-    finalTags: function () {
-      return this.fixedTags.concat(this.contestForm.dynamicTags)
-    },
     contestPermlink: function () {
       return this.contestForm.title.toLowerCase().replace(/[\W]/g, '-') + '-' + Math.random().toString(36).replace(/[^a-z]+/g, '')
     },
-    postImages: function () {
-      let images = this.contestForm.body.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|svg)/g)
-      if (images !== null) {
-        return images
-      } else {
-        return []
-      }
-    },
     adjustBody: function () {
-      return this.contestForm.body + `<p class="ch-footer">*This contest was created on [contesthero.io](https://www.contesthero.io), you can view and enter this contest by clicking [here](https://www.contesthero.io/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink})* </p>`
-    },
-    ...mapGetters('steemconnect', ['user'])
+      return this.contestForm.body + `<div><sub>This contest was created on <a  href="https://contesthero.io">Contest Hero</a> you can view and enter this contest by clicking <a target="blank_" href="https://www.contesthero.io/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink})">here</a></sub></div>`
+    }
   },
   methods: {
     submitForm (formName) {
@@ -243,7 +209,11 @@ export default {
           deadline: this.contestForm.deadline,
           entry_method: this.contestForm.entry_method,
           category: this.contestForm.category,
-          permlink: this.contestPermlink
+          permlink: this.contestPermlink,
+          prize: {
+            type: this.contestForm.prize_type,
+            value: this.contestForm.prize_value
+          }
         })
         this.$notify({ title: 'Success', message: 'Your contest has been created', type: 'success' })
         this.$router.push(`/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}`)

@@ -18,8 +18,8 @@ router.post('/create_contest', validate(create_contest), checkSteemConnect, vali
 router.put('/set_winners/', validate(set_winners), checkSteemConnect, validatePermissions, checkUser, contest_controller.set_winners);
 router.put('/edit_contest/', validate(edit_contest), checkSteemConnect, validatePermissions, checkUser, contest_controller.edit_contest);
 
-router.get('/all/:sortby', contest_controller.get_contests);
-router.get('/category/:category/:sortby', contest_controller.get_contests_by_category);
+router.get('/all/:sortby/:prize', contest_controller.get_contests);
+router.get('/category/:category/:sortby/:prize', contest_controller.get_contests_by_category);
 router.get('/permlink/:permlink', contest_controller.get_contest_by_permlink);
 
 // Export

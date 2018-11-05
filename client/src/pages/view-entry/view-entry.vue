@@ -5,12 +5,12 @@
             <!-- Post Container -->
             <h1 class="header" v-if="entry_method === 'post'"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">{{ post.data.title }}</h1>
             <div class="post-container">
-                <post :postbody="post.data.body"></post>
+                <markdownpanel :postbody="post.data.body" />
                 <div class="post-bar">
                     <div class="tags">
                         <el-tag v-for="(tag, index) in tags" :key="index">{{ tag }}</el-tag>
                     </div>
-                    <postoptions :post="post.data" />
+                    <postoptions :type="'full'" :post="post.data" />
                 </div>
             </div>
             <commentpanel :post="post"/>
@@ -20,8 +20,9 @@
 </template>
 
 <script>
+
+import markdownpanel from '@/components/markdown-panel/markdown-panel.vue'
 import dsteem from '@/mixins/dsteem.js'
-import post from '@/components/post/post.vue'
 import entriesService from '@/services/entries.js'
 import commentpanel from '@/components/comment-panel/comment-panel.vue'
 import postoptions from '@/components/post-options/post-options.vue'
@@ -30,9 +31,9 @@ export default {
   name: 'view-entry',
   mixins: [dsteem],
   components: {
-    post,
     commentpanel,
-    postoptions
+    postoptions,
+    markdownpanel
   },
   data () {
     return {

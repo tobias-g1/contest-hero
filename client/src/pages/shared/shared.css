@@ -6,6 +6,10 @@ body {
     display: flex;
     flex-direction: column;
   }
+
+  p {
+    word-break: break-all;
+  }
   
   h1.header {
     font-weight: bold;
@@ -144,9 +148,10 @@ code {
 }
 
 #app code {
-    display: block;
-    padding: 0.5em 1em;
-    border: 1px solid #bebab0;
+  display: inline-block;
+  padding: 0.25em 0.25em;
+  border: 1px solid #bebab0;
+  width: fit-content;
 }
 
 /* Prevent issues with editor preview in half screen preview mode */

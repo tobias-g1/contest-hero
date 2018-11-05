@@ -15,7 +15,11 @@ exports.create_contest = function (req, res) {
     body: req.body.body,
     hidden: false,
     addedDateTime: new Date().getTime(),
-    winners: []
+    winners: [],
+    prize: {
+      type: req.body.prize.type,
+      value: req.body.prize.value
+    }
   })
 
   new_contest.save(function (error) {
@@ -47,10 +51,10 @@ exports.get_contests = function (req, res) {
      }
       break;
   }
+  
+  let query =  (req.params.prize === 'any') ? {} : {"prize.type": req.params.prize}
 
-  console.log(sortmethod)
-
-  Contest.find({}, function (error, contests) {
+  Contest.find(query, function (error, contests) {
     if (error) {
       console.error(error);
     }
@@ -79,9 +83,9 @@ exports.get_contests_by_category = function (req, res) {
       break;
   }
 
-  Contest.find({
-    category: req.params.category
-  }, function (error, contests) {
+  let query =  (req.params.prize === 'any') ? {} : {"category": req.params.category, "prize.type": req.params.prize}
+
+  Contest.find(query, function (error, contests) {
     if (error) {
       console.error(error);
     }
@@ -151,6 +155,8 @@ exports.edit_contest = function (req, res) {
     contest.category = req.body.category;
     contest.body = req.body.body;
     contest.entry_method = req.body.entry_method;
+    contest.prize.type = req.body.prize.type;
+    contest.prize.value = req.body.prize.value;
 
     contest.save(function (error) {
       if (error) {

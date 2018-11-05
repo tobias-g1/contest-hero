@@ -4,12 +4,13 @@
       <div class="author-image-container">
       <img class="author-image" :src="authorImage" alt="">
       </div>
-      <span class="card-title">
+  
+    </span>
+        <span class="card-title">
           <router-link :to="postLink"><h3>{{ post.title }} </h3></router-link>
           </span>
-    </span>
     <span class="card-summary">
-      <postoptions :post="post.blockchain"/>
+      <postoptions :type="'preview'" :post="post.blockchain"/>
       <div>
 <span class="contest">{{ post.category }}</span>
  <el-tag v-bind:class="status === 'Live' ? 'contest_open' : 'contest_closed'" size="small">{{ status }}</el-tag>
@@ -43,10 +44,10 @@ export default {
       return `/view-contest/${this.post.author}/${this.post.permlink}`
     },
     status: function () {
-      if (new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= this.post.deadline.slice(0, 10)) {
-        return 'Complete'
-      } else {
+      if (new Date().toLocaleString('en-ZA').replace(',', '') < this.post.deadline) {
         return 'Live'
+      } else {
+        return 'Complete'
       }
     },
     authorImage: function () {

@@ -10,6 +10,7 @@ import VueAnalytics from 'vue-analytics'
 
 Vue.use(ElementUI, { locale })
 Vue.use(VueLodash)
+Vue.use(require('vue-moment'))
 
 Vue.use(VueAnalytics, {
   id: 'UA-127982839-1',

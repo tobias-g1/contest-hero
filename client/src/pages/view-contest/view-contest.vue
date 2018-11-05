@@ -23,15 +23,15 @@
           </el-dropdown>
         </div>
         <div class="post-container">
-          <post :postbody="post.data.body"></post>
+          <markdownpanel :postbody="post.data.body" />
           <div class="post-bar">
             <div class="tags">
               <el-tag v-for="(tag, index) in tags" :key="index">{{ tag }}</el-tag>
             </div>
-            <postoptions :post="post.data" />
+            <postoptions :type="'full'" :post="post.data" />
           </div>
         </div>
-        <router-link :to="postLink" v-show="contestOpen"><button :disabled="(new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= contest.contestData.deadline.slice(0, 10))" class="btn-fill enter-contest">Enter contest with a {{ contest.contestData.entry_method }} </button></router-link>
+        <router-link :to="postLink"><button :disabled="contestOpen === false" class="btn-fill enter-contest">Enter contest with a {{ contest.contestData.entry_method || 'Post' }} </button></router-link>
         <!-- Winners -->
         <div class="winners-container" v-if="contest.winners.length !== 0">
           <h1 class="header"> <img class="small-circle" src="@/assets/gradient-circle.png" alt="">Winners</h1>
@@ -47,6 +47,9 @@
         <!-- About Author -->
         <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">About the Author</h3>
         <aboutauthor :authorBio="post.authorBio" :authorImage="post.authorImage" :authorName="post.author"></aboutauthor>
+        <!-- Contest Prize -->
+        <h3 v-if="contest.contestData.prize" class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Prize</h3>
+        <prize v-if="contest.contestData.prize" :prize="contest.contestData.prize" />
         <!-- Contest Entries -->
         <h3 class="header"><img class="small-circle" src="@/assets/gradient-circle.png" alt="">Entries</h3>
         <noentries v-if="contest.entries.length === 0" />
@@ -58,8 +61,9 @@
 
 <script>
 import aboutauthor from '@/components/about-author/about-author.vue'
-import post from '@/components/post/post.vue'
+import markdownpanel from '@/components/markdown-panel/markdown-panel.vue'
 import winners from '@/components/winners-panel/winners-panel.vue'
+import prize from '@/components/prize/prize.vue'
 import dsteem from '@/mixins/dsteem.js'
 import Countdown from 'vuejs-countdown'
 import postoptions from '@/components/post-options/post-options.vue'
@@ -76,12 +80,13 @@ export default {
   components: {
     aboutauthor,
     Countdown,
-    post,
+    markdownpanel,
     winners,
     postoptions,
     entry,
     noentries,
-    commentpanel
+    commentpanel,
+    prize
   },
   data () {
     return {
@@ -152,10 +157,10 @@ export default {
       return this.postJson.tags
     },
     contestOpen: function () {
-      if (new Date().toJSON().slice(0, 10).replace(/-/g, '/') >= this.contest.contestData.deadline) {
-        return false
-      } else {
+      if (new Date().toLocaleString('en-ZA').replace(',', '') < this.contest.contestData.deadline) {
         return true
+      } else {
+        return false
       }
     },
     editLink: function () {
