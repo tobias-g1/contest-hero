@@ -83,7 +83,7 @@ exports.get_contests_by_category = function (req, res) {
       break;
   }
 
-  let query =  (req.params.prize === 'any') ? {} : {"category": req.params.category, "prize.type": req.params.prize}
+  let query =  (req.params.prize === 'any') ? { "category": req.params.category } : {"category": req.params.category, "prize.type": req.params.prize}
 
   Contest.find(query, function (error, contests) {
     if (error) {
