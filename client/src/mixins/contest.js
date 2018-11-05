@@ -81,7 +81,7 @@ var contest = {
         this.contestForm.prize_value = ''
       }
     }
-  },
+  }
 }
 
 export default contest
