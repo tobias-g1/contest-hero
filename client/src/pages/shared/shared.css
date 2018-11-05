@@ -6,6 +6,10 @@ body {
     display: flex;
     flex-direction: column;
   }
+
+  p {
+    word-break: break-all;
+  }
   
   h1.header {
     font-weight: bold;
