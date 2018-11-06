@@ -98,7 +98,7 @@ export default {
       }
     },
     adjustBody: function () {
-      return this.entryForm.body + `<div><sub>This contest was created on <a  href="https://contesthero.io">Contest Hero</a> you can view and enter this contest by clicking <a target="blank_" href="https://www.contesthero.io/view-contest/${this.contestAuthor}/${this.contestPermlink})">here</a></sub></div>`
+      return this.entryForm.body + `<div><sub>This contest was created on <a  href="https://contesthero.io">Contest Hero</a> you can view and enter this contest by clicking <a target="blank_" href="https://www.contesthero.io/view-contest/${this.contestAuthor}/${this.contestPermlink}">here</a></sub></div>`
     },
     ...mapGetters('steemconnect', ['user'])
   },
