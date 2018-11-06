@@ -124,7 +124,7 @@ export default {
       return this.contestForm.title.toLowerCase().replace(/[\W]/g, '-') + '-' + Math.random().toString(36).replace(/[^a-z]+/g, '')
     },
     adjustBody: function () {
-      return this.contestForm.body + `<div><sub>This contest was created on <a  href="https://contesthero.io">Contest Hero</a> you can view and enter this contest by clicking <a target="blank_" href="https://www.contesthero.io/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink})">here</a></sub></div>`
+      return this.contestForm.body + `<div><sub>This contest was created on <a  href="https://contesthero.io">Contest Hero</a> you can view and enter this contest by clicking <a target="blank_" href="https://www.contesthero.io/view-contest/${this.$store.state.steemconnect.user.name}/${this.contestPermlink}">here</a></sub></div>`
     }
   },
   methods: {
